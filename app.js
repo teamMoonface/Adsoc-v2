@@ -17,7 +17,7 @@ var login = require('./routes/login');
 
 var app = express();
 var mongoose = require('mongoose');
-var mongoDB = 'mongodb://adminUser:6tq7yw8ue@ds163721.mlab.com:63721/local_library';
+var mongoDB = 'mongodb://moonface:orbital2017@ds131742.mlab.com:31742/adsoc';
 mongoose.connect(mongoDB);
 var db = mongoose.connection;
 db.on('error', console.error.bind(console, 'MongoDB connection error:'));
