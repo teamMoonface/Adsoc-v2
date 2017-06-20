@@ -1,0 +1,52 @@
+extends dashboard_layout_studentDB
+
+block title
+    title Favourites
+    
+block sidebar
+    .student-sidebar
+      .user-info
+        br
+        img#profile-pic(src='/images/student-default-profile-pic.png', alt='profile pic')
+        h4
+          strong John Doe
+        p someone@example.com
+        p 88888888
+      ul.nav.nav-pills.nav-stacked
+        li
+          a(href='/studentDB/appliedjobs')
+            | Applied Jobs
+            span.glyphicon.glyphicon-chevron-right.pull-right
+        li.active
+          a(href='/studentDB/favourites')
+            | Favourites
+            span.glyphicon.glyphicon-chevron-right.pull-right
+        li
+          a(href='/studentDB/profile')
+            | Profile
+            span.glyphicon.glyphicon-chevron-right.pull-right
+        li
+          a(href='#')
+            | Log Out
+        span.glyphicon.glyphicon-chevron-right.pull-right
+
+block content
+    .favourites-panel
+      h2
+        strong Favourites
+      br
+      .job-post
+        // job title & company
+        h3 Backend Web Developer @ XYZ
+        .row
+          .col-xs-9
+            p
+              small Period: 10 May 2017 - 20 August 2017
+          .col-xs-3.salary
+            p $9 /hr
+        hr
+        // job description
+        p
+          | Rely on your strong technical experience to oversee all the essential activities of a particular program, including planning, communications, and execution.
+        br
+        button.btn.btn-success Apply

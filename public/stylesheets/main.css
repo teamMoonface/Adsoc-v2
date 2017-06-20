@@ -1,0 +1,184 @@
+.user-info{
+    text-align: center;
+    border-style: groove;
+}
+
+#profile-pic{
+    width: 60px;
+    border: 1px solid;
+    border-radius: 40px;
+}
+
+.job-post{
+    border-style: groove;
+    border-radius: 5px;
+    padding-left: 30px;
+    padding-right: 30px;
+    padding-bottom: 10px;
+}
+
+.salary{
+    text-align: right;
+    padding-right: 40px;
+    font-size: 20px;
+}
+
+.profile-details{
+    border-style: groove;
+    border-radius: 5px;
+    padding-left: 100px;
+    padding-right: 100px;
+    padding-bottom: 10px;
+    padding-top: 10px;
+}
+
+.profile-details #profile-pic {
+    width: 120px;
+    display: block;
+    margin: 0px auto;
+    border: 1px solid;
+    border-radius: 60px;
+}
+
+.upload-file-btn{
+    display: block;
+    margin: 0px auto;
+}
+
+.skill-panel {
+    display: inline-block;
+    text-align: center;
+    vertical-align: middle;
+    border-style: groove;
+    border-radius: 20px;
+    border-color: #428bca;
+}
+
+.skill-panel p{
+    display: inline-block;
+    margin: 0 auto;
+    font-size: 15px;
+}
+
+#delete-btn{
+    display: inline-block;
+    position: relative;
+    top: 50%;
+    float: right;
+    background-color: transparent;
+    outline: none;
+    border:none;
+    
+}
+
+#select-skills{
+    width: 100%;
+}
+
+.postjob{
+    border-style: groove;
+    border-radius: 5px;
+    padding-left: 50px;
+    padding-right: 50px;
+    padding-bottom: 10px;
+    padding-top: 10px;
+}
+
+#date-to, #perhour{
+    text-align: center;
+    height: 30px;
+    line-height: 30px;
+}
+
+#perhour {
+    text-align: left;
+}
+
+.skills-list{
+    margin: auto 0px;
+}
+
+.Job_Type{
+  font-family: 'Arial';
+  font-size: 17px;
+  font-weight:400;
+}
+.Brief_Job_Description{
+  padding-right: 40px;
+  margin-right: 40px;
+  text-align: justify;
+}
+
+.Quick_SearchBar{
+  margin-top: 40px;
+  width:100%;
+}
+
+input[type=text]{
+    width: 150px;
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    margin-top: 6px;
+    margin-bottom: 16px;
+    resize: vertical;
+     -webkit-transition: width 0.8s ease-in-out;
+    transition: width 0.8s ease-in-out;
+}
+
+input[type=text]:focus {
+    width: 100%;
+}
+
+.python{
+  background-color: purple;
+}
+
+.ruby{
+  background-color: orange;
+}
+
+.Result_1, .Result_2, .Result_3{
+  border-style: solid;
+  border-width: 1px;
+  padding:10px 0px 20px 20px;
+  border-radius: 5px;
+}
+.Job_Type{
+  font-size: 15px;
+  font-weight:400;
+}
+
+
+.Filter_Search{
+  border-radius: 5px;
+  padding: 5px 5px 5px 5px;
+  padding-bottom: 20px;
+  background-color: #efefef;
+}
+
+.Radio_Button .radio input{
+  visibility: hidden;
+}
+.Radio_Button .radio:hover{
+  width: 100px;
+  border-radius: 2px;
+  background-color: #fcfdff;
+  cursor:pointer;
+}
+
+.Submit_button{
+  height: 40px;
+  width: 90px;
+}
+
+.submit{
+  margin: auto;
+  width: 100%;
+}
+
+.btn{
+  width: 120px;
+  height: 40px;
+}

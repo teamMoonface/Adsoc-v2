@@ -1,0 +1,167 @@
+extends dashboard_layout_studentDB
+
+block title
+    title Profile
+
+block sidebar
+    .student-sidebar
+      .user-info
+        br
+        img#profile-pic(src='/images/student-default-profile-pic.png', alt='profile pic')
+        h4
+          strong John Doe
+        p someone@example.com
+        p 88888888
+      ul.nav.nav-pills.nav-stacked
+        li
+          a(href='/studentDB/appliedjobs')
+            | Applied Jobs
+            span.glyphicon.glyphicon-chevron-right.pull-right
+        li
+          a(href='/studentDB/favourites')
+            | Favourites
+            span.glyphicon.glyphicon-chevron-right.pull-right
+        li.active
+          a(href='/studentDB/profile')
+            | Profile
+            span.glyphicon.glyphicon-chevron-right.pull-right
+        li
+          a(href='#')
+            | Log Out
+            span.glyphicon.glyphicon-chevron-right.pull-right
+
+
+block content
+    .profile-panel
+      h2
+        strong Profile
+      br
+      .profile-details
+        h3 Basic Info
+        img#profile-pic.image-rounded(src='/images/student-default-profile-pic.png', alt='profile pic')
+        br
+        // upload profile pic
+        button.btn.btn-primary.upload-file-btn(type='button')
+          | Upload Photo
+        br
+        form.form-horizontal
+          .form-group.row
+            label.col-xs-3.control-label(for='fullname') Full Name
+            .col-xs-8
+              input#fullname.form-control(type='text', value='John Doe')
+          .form-group.row
+            label.col-xs-3.control-label(for='email') Email
+            .col-xs-8
+              input#email.form-control(type='email', value='someone@example.com')
+          .form-group.row
+            label.col-xs-3.control-label(for='mobileno') Mobile Number
+            .col-xs-8
+              input#mobileno.form-control(type='text', value='8888888')
+          .form-group.row
+            label.col-xs-3.control-label(for='gender') Gender
+            .col-xs-8.gender
+              fieldset
+                label.radio-inline(for='male')
+                  input#male(type='radio', name='radio', value='male')
+                  |  Male
+                label.radio-inline(for='female')
+                  input#female(type='radio', name='radio', value='female')
+                  |  Female
+          // bootstrap datepicker...??
+          .form-group.row
+            label.col-xs-3.control-label(for='dob') Date of Birth
+            .col-xs-8
+              input#dob.form-control(type='date', value='01/01/1990')
+          .form-group.row
+            label.col-xs-3.control-label(for='aboutme') About Me
+            .col-xs-8
+              textarea#aboutme.form-control(rows='5', maxlength='500') I am John Doe
+              small Max length: 500 words
+          input.btn.btn-primary.btn-block(type='submit', value='Update Basic Info')
+        br
+        h3 Skills
+        br
+        // how to space out equally without columns?
+        .skills-list.row
+          .skill-panel.col-xs-offset-1.col-xs-3
+            p Java
+            // TODO: button to remove skill from DB and animate remove, collapsing other panels
+            button#delete-btn(type='button', data-toggle='tooltip', title='Remove this skill', data-placement='bottom')
+              span.glyphicon.glyphicon-trash
+          .skill-panel.col-xs-offset-1.col-xs-3
+            p Javascript
+            // TODO: button to remove skill from DB and animate remove, collapsing other panels
+            button#delete-btn(type='button', data-toggle='tooltip', title='Remove this skill', data-placement='bottom')
+              span.glyphicon.glyphicon-trash
+          .skill-panel.col-xs-offset-1.col-xs-3
+            p Python
+            // TODO: button to remove skill from DB and animate remove, collapsing other panels
+            button#delete-btn(type='button', data-toggle='tooltip', title='Remove this skill', data-placement='bottom')
+              span.glyphicon.glyphicon-trash
+          .skill-panel.col-xs-offset-1.col-xs-3
+            p jQuery
+            // TODO: button to remove skill from DB and animate remove, collapsing other panels
+            button#delete-btn(type='button', data-toggle='tooltip', title='Remove this skill', data-placement='bottom')
+              span.glyphicon.glyphicon-trash
+        br
+        button.btn.btn-primary.btn-block.add-skills-btn(type='button', data-toggle='modal', data-target='#add-skills') Add Skills
+        // add skills modal
+        #add-skills.modal.fade
+          .modal-dialog
+            .modal-content
+              .modal-header
+                button.close(type='button', data-dismiss='modal') ×
+                h4.modal-title Add Skills
+              .modal-body
+                p Select a skill
+                // should think of better selections and categorization for selection
+                form
+                  select#select-skills
+                    option(value='javascript')
+                      | Javascript
+                    option(value='java')
+                      | Java
+                    option(value='python')
+                      | Python
+                    option(value='HTML')
+                      | HTML
+                  br
+                  br
+                  button.btn.btn-primary.btn-sm.btn-block(type='submit') Add
+        br
+        h3 Experience
+        br
+        .experience-list.panel-group
+          .experience.panel.panel-default
+            .panel-heading
+              | Web Developer Freelance @ ABC
+              button#delete-btn(type='button', data-toggle='tooltip', title='Remove this experience', data-placement='bottom')
+                span.glyphicon.glyphicon-trash
+            .panel-body
+              p
+                | Worked with senior developers to manage large, complex design for corporate clients.
+          .experience.panel.panel-default
+            .panel-heading
+              | Assistant Web Developer @ XYZ
+              button#delete-btn(type='button', data-toggle='tooltip', title='Remove this experience', data-placement='bottom')
+                span.glyphicon.glyphicon-trash
+            .panel-body
+              p Managed websites and design/creation for clients.
+        br
+        button.btn.btn-primary.btn-block.add-skills-btn(type='button', data-toggle='modal', data-target='#add-experience') Add Experience
+        // add skills modal
+        #add-experience.modal.fade
+          .modal-dialog
+            .modal-content
+              .modal-header
+                button.close(type='button', data-dismiss='modal') ×
+                h4.modal-title Add Experience
+              .modal-body
+                form
+                  .form-group
+                    label.control-label(for='exp-heading') Heading
+                    input#exp-heading.form-control(type='text')
+                    br
+                    label.control-label(for='exp-body') Description
+                    textarea#exp-body.form-control(rows='10', maxlength='500')
+                  button.btn.btn-primary.btn-block(type='submit') Add

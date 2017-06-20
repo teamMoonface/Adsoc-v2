@@ -1,0 +1,34 @@
+doctype html
+html
+  head
+    title Student Log-in
+    link(rel='stylesheet', type='text/css', href='/stylesheets/student_login.css')
+    meta(charset='utf-8')
+    meta(name='viewport', content='width=device-width, initial-scale=1')
+    link(rel='stylesheet', href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css')
+    script(src='https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js')
+    script(src='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js')
+  body
+    include navbar_homePage
+    .wrapper
+      br
+      br
+      h2.title
+        center Welcome Back!
+      form
+        .form-group
+          label(for='username') Username:
+          input#username.form-control(type='usr')
+        .form-group
+          label(for='pwd') Password:
+          input#pwd.form-control(type='password')
+        .checkbox
+          label
+            input(type='checkbox')
+            |  Remember me
+        .forgot_information
+          a(href='') forgot your password
+          br
+          a(href='') forgot your username?
+        br
+        a.disguise_button(href='/studentDB/profile') Submit

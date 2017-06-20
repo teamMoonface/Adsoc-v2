@@ -1,0 +1,16 @@
+doctype html
+html(lang='en')
+
+header
+    block title
+    link(rel='stylesheet', href='/stylesheets/homePage.css')
+    include header
+
+body
+    .container    
+        include navbar_homePage
+        .row
+            .col-lg-6
+                block f1
+            .col-lg-6
+                block f2

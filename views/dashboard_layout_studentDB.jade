@@ -1,0 +1,15 @@
+doctype html
+html(lang='en')
+
+header
+    block title
+    include header
+
+body
+    .container    
+        include navbar_studentDB        
+        .row
+            .col-xs-3
+                block sidebar
+            .col-xs-9
+                block content

@@ -1,0 +1,70 @@
+extends dashboard_layout_studentDB
+
+block title
+    title Applied Jobs
+
+block sidebar
+    .student-sidebar
+      .user-info
+        br
+        img#profile-pic(src='/images/student-default-profile-pic.png', alt='profile pic')
+        h4
+          strong John Doe
+        p someone@example.com
+        p 88888888
+      ul.nav.nav-pills.nav-stacked
+        li.active
+          a(href='/studentDB/appliedjobs')
+            | Applied Jobs
+            span.glyphicon.glyphicon-chevron-right.pull-right
+        li
+          a(href='/studentDB/favourites')
+            | Favourites
+            span.glyphicon.glyphicon-chevron-right.pull-right
+        li
+          a(href='/studentDB/profile')
+            | Profile
+            span.glyphicon.glyphicon-chevron-right.pull-right
+        li
+          a(href='#')
+            | Log Out
+            span.glyphicon.glyphicon-chevron-right.pull-right
+
+
+block content
+    .appliedjobs-panel
+      h2
+        strong Applied Jobs
+      br
+      // ***********should render job posts from database**************
+      .job-post
+        // job title & company
+        h3 Web Developer @ Google
+        .row
+          .col-xs-9
+            p
+              small Period: 20 May 2017 - 20 August 2017
+          .col-xs-3.salary
+            p $9 /hr
+        hr
+        // job description
+        p
+          | You’re a curious and collaborative visionary, someone excited about tackling the hard problems in technology. Google is and always will be an engineering company that thinks big and takes risks. Together, we’ll create and iterate on the products and tools of the future—for billions of users.
+        br
+        button.btn.btn-danger Delete Application
+      br
+      .job-post
+        // job title & company
+        h3 Software Engineer @ ABC
+        .row
+          .col-xs-9
+            p
+              small Period: 16 May 2017 - 30 August 2017
+          .col-xs-3.salary
+            p $10 /hr
+        hr
+        // job description
+        p
+          | Your work is at the core of everything we build. Develop massive, complex software systems that scale globally.
+        br
+        button.btn.btn-danger Delete Application

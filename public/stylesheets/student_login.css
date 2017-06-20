@@ -1,0 +1,29 @@
+body {
+  padding: 0px 50px 50px 50px;
+  font: 14px "Arial", Helvetica, Arial, sans-serif;
+  position: center;
+}
+
+a {
+  color: #00B7FF;
+}
+.title{
+  font-size: 40px;
+  font-weight:700;
+}
+.wrapper{
+  margin:auto;
+  width:50%;
+}
+.disguise_button{
+  font-size: 15px;
+  padding: 10px;
+  background-color: #4e8ad8;
+  color:white;
+  border-radius: 5px;
+}
+.disguise_button:hover{
+  background-color:#00347a;
+  color:white;
+  text-decoration: none;
+}

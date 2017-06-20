@@ -1,0 +1,30 @@
+nav.navbar.navbar-inverse
+  .container-fluid
+    .navbar-header
+      button.navbar-toggle(type='button', data-toggle='collapse', data-target='#mainNavBar')
+        span.icon-bar
+        span.icon-bar
+        span.icon-bar
+      a.navbar-brand(href='/home') ADSOC
+    #mainNavBar.collapse.navbar-collapse
+      ul.nav.navbar-nav
+        li
+          a(href='/home') Home
+        li
+          a(href='/searchPage') Find Jobs
+      ul.nav.navbar-nav.navbar-right
+        .dropdown
+          button.btn.btn-default.dropdown-toggle.navbar-btn(type=' button', data-toggle='dropdown')
+            span.glyphicon.glyphicon-user
+            |  John Doe 
+            span.caret
+          ul.dropdown-menu
+            li
+              a(href='/studentDB/appliedjobs') Applied Jobs
+            li
+              a(href='/studentDB/favourites') Favourites
+            li
+              a(href='/studentDB/profile') Profile
+            li.divider
+            li
+              a(href='#') Log Out

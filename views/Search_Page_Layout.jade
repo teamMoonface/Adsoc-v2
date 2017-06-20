@@ -1,0 +1,17 @@
+doctype html
+html(lang='en')
+
+header
+    block title
+    link(rel='stylesheet', href='/stylesheets/style.css')
+    include header
+
+body
+    .container    
+        include navbar   
+        block Search_Bar     
+        .row
+            .col-xs-3
+                block sidebar
+            .col-xs-9
+                block content

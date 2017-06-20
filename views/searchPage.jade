@@ -1,0 +1,83 @@
+extends Search_Page_Layout
+
+block title
+  title Search Page
+
+block Search_Bar
+  .Quick_SearchBar
+    h2 Quick Search
+    input#myInput(type='text', onkeyup='myFunction()', placeholder='Search for Jobs...', title='Type in a name')
+
+block sidebar
+  .container
+    h3
+      b Filter Search
+    .form_container
+      form.form_1
+        .First_Seg
+          .Job_Type Job Type:
+          .Radio_Button
+            label.radio
+              input(type='radio', checked='checked', name='Type_Radio')
+              | Front End
+            label.radio
+              input(type='radio', name='Type_Radio')
+              | Back End
+            label.radio
+              input(type='radio', name='Type_Radio')
+              | Full Stack
+        .Sec_Seg
+          h5.Skill_Type Skill Requirements
+          .Skill_Search
+            .checkbox
+              label
+                input(type='checkbox', vlaue='')
+                | JavaScript
+            .checkbox
+              label
+                input(type='checkbox', vlaue='')
+                | Java
+            .checkbox
+              label
+                input(type='checkbox', vlaue='')
+                | HTML/CSS
+        .submit
+          button.Submit_button.btn.btn-primary Search
+
+
+
+
+block content
+  .Result_1
+    h3
+      strong Front-End Designer needed!
+    p.Brief_Job_Description
+      | Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
+    .Skill_Requirements
+      h5
+        strong Skill requirements:
+      span.label.label-warning JavaScript
+      span.label.label-info HTML
+      span.label.label-success CSS
+  br
+  .Result_2
+    h3
+      strong Back-End programmers
+    p.Brief_Job_Description
+      | Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
+    h5
+      strong Skill requirements:
+    span.label.label-warning JavaScript
+    span.label.label-danger Java
+    span.label.label-primary NodeJs
+  br
+  .Result_3
+    h3
+      strong Looking for App Developers
+    p.Brief_Job_Description
+      | Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
+    h5
+      strong Skill requirements:
+    span.python.label Python
+    span.label.label-primary NodeJs
+    span.ruby.label Ruby on Rails

@@ -1,0 +1,73 @@
+extends dashboard_layout
+
+block title
+    title Posted Jobs
+
+block sidebar
+    .employer-sidebar
+      .user-info
+        br
+        img#profile-pic(src='/images/employer-default-profile-pic.png', alt='profile pic')
+        h4
+          strong Google
+        p someone@example.com
+      ul.nav.nav-pills.nav-stacked
+        li.active
+          a(href='postedjobs.html')
+            | Posted Jobs
+            span.glyphicon.glyphicon-chevron-right.pull-right
+        li
+          a(href='postajob.html')
+            | Post a Job
+            span.glyphicon.glyphicon-chevron-right.pull-right
+        li
+          a(href='profile.html')
+            | Profile
+            span.glyphicon.glyphicon-chevron-right.pull-right
+        li
+          a(href='#')
+            | Log Out
+            span.glyphicon.glyphicon-chevron-right.pull-right
+
+block content
+    .postedjobs-panel
+      h2
+        strong Posted Jobs
+      br
+      .job-post
+        // job title & company
+        h3 Web Developer
+        .row
+          .col-xs-9
+            p
+              small Period: 20 May 2017 - 20 August 2017
+          .col-xs-3.salary
+            p $9 /hr
+        hr
+        // job description
+        p
+          | You’re a curious and collaborative visionary, someone excited about tackling the hard problems in technology. Google is and always will be an engineering company that thinks big and takes risks. Together, we’ll create and iterate on the products and tools of the future—for billions of users.
+        br
+        button.btn.btn-info
+          | View Applicants 
+          span.badge 5
+        button.btn.btn-danger.pull-right Remove Post
+      br
+      .job-post
+        // job title & company
+        h3 Software Engineer
+        .row
+          .col-xs-9
+            p
+              small Period: 16 May 2017 - 30 August 2017
+          .col-xs-3.salary
+            p $10 /hr
+        hr
+        // job description
+        p
+          | Your work is at the core of everything we build. Develop massive, complex software systems that scale globally.
+        br
+        button.btn.btn-info
+          | View Applicants 
+          span.badge 3
+        button.btn.btn-danger.pull-right Remove Post

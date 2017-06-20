@@ -1,0 +1,61 @@
+extends dashboard_layout
+
+block title
+    title Profile
+
+block sidebar
+    .employer-sidebar
+      .user-info
+        br
+        img#profile-pic(src='/images/employer-default-profile-pic.png', alt='profile pic')
+        h4
+          strong Google
+        p someone@example.com
+      ul.nav.nav-pills.nav-stacked
+        li
+          a(href='postedjobs.html')
+            | Posted Jobs
+            span.glyphicon.glyphicon-chevron-right.pull-right
+        li
+          a(href='postajob.html')
+            | Post a Job
+            span.glyphicon.glyphicon-chevron-right.pull-right
+        li.active
+          a(href='profile.html')
+            | Profile
+            span.glyphicon.glyphicon-chevron-right.pull-right
+        li
+          a(href='#')
+            | Log Out
+            span.glyphicon.glyphicon-chevron-right.pull-right
+
+block content
+    .profile-panel
+      h2
+        strong Profile
+      br
+      .profile-details
+        br
+        img#profile-pic.image-rounded(src='/images/employer-default-profile-pic.png', alt='profile pic')
+        br
+        // upload profile pic
+        button.btn.btn-primary.upload-file-btn
+          | Upload Photo
+        br
+        form.form-horizontal
+          .form-group.row
+            label.col-xs-3.control-label(for='name') Company/Project Name
+            .col-xs-8
+              input#name.form-control(type='text', value='Google')
+          .form-group.row
+            label.col-xs-3.control-label(for='email') Email
+            .col-xs-8
+              input#email.form-control(type='email', value='someone@example.com')
+          .form-group.row
+            label.col-xs-3.control-label(for='aboutme') About the Company/Project
+            .col-xs-8
+              textarea#aboutme.form-control(rows='5', maxlength='500') We are Google.
+              small Max length: 500 words
+          br
+          button.btn.btn-primary.btn-block
+            | Update Profile
