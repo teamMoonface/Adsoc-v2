@@ -9,8 +9,9 @@ var StudentSchema = Schema (
         name: {type: String, required: true},
         phoneNum: {type: Number},
         dob: {type: Date},
-        email: {type: String},
+        email: {type: String, required: true},
         gender: {type: String, enum: ['Male', 'Female']},
+        aboutme: {type: String, max: 500},
         experienceList: [{type: Schema.ObjectId, ref: 'Experience'}],
         skillsList: [{type: Schema.ObjectId, ref: 'Skill'}],
         appliedJobs: [{type: Schema.ObjectId, ref: 'Job'}]

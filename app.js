@@ -14,6 +14,7 @@ var employerDB = require('./routes/employerDB');
 var searchPage = require('./routes/searchPage');
 var home = require('./routes/home')
 var login = require('./routes/login');
+var signup = require('./routes/signup');
 
 var app = express();
 var mongoose = require('mongoose');
@@ -40,6 +41,7 @@ app.use('/employerDB', employerDB);
 app.use('/searchPage',searchPage);
 app.use('/home',home);
 app.use('/login',login);
+app.use('/signup', signup);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

@@ -1,0 +1,43 @@
+extends signup_layout
+
+block title
+    title Employer Sign-Up
+
+block content
+    h2#title Employer Sign-Up
+    br
+    // add in upload profile pic + scrolltips later
+    // !! why are some of the form inputs expanding.... !!
+    form.form-horizontal
+        .form-group
+            label.control-label.col-xs-3(for='name') Company/Project Name*
+            .col-xs-8
+                input#fullname.form-control(type='text', name='name' placeholder='Enter company/project name (required)')
+        .form-group
+            label.control-label.col-xs-3(for='email') Email*
+            .col-xs-8
+                input#email.form-control(type='text', name='email', placeholder='Enter email (required)')
+            
+        .form-group
+            label.control-label.col-xs-3(for='phonenum') Contact Number
+            .col-xs-8
+                input#dob.form-control(type='text', name='phonenum', placeholder='Enter contact number (optional)')
+        
+        .form-group
+            label.control-label.col-xs-3(for='un') Username*
+            .col-xs-8
+                input#un.form-control(type='text', name='username', placeholder='Enter preferred username (required)')
+        
+        .form-group
+            label.control-label.col-xs-3(for='pw') Password*
+            .col-xs-8
+                input#pw.form-control(type='password', name='password', placeholder='Enter password (required)')
+                        
+        .form-group
+            label.control-label.col-xs-3(for='aboutme') About the Company/Project
+            .col-xs-8
+                textarea#aboutme.form-control(name='about', rows='5', max='500', placeholder='Enter a description of yourself (max length: 500 words)')
+        
+        br
+        input.btn.btn-primary#submitBtn(type='submit', value='Sign Up')
+        br
