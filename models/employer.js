@@ -9,7 +9,7 @@ var EmployerSchema = Schema(
         name: {type: String, required: true},
         phoneNum: {type: Number},
         email: {type: String},
-        about: {type: String, required: true},
+        about: {type: String},
         postedJobs: [{type: Schema.ObjectId, ref: 'Job'}]
     }
 )

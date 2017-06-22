@@ -1,14 +1,14 @@
 extends signup_layout
 
 block title
-    title Student Sign-Up
+    title #{title}
 
 block content
-    h2#title Student Sign-Up
+    h2#title #{title}
     br
     // add in upload profile pic + scrolltips later
-    // !! why are some of the form inputs expanding.... !!
-    form.form-horizontal
+    // !! why are some of the form inputs expanding??
+    form.form-horizontal(method='POST' action='')
         .form-group
             label.control-label.col-xs-3(for='fullname') Full Name*
             .col-xs-8
@@ -33,10 +33,10 @@ block content
                 label.control-label.col-xs-3 Gender
                 .col-xs-8
                     label.radio-inline(for='male')
-                        input#male(type='radio', name='gender', value='male')
+                        input#male(type='radio', name='gender', value='Male')
                         |  Male
                     label.radio-inline(for='female')
-                        input#female(type='radio', name='gender' value='female')
+                        input#female(type='radio', name='gender' value='Female')
                         |  Female
         
         .form-group

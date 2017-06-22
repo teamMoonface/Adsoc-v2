@@ -1,14 +1,14 @@
 extends signup_layout
 
 block title
-    title Employer Sign-Up
+    title #{title}
 
 block content
-    h2#title Employer Sign-Up
+    h2#title #{title}
     br
     // add in upload profile pic + scrolltips later
-    // !! why are some of the form inputs expanding.... !!
-    form.form-horizontal
+    // !! why are some of the form inputs expanding??
+    form.form-horizontal(method='POST' action='')
         .form-group
             label.control-label.col-xs-3(for='name') Company/Project Name*
             .col-xs-8
@@ -36,7 +36,7 @@ block content
         .form-group
             label.control-label.col-xs-3(for='aboutme') About the Company/Project
             .col-xs-8
-                textarea#aboutme.form-control(name='about', rows='5', max='500', placeholder='Enter a description of yourself (max length: 500 words)')
+                textarea#aboutme.form-control(name='about', cdrows='5', max='500', placeholder='Enter a description of yourself (max length: 500 words)')
         
         br
         input.btn.btn-primary#submitBtn(type='submit', value='Sign Up')
