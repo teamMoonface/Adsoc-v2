@@ -10,12 +10,10 @@ var expressValidator = require('express-validator');
 
 // import routes
 var index = require('./routes/index');
-var studentDB = require('./routes/studentDB');
-var employerDB = require('./routes/employerDB');
 var searchPage = require('./routes/searchPage');
-var home = require('./routes/home')
+var home = require('./routes/home');
 var login = require('./routes/login');
-var signup = require('./routes/signup');
+var bank = require('./routes/bank');
 
 var app = express();
 var mongoose = require('mongoose');
@@ -38,12 +36,10 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(expressValidator());
 
 app.use('/', index);
-app.use('/studentDB', studentDB);
-app.use('/employerDB', employerDB);
 app.use('/searchPage',searchPage);
 app.use('/home',home);
 app.use('/login',login);
-app.use('/signup', signup);
+app.use('/bank', bank);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

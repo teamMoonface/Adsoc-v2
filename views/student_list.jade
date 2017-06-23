@@ -1,0 +1,12 @@
+extends layout
+
+block content
+  h1= title
+  
+  ul
+  each student in student_list
+    li 
+      a(href=student.url) #{student.name} 
+
+  else
+    li There are no students.

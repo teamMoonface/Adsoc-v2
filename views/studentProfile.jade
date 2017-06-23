@@ -12,9 +12,9 @@ block sidebar
         br
         img#profile-pic(src='/images/student-default-profile-pic.png', alt='profile pic')
         h4
-          strong John Doe
-        p someone@example.com
-        p 88888888
+          strong #{student.name}
+        p #{student.email}
+        p #{student.phoneNum}
       ul.nav.nav-pills.nav-stacked
         li
           a(href='/studentDB/appliedjobs')

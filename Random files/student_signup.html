@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Profile</title>
+  <!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+<!-- Optional theme -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+
+<!-- Latest compiled and minified JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+</head>
+<body>
+<div class="student-sidebar">
+  <div class="user-info"><br/><img id="profile-pic" src="/images/student-default-profile-pic.png" alt="profile pic"/>
+    <h4><strong></strong></h4>
+    <p></p>
+  </div>
+  <ul class="nav nav-pills nav-stacked">
+    <li><a href="/studentDB/appliedjobs">Applied Jobs<span class="glyphicon glyphicon-chevron-right pull-right"></span></a></li>
+    <li><a href="/studentDB/favourites">Favourites<span class="glyphicon glyphicon-chevron-right pull-right"></span></a></li>
+    <li class="active"><a href="/studentDB/profile">Profile<span class="glyphicon glyphicon-chevron-right pull-right"></span></a></li>
+    <li><a href="#">Log Out<span class="glyphicon glyphicon-chevron-right pull-right"></span></a></li>
+  </ul>
+</div>
+<div class="profile-panel">
+  <h2><strong>Profile</strong></h2><br/>
+  <div class="profile-details">
+    <h3>Basic Info</h3><img id="profile-pic" src="/images/student-default-profile-pic.png" alt="profile pic" class="image-rounded"/><br/>
+    <!-- upload profile pic-->
+    <button type="button" class="btn btn-primary upload-file-btn">Upload Photo</button><br/>
+    <form class="form-horizontal">
+      <div class="form-group row">
+        <label for="fullname" class="col-xs-3 control-label">Full Name</label>
+        <div class="col-xs-8">
+          <input id="fullname" type="text" value="John Doe" class="form-control"/>
+        </div>
+      </div>
+      <div class="form-group row">
+        <label for="email" class="col-xs-3 control-label">Email</label>
+        <div class="col-xs-8">
+          <input id="email" type="email" value="someone@example.com" class="form-control"/>
+        </div>
+      </div>
+      <div class="form-group row">
+        <label for="mobileno" class="col-xs-3 control-label">Mobile Number</label>
+        <div class="col-xs-8">
+          <input id="mobileno" type="text" value="8888888" class="form-control"/>
+        </div>
+      </div>
+      <div class="form-group row">
+        <label for="gender" class="col-xs-3 control-label">Gender</label>
+        <div class="col-xs-8 gender">
+          <fieldset>
+            <label for="male" class="radio-inline">
+              <input id="male" type="radio" name="gender" value="male"/> Male
+            </label>
+            <label for="female" class="radio-inline">
+              <input id="female" type="radio" name="gender" value="female"/> Female
+            </label>
+          </fieldset>
+        </div>
+      </div>
+      <!-- bootstrap datepicker...??-->
+      <div class="form-group row">
+        <label for="dob" class="col-xs-3 control-label">Date of Birth</label>
+        <div class="col-xs-8">
+          <input id="dob" type="date" value="01/01/1990" class="form-control"/>
+        </div>
+      </div>
+      <div class="form-group row">
+        <label for="aboutme" class="col-xs-3 control-label">About Me</label>
+        <div class="col-xs-8">
+          <textarea id="aboutme" rows="5" maxlength="500" class="form-control">I am John Doe</textarea><small>Max length: 500 words</small>
+        </div>
+      </div>
+      <input type="submit" value="Update Basic Info" class="btn btn-primary btn-block"/>
+    </form><br/>
+    <h3>Skills</h3><br/>
+    <!-- how to space out equally without columns?-->
+    <div class="skills-list row">
+      <div class="skill-panel col-xs-offset-1 col-xs-3">
+        <p>Java</p>
+        <!-- TODO: button to remove skill from DB and animate remove, collapsing other panels-->
+        <button id="delete-btn" type="button" data-toggle="tooltip" title="Remove this skill" data-placement="bottom"><span class="glyphicon glyphicon-trash"></span></button>
+      </div>
+      <div class="skill-panel col-xs-offset-1 col-xs-3">
+        <p>Javascript</p>
+        <!-- TODO: button to remove skill from DB and animate remove, collapsing other panels-->
+        <button id="delete-btn" type="button" data-toggle="tooltip" title="Remove this skill" data-placement="bottom"><span class="glyphicon glyphicon-trash"></span></button>
+      </div>
+      <div class="skill-panel col-xs-offset-1 col-xs-3">
+        <p>Python</p>
+        <!-- TODO: button to remove skill from DB and animate remove, collapsing other panels-->
+        <button id="delete-btn" type="button" data-toggle="tooltip" title="Remove this skill" data-placement="bottom"><span class="glyphicon glyphicon-trash"></span></button>
+      </div>
+      <div class="skill-panel col-xs-offset-1 col-xs-3">
+        <p>jQuery</p>
+        <!-- TODO: button to remove skill from DB and animate remove, collapsing other panels-->
+        <button id="delete-btn" type="button" data-toggle="tooltip" title="Remove this skill" data-placement="bottom"><span class="glyphicon glyphicon-trash"></span></button>
+      </div>
+    </div><br/>
+    <button type="button" data-toggle="modal" data-target="#add-skills" class="btn btn-primary btn-block add-skills-btn">Add Skills</button>
+    <!-- add skills modal-->
+    <div id="add-skills" class="modal fade">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" data-dismiss="modal" class="close">×</button>
+            <h4 class="modal-title">Add Skills</h4>
+          </div>
+          <div class="modal-body">
+            <p>Select a skill</p>
+            <!-- should think of better selections and categorization for selection-->
+            <form>
+              <select id="select-skills">
+                <option value="javascript">Javascript</option>
+                <option value="java">Java</option>
+                <option value="python">Python</option>
+                <option value="HTML">HTML</option>
+              </select><br/><br/>
+              <button type="submit" class="btn btn-primary btn-sm btn-block">Add</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div><br/>
+    <h3>Experience</h3><br/>
+    <div class="experience-list panel-group">
+      <div class="experience panel panel-default">
+        <div class="panel-heading">Web Developer Freelance @ ABC
+          <button id="delete-btn" type="button" data-toggle="tooltip" title="Remove this experience" data-placement="bottom"><span class="glyphicon glyphicon-trash"></span></button>
+        </div>
+        <div class="panel-body">
+          <p>Worked with senior developers to manage large, complex design for corporate clients.</p>
+        </div>
+      </div>
+      <div class="experience panel panel-default">
+        <div class="panel-heading">Assistant Web Developer @ XYZ
+          <button id="delete-btn" type="button" data-toggle="tooltip" title="Remove this experience" data-placement="bottom"><span class="glyphicon glyphicon-trash"></span></button>
+        </div>
+        <div class="panel-body">
+          <p>Managed websites and design/creation for clients.</p>
+        </div>
+      </div>
+    </div><br/>
+    <button type="button" data-toggle="modal" data-target="#add-experience" class="btn btn-primary btn-block add-skills-btn">Add Experience</button>
+    <!-- add skills modal-->
+    <div id="add-experience" class="modal fade">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" data-dismiss="modal" class="close">×</button>
+            <h4 class="modal-title">Add Experience</h4>
+          </div>
+          <div class="modal-body">
+            <form>
+              <div class="form-group">
+                <label for="exp-heading" class="control-label">Heading</label>
+                <input id="exp-heading" type="text" class="form-control"/><br/>
+                <label for="exp-body" class="control-label">Description</label>
+                <textarea id="exp-body" rows="10" maxlength="500" class="form-control"></textarea>
+              </div>
+              <button type="submit" class="btn btn-primary btn-block">Add</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</body>
+</html>

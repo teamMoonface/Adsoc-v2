@@ -1,23 +1,32 @@
 var Student = require('../models/student');
 var Employer = require('../models/employer');
+var async = require('async');
+
+// APIs: https://github.com/chriso/validator.js#validators, https://github.com/ctavan/express-validator/blob/master/README.md
+
+//Everything Student related
+
+// Display list of all Students
+exports.student_list = function(req, res, next) {
+
+  Student.find()
+    .sort([['name', 'ascending']])
+    .exec(function (err, list_students) {
+      if (err) { return next(err); }
+      //Successful, so render
+      res.render('student_list', { title: 'Student List', student_list: list_students });
+    });
+
+};
+
 
 exports.signup_student_create_get = function(req, res, next) {
     res.render('signup_student', {title: 'Student Sign-Up'});
 };
 
-exports.signup_employer_create_get = function(req, res, next) {
-    res.render('signup_employer', {title: 'Employer Sign-Up'});
-};
-
 exports.signup_student_success = function(req, res, next) {
     res.render('signup_student_success');
 };
-
-exports.signup_employer_success = function(req, res, next) {
-    res.render('signup_employer_success');
-};
-
-// APIs: https://github.com/chriso/validator.js#validators, https://github.com/ctavan/express-validator/blob/master/README.md
 
 exports.signup_student_create_post = function(req, res, next) {
     
@@ -66,9 +75,33 @@ exports.signup_student_create_post = function(req, res, next) {
     else {
         student.save(function(err){
             if (err) { return next(err); }
-            res.redirect('/signup/student/signupsuccess');
+            //fix url link between actual profile and link below
+            res.redirect(student.url);
         });
     }
+};
+
+//Everything Employer related
+
+// Display list of all Employers
+exports.employer_list = function(req, res, next) {
+
+  Employer.find()
+    .sort([['name', 'ascending']])
+    .exec(function (err, list_employers) {
+      if (err) { return next(err); }
+      //Successful, so render
+      res.render('employer_list', { title: 'Employer List', employer_list: list_employers });
+    });
+
+};
+
+exports.signup_employer_create_get = function(req, res, next) {
+    res.render('signup_employer', {title: 'Employer Sign-Up'});
+};
+
+exports.signup_employer_success = function(req, res, next) {
+    res.render('signup_employer_success');
 };
 
 exports.signup_employer_create_post = function(req, res, next) {
@@ -114,7 +147,7 @@ exports.signup_employer_create_post = function(req, res, next) {
     else {
         employer.save(function(err) {
             if (err) { return next(err); }
-            res.redirect('/signup/employer/signupsuccess');
+            res.redirect(employer.url);
         })
     }
 }
