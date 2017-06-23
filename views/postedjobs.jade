@@ -3,6 +3,9 @@ extends dashboard_layout
 block title
     title Posted Jobs
 
+block navbar
+    include navbar_employer
+    
 block sidebar
     .employer-sidebar
       .user-info
@@ -13,15 +16,15 @@ block sidebar
         p someone@example.com
       ul.nav.nav-pills.nav-stacked
         li.active
-          a(href='postedjobs.html')
+          a(href='/employerDB/postedjobs')
             | Posted Jobs
             span.glyphicon.glyphicon-chevron-right.pull-right
         li
-          a(href='postajob.html')
+          a(href='/employerDB/postjob')
             | Post a Job
             span.glyphicon.glyphicon-chevron-right.pull-right
         li
-          a(href='profile.html')
+          a(href='/employerDB/profile')
             | Profile
             span.glyphicon.glyphicon-chevron-right.pull-right
         li

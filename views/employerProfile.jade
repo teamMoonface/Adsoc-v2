@@ -1,7 +1,10 @@
 extends dashboard_layout
 
 block title
-    title Profile
+    title #{title}
+    
+block navbar
+    include navbar_employer
 
 block sidebar
     .employer-sidebar
@@ -9,8 +12,8 @@ block sidebar
         br
         img#profile-pic(src='/images/employer-default-profile-pic.png', alt='profile pic')
         h4
-          strong Google
-        p someone@example.com
+          strong #{employer.name}
+        p #{employer.email}
       ul.nav.nav-pills.nav-stacked
         li
           a(href='postedjobs.html')
@@ -46,15 +49,17 @@ block content
           .form-group.row
             label.col-xs-3.control-label(for='name') Company/Project Name
             .col-xs-8
-              input#name.form-control(type='text', value='Google')
+              input#name.form-control(type='text', value=employer.name)
           .form-group.row
             label.col-xs-3.control-label(for='email') Email
             .col-xs-8
-              input#email.form-control(type='email', value='someone@example.com')
+              input#email.form-control(type='email', value=employer.email)
           .form-group.row
             label.col-xs-3.control-label(for='aboutme') About the Company/Project
             .col-xs-8
-              textarea#aboutme.form-control(rows='5', maxlength='500') We are Google.
+              textarea#aboutme.form-control(rows='5', maxlength='500')
+                if (employer.about)
+                    | #{employer.about} 
               small Max length: 500 words
           br
           button.btn.btn-primary.btn-block

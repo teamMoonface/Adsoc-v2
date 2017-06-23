@@ -1,0 +1,28 @@
+nav.navbar.navbar-inverse
+  .container-fluid
+    .navbar-header
+      button.navbar-toggle(type='button', data-toggle='collapse', data-target='#mainNavBar')
+        span.icon-bar
+        span.icon-bar
+        span.icon-bar
+      a.navbar-brand(href='/home') ADSOC
+    #mainNavBar.collapse.navbar-collapse
+      ul.nav.navbar-nav
+        li
+          a(href='/home') Home
+      ul.nav.navbar-nav.navbar-right
+        .dropdown
+          button.btn.btn-default.dropdown-toggle.navbar-btn(type=' button', data-toggle='dropdown')
+            span.glyphicon.glyphicon-briefcase
+                |  #{employer.name} &nbsp
+            span.caret
+          ul.dropdown-menu
+            li
+              a(href='/employerDB/postedjobs') Posted Jobs
+            li
+              a(href='/employerDB/postjob') Post a Job
+            li
+              a(href='/employerDB/:id/profile') Profile
+            li.divider
+            li
+              a(href='#') Log Out

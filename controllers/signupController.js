@@ -9,6 +9,14 @@ exports.signup_employer_create_get = function(req, res, next) {
     res.render('signup_employer', {title: 'Employer Sign-Up'});
 };
 
+exports.signup_student_success = function(req, res, next) {
+    res.render('signup_student_success');
+};
+
+exports.signup_employer_success = function(req, res, next) {
+    res.render('signup_employer_success');
+};
+
 // APIs: https://github.com/chriso/validator.js#validators, https://github.com/ctavan/express-validator/blob/master/README.md
 
 exports.signup_student_create_post = function(req, res, next) {
@@ -58,8 +66,7 @@ exports.signup_student_create_post = function(req, res, next) {
     else {
         student.save(function(err){
             if (err) { return next(err); }
-            // successful - redirect to new user's dashboard (set to the default one we have now since dashboard controller not done)
-            res.redirect('/studentDB/profile');
+            res.redirect('/signup/student/signupsuccess');
         });
     }
 };
@@ -107,8 +114,7 @@ exports.signup_employer_create_post = function(req, res, next) {
     else {
         employer.save(function(err) {
             if (err) { return next(err); }
-            // successful - redirect to new employer's dashboard (set to the default one we have now since dashboard controller not done)
-            res.redirect('/employerDB/profile');
+            res.redirect('/signup/employer/signupsuccess');
         })
     }
 }

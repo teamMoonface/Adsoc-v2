@@ -1,0 +1,17 @@
+doctype html
+html(lang='en')
+
+header
+    title Sign-Up Success
+    link(rel='stylesheet', href='/stylesheets/signupSuccess.css')
+    include header
+
+body
+    .container
+        include navbar_student
+        .row.successContent
+            .col-xs-offset-2.col-xs-8
+                h1 Sign-Up Success!
+                br
+                a.btn.btn-primary(href='/studentDB/profile', role='button')
+                    | See Profile

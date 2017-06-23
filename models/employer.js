@@ -14,6 +14,4 @@ var EmployerSchema = Schema(
     }
 )
 
-// email + pw verifyers
-
 module.exports = mongoose.model('Employer', EmployerSchema);

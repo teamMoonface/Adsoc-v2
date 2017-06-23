@@ -1,9 +1,9 @@
 var express = require('express');
 var router = express.Router();
 
-router.get('/profile', function(req, res, next) {
-  res.render('employerProfile');
-});
+var employerDB_controller = require('../controllers/employerdbController');
+
+router.get('/:id/profile', employerDB_controller.profile_get);
 
 router.get('/postedjobs', function(req, res, next) {
     res.render('postedjobs');
