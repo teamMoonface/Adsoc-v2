@@ -6,37 +6,43 @@ block title
 block content
     h2#title #{title}
     br
+    // display error messages
+    if errors
+        .alert.alert-danger.box
+            span.glyphicon.glyphicon-warning-sign
+            p 
+                strong Error(s):
+            ol
+                for error in errors
+                    li!=error.msg + '&nbsp'
+                    br
+        
     // add in upload profile pic + scrolltips later
     // !! why are some of the form inputs expanding??
     form.form-horizontal(method='POST' action='')
         .form-group
             label.control-label.col-xs-3(for='name') Company/Project Name*
             .col-xs-8
-                input#fullname.form-control(type='text', name='name' placeholder='Enter company/project name (required)')
+                input#fullname.form-control(type='text', name='name' placeholder='Enter company/project name (required)', value=(undefined==employer ? '' : employer.name))
         .form-group
             label.control-label.col-xs-3(for='email') Email*
             .col-xs-8
-                input#email.form-control(type='text', name='email', placeholder='Enter email (required)')
+                input#email.form-control(type='text', name='email', placeholder='Enter email (required)', value=(undefined==employer ? '' : employer.email))
             
         .form-group
             label.control-label.col-xs-3(for='phonenum') Contact Number
             .col-xs-8
-                input#dob.form-control(type='text', name='phonenum', placeholder='Enter contact number (optional)')
+                input#dob.form-control(type='text', name='phonenum', placeholder='Enter contact number (optional)', value=(undefined==employer ? '' : employer.phonenum))
         
         .form-group
             label.control-label.col-xs-3(for='un') Username*
             .col-xs-8
-                input#un.form-control(type='text', name='username', placeholder='Enter preferred username (required)')
+                input#un.form-control(type='text', name='username', placeholder='Enter preferred username (required)', value=(undefined==employer ? '' : employer.username))
         
         .form-group
             label.control-label.col-xs-3(for='pw') Password*
             .col-xs-8
                 input#pw.form-control(type='password', name='password', placeholder='Enter password (required)')
-                        
-        .form-group
-            label.control-label.col-xs-3(for='aboutme') About the Company/Project
-            .col-xs-8
-                textarea#aboutme.form-control(name='about', cdrows='5', max='500', placeholder='Enter a description of yourself (max length: 500 words)')
         
         br
         input.btn.btn-primary#submitBtn(type='submit', value='Sign Up')

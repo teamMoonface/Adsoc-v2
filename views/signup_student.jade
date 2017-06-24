@@ -8,51 +8,59 @@ block content
     br
     // add in upload profile pic + scrolltips later
     // !! why are some of the form inputs expanding??
+    
+    // display error messages
+    if errors
+        .alert.alert-danger.box
+            span.glyphicon.glyphicon-warning-sign
+            p 
+                strong Error(s):
+            ol
+                for error in errors
+                    li!=error.msg + '&nbsp'
+                    br
+        
     form.form-horizontal(method='POST' action='')
         .form-group
-            label.control-label.col-xs-3(for='fullname') Full Name*
+            label.control-label.col-xs-2(for='fullname') Full Name*
             .col-xs-8
-                input#fullname.form-control(type='text', name='fullname' placeholder='Enter full name (required)')
-        .form-group
-            label.control-label.col-xs-3(for='email') Email*
-            .col-xs-8
-                input#email.form-control(type='text', name='email', placeholder='Enter email (required)')
-            
-        .form-group
-            label.control-label.col-xs-3(for='phonenum') Contact Number
-            .col-xs-8
-                input#dob.form-control(type='text', name='phonenum', placeholder='Enter contact number (optional)')
+                input#fullname.form-control(type='text', name='fullname' placeholder='Enter full name (required)', value=(undefined==student ? '' : student.name))
         
         .form-group
-            label.control-label.col-xs-3(for='dob') Date of Birth
+            label.control-label.col-xs-2(for='email') Email*
             .col-xs-8
-                input#dob.form-control(type='date', name='dob', placeholder='Enter date of birth (optional)')
+                input#email.form-control(type='text', name='email', placeholder='Enter email (required)', value=(undefined==student ? '' : student.email))
+            
+        .form-group
+            label.control-label.col-xs-2(for='phonenum') Contact Number
+            .col-xs-8
+                input#dob.form-control(type='text', name='phonenum', placeholder='Enter contact number (optional)', value=(undefined==student ? '' : student.phonenum))
+        
+        .form-group
+            label.control-label.col-xs-2(for='dob') Date of Birth
+            .col-xs-8
+                input#dob.form-control(type='date', name='dob', placeholder='Enter date of birth (optional)', value=(undefined==student ? '' : student.dob))
         
         .form-group
             fieldset
-                label.control-label.col-xs-3 Gender
+                label.control-label.col-xs-2 Gender
                 .col-xs-8
                     label.radio-inline(for='male')
-                        input#male(type='radio', name='gender', value='Male')
+                        input#male(type='radio', name='gender', value='Male', checked=((undefined==student) ? false : (student.gender=='Male' ? true : false)))
                         |  Male
                     label.radio-inline(for='female')
-                        input#female(type='radio', name='gender' value='Female')
+                        input#female(type='radio', name='gender' value='Female', checked=((undefined==student) ? false : (student.gender=='Female' ? true : false)))
                         |  Female
         
         .form-group
-            label.control-label.col-xs-3(for='un') Username*
+            label.control-label.col-xs-2(for='un') Username*
             .col-xs-8
-                input#un.form-control(type='text', name='username', placeholder='Enter preferred username (required)')
+                input#un.form-control(type='text', name='username', placeholder='Enter preferred username (required)', value=(undefined==student ? '' : student.username))
         
         .form-group
-            label.control-label.col-xs-3(for='pw') Password*
+            label.control-label.col-xs-2(for='pw') Password*
             .col-xs-8
                 input#pw.form-control(type='password', name='password', placeholder='Enter password (required)')
-                        
-        .form-group
-            label.control-label.col-xs-3(for='aboutme') About Me
-            .col-xs-8
-                textarea#aboutme.form-control(name='about', rows='5', max='500', placeholder='Enter a description of yourself (max length: 500 words)')
         
         br
         input.btn.btn-primary#submitBtn(type='submit', value='Sign Up')

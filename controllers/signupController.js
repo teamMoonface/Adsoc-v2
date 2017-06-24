@@ -19,7 +19,6 @@ exports.student_list = function(req, res, next) {
 
 };
 
-
 exports.signup_student_create_get = function(req, res, next) {
     res.render('signup_student', {title: 'Student Sign-Up'});
 };
@@ -33,13 +32,47 @@ exports.signup_student_create_post = function(req, res, next) {
     // check for validity
     req.checkBody('fullname', 'Full name required').notEmpty();
     req.checkBody('email', 'Email required').notEmpty();
-    req.checkBody('email', 'Invalid email').isEmail();
-    req.checkBody('phonenum', 'Invalid number').optional().isNumeric();
-    req.checkBody('username', 'Username required').notEmpty();
-    req.checkBody('username', 'Min 5 characters and max 15 characters').isLength({min: 5, max: 15});
+    req.checkBody('username', 'Username required').notEmpty();   
     req.checkBody('password', 'Password required').notEmpty();
-    req.checkBody('password', 'Min 6 characters').isLength({min: 6});
     
+    // check only when field is not empty
+    req.checkBody({
+        'password': {
+            optional: {
+                options: { checkFalsy: true}
+            },
+            isLength: {
+                errorMessage: 'Password: min 6 characters',
+                options: [{min: 6}]
+            }
+        },
+        'username': {
+            optional: {
+                options: { checkFalsy: true}
+            },
+            isLength: {
+                errorMessage: 'Username: min 5 characters, max 15 characters',
+                options: [{min: 5, max: 15}]
+            }
+        },
+        'phonenum': {
+            optional: {
+                options: {checkFalsy: true}
+            },
+            isNumeric: {
+                errorMessage: 'Invalid phone number'
+            }
+        },
+        'email': {
+            optional: {
+                options: { checkFalsy: true}
+            },
+            isEmail: {
+                errorMessage: 'Invalid email address'
+            }
+        }
+    });
+        
     // !! not done yet: check if username alr exists
     
     req.sanitize('fullname').escape();
@@ -63,13 +96,10 @@ exports.signup_student_create_post = function(req, res, next) {
         dob: req.body.dob,
         email: req.body.email,
         gender: req.body.gender,
-        aboutme: req.body.about,
     });
     
-    // !! not done yet: error page
     if (errors) {
-        res.send(errors);
-        //res.render('signup_student', {title: 'Student Sign-Up', student: student, errors: errors});
+        res.render('signup_student', {title: 'Student Sign-Up', student: student, errors: errors});
         return;
     }
     else {
@@ -109,12 +139,46 @@ exports.signup_employer_create_post = function(req, res, next) {
     // check for validity
     req.checkBody('name', 'Company/Project name required').notEmpty();
     req.checkBody('email', 'Email required').notEmpty();
-    req.checkBody('email', 'Invalid email').isEmail();
-    req.checkBody('phonenum', 'Invalid contact number').optional().isNumeric();
     req.checkBody('username', 'Username required').notEmpty();
-    req.checkBody('username', 'Min 5 characters and max 15 characters').isLength({min: 5, max: 15});
     req.checkBody('password', 'Password required').notEmpty();
-    req.checkBody('password', 'Min 6 characters').isLength({min: 6});
+    
+    // check only when field is not empty
+    req.checkBody({
+        'email': {
+            optional: {
+                options: { checkFalsy: true}
+            },
+            isEmail: {
+                errorMessage: "Invalid email address"
+            },
+        },
+        'phonenum': {
+            optional: {
+                options: { checkFalsy: true}
+            },
+            isNumeric: {
+                errorMessage: "Invalid phone number"
+            }
+        },
+        'username': {
+            optional: {
+                options: { checkFalsy: true}
+            },
+            isLength: {
+                options: [{min: 5, max: 15}],
+                errorMessage: "Username: min 5 characters, max 15 characters"
+            }
+        },
+        'password': {
+            optional: {
+                options: { checkFalsy: true}
+            },
+            isLength: {
+                options: [{min: 6}],
+                errorMessage: "Password: min 6 characters" 
+            }
+        }
+    });
     
     req.sanitize('name').escape();
     req.sanitize('name').trim();
@@ -135,13 +199,10 @@ exports.signup_employer_create_post = function(req, res, next) {
         name: req.body.name,
         phonenum: req.body.phonenum,
         email: req.body.email,
-        about: req.body.about
     });
     
-    // !! not done yet: error page
     if (errors) {
-        res.send(errors);
-        //res.render('signup_emploer', {title: 'Employer Sign-Up', employer: employer, errors: errors});
+        res.render('signup_employer', {title: 'Employer Sign-Up', employer: employer, errors: errors});
         return;
     }
     else {

@@ -1,7 +1,7 @@
 extends dashboard_layout
 
 block title
-    title Post a Job
+    title #{title}
     
 block navbar
     include navbar_employer
@@ -37,39 +37,48 @@ block content
       h2
         strong Post a Job
       br
+      
+      // insert error messages
+
       .postjob
-        form.form-horizontal
+        form.form-horizontal(method='POST' action='')
           .form-group.row
             label.col-xs-3.control-label(for='jobtitle')
               | Job Title
             .col-xs-8
-              input#jobtitle.form-control(type='text')
+              input#jobtitle.form-control(type='text', name='name', value=(undefined==job ? '' : job.name))
+              
           .form-group.row
             label.col-xs-3.control-label(for='jobdesc')
               | Job Description
             .col-xs-8
-              textarea#jobdesc.form-control(rows='5', maxlength='500')
+              textarea#jobdesc.form-control(rows='5', maxlength='1000', name='desc')
+                if (job)
+                    | #{job.desc}
               small
-                i Max Length: 500 words
+                i Max Length: 1000 words
+                
           .form-group.row
             label.col-xs-3.control-label
               | Job Duration
             // need verify that first date is < second
             .col-xs-8.row
               .col-xs-5
-                input.form-control(type='date')
+                input.form-control(type='date', name='startDate', value=(undefined==job ? '' : job.startDate))
               .col-xs-2
                 p#date-to to
               .col-xs-5
-                input.form-control(type='date')
+                input.form-control(type='date', name='endDate', value=(undefined==job ? '' : job.endDate))
+                
           .form-group.row
             label.col-xs-3.control-label
               | Remuneration
             .col-xs-2
-              input.form-control(type='number')
+              input.form-control(type='number', name='remun', value=(undefined==job ? '' : job.remun))
               small SGD$
             .col-xs-2
               p#perhour per hour
+              
           // need a better form for this
           .form-group.row
             label.col-xs-3.control-label
@@ -106,4 +115,4 @@ block content
                   label(for='sql')
                     | SQL
           br
-          button.btn.btn-primary.btn-block Post Job
+          button.btn.btn-primary.btn-block(type='submit') Post Job
