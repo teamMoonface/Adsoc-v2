@@ -10,4 +10,4 @@ exports.profile_get = function(req, res, next) {
             // successful, so render
              res.render('studentProfile', {title: 'Profile', student: studentInstance});
         })
-}
+};

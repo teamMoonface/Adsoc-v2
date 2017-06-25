@@ -53,14 +53,14 @@ router.get('/studentDB/favourites', function(req, res, next) {
 //EmployerDB segment
 router.get('/employerDB/profile/:id', employerDB_controller.profile_get);
 
-router.get('/employerDB/postedjobs', function(req, res, next) {
-    res.render('postedjobs');
-});
+/* GET request view jobs posted*/
+router.get('/employerDB/postedjobs/:id', employerDB_controller.postedjobsList);
 
-router.get('/employerDB/postjob', function(req, res, next) {
-    res.render('postjob');
-});
+/* GET request posting new job */
+router.get('/employerDB/postjob/:id', employerDB_controller.postjob_get);
 
+/* POST request posting new job */
+router.post('/employerDB/postjob/:id', employerDB_controller.postjob_post);
 
 
 module.exports = router;

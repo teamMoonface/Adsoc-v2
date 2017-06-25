@@ -9,7 +9,6 @@ var bodyParser = require('body-parser');
 var expressValidator = require('express-validator');
 
 // import routes
-var index = require('./routes/index');
 var searchPage = require('./routes/searchPage');
 var home = require('./routes/home');
 var login = require('./routes/login');
@@ -35,10 +34,9 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(expressValidator());
 
-app.use('/', index);
-app.use('/searchPage',searchPage);
-app.use('/home',home);
-app.use('/login',login);
+app.use('/', home);
+app.use('/searchPage', searchPage);
+app.use('/login', login);
 app.use('/bank', bank);
 
 // catch 404 and forward to error handler
