@@ -11,7 +11,7 @@ exports.profile_get = function(req, res, next) {
             // successful, so render
              res.render('employerProfile', {title: 'Profile', employer: employerInstance});
         })
-}
+};
 
 exports.postjob_get = function(req, res, next) {
     
@@ -20,7 +20,7 @@ exports.postjob_get = function(req, res, next) {
             if (err) { return next(err); }
             res.render('postjob', { title: 'Post a Job', employer: employerInstance})
     })
-}
+};
 
 exports.postjob_post = function(req, res, next) {
     
@@ -37,7 +37,7 @@ exports.postjob_post = function(req, res, next) {
             },
             isLength: {
                 options: [{max: 1000}],
-                errorMessage: "Desc: max length of 1000 characters"
+                errorMessage: 'Desc: max length of 1000 characters'
             }
         },
         'endDate': {
@@ -53,7 +53,8 @@ exports.postjob_post = function(req, res, next) {
             optional: {
                 options: { checkFalsy: true}
             },
-            isNumeric: {
+            isFloat: {
+                options: [{min: 0}],
                 errorMessage: 'Invalid remuneration entered'
             }
         }
@@ -73,11 +74,12 @@ exports.postjob_post = function(req, res, next) {
         desc: req.body.desc,
         startDate: req.body.startDate,
         endDate: req.body.endDate,
-        remun: req.body.remun
+        remun: req.body.remun,
+        employer: req.params.id
     });
     
     if (errors) {
-        res.render('postjob', {title: 'Post a Job', job: job});
+        res.render('postjob', {title: 'Post a Job', job: job, errors: errors});
         return;
     }
     else {
@@ -85,5 +87,25 @@ exports.postjob_post = function(req, res, next) {
             if (err) { return next(err); }           
             res.render('postedjobs', {title: 'Posted Jobs'})
         });
+        
+        // add to employer's posted jobs
+        Employer.findByIdAndUpdate(req.params.id, {$push: {postedJobs: job}}, function(err) {
+            console.log(err);
+        });
     }
-}
+};
+
+// Display employers' list of posted jobs
+exports.postedjobsList = function(req, res, next) {
+    
+    Employer.findById(req.params.id, 'postedJobs')
+        .populate('postedJobs')
+        .exec(function(err, jobsList) {
+            if (err) { return next(err); }
+            res.render('postedjobs', {title: 'Posted Jobs', postedJobs: jobsList});
+            console.log(jobsList);
+            // why is job undefined??
+            for (var i = 0; i < 10; i++)
+                console.log(jobsList[i] + ' ' + i);
+        });
+};

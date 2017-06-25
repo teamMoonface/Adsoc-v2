@@ -33,6 +33,7 @@ block sidebar
             span.glyphicon.glyphicon-chevron-right.pull-right
 
 block content
+    
     .postjob-panel
       h2
         strong Post a Job
@@ -41,6 +42,16 @@ block content
       // insert error messages
 
       .postjob
+      
+        if errors
+            .alert.alert-danger.box
+                span.glyphicon.glyphicon-warning-sign
+                p 
+                    strong Error(s):
+                ol
+                    for error in errors
+                        li!=error.msg + '&nbsp'
+        
         form.form-horizontal(method='POST' action='')
           .form-group.row
             label.col-xs-3.control-label(for='jobtitle')
@@ -61,7 +72,6 @@ block content
           .form-group.row
             label.col-xs-3.control-label
               | Job Duration
-            // need verify that first date is < second
             .col-xs-8.row
               .col-xs-5
                 input.form-control(type='date', name='startDate', value=(undefined==job ? '' : job.startDate))

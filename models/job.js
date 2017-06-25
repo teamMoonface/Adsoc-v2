@@ -15,6 +15,7 @@ var JobSchema = Schema(
     }
 );
 
+// add date formatting
 // add periodStart < periodEnd verifyer
 
 module.exports = mongoose.model('Job', JobSchema);

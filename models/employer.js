@@ -57,6 +57,5 @@ EmployerSchema
   return '/bank/employerDB/profile/' + this._id;
 });
 
-
 //Export model
 module.exports = mongoose.model('Employer', EmployerSchema);

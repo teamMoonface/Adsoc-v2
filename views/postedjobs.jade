@@ -1,7 +1,7 @@
 extends dashboard_layout
 
 block title
-    title Posted Jobs
+    title #{title}
 
 block navbar
     include navbar_employer
@@ -37,40 +37,27 @@ block content
       h2
         strong Posted Jobs
       br
-      .job-post
-        // job title & company
-        h3 Web Developer
-        .row
-          .col-xs-9
-            p
-              small Period: 20 May 2017 - 20 August 2017
-          .col-xs-3.salary
-            p $9 /hr
-        hr
-        // job description
-        p
-          | You’re a curious and collaborative visionary, someone excited about tackling the hard problems in technology. Google is and always will be an engineering company that thinks big and takes risks. Together, we’ll create and iterate on the products and tools of the future—for billions of users.
-        br
-        button.btn.btn-info
-          | View Applicants 
-          span.badge 5
-        button.btn.btn-danger.pull-right Remove Post
-      br
-      .job-post
-        // job title & company
-        h3 Software Engineer
-        .row
-          .col-xs-9
-            p
-              small Period: 16 May 2017 - 30 August 2017
-          .col-xs-3.salary
-            p $10 /hr
-        hr
-        // job description
-        p
-          | Your work is at the core of everything we build. Develop massive, complex software systems that scale globally.
-        br
-        button.btn.btn-info
-          | View Applicants 
-          span.badge 3
-        button.btn.btn-danger.pull-right Remove Post
+      
+      if postedJobs
+          each job in postedJobs
+             .job-post
+                h3 #{job.name}
+                .row
+                  .col-xs-9
+                    p
+                      small 'Period:' + #{job.startDate} '- ' + #{job.endDate}
+                      // TODO: format date
+                  .col-xs-3.salary
+                    p '$' + #{job.remun} + ' /hr'
+                hr
+                // job description
+                p
+                  | #{job.desc}
+                br
+                button.btn.btn-info
+                  | View Applicants 
+                  span.badge 5
+                button.btn.btn-danger.pull-right Remove Post
+              br
+        else
+            p No posted jobs!
