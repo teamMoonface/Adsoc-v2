@@ -41,3 +41,25 @@
 .navbar-default .navbar-nav > li > a {
  	color: #e5e5e5; /*Change active text color here*/
  }
+
+ .logo{
+ 	position: relative;
+ 	right:7px;
+ 	top: 2px;
+ 	color:#4f4f4f;
+ }
+
+.caret{
+	color:#4f4f4f;
+}
+
+ .carrotName{
+ 	position: relative;
+ 	right: 1px;
+ 	color:#4f4f4f;
+ }
+
+ .btnDec{
+ 	height:40px;
+ 	background-color: #f2f2f2;
+ }

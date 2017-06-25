@@ -1,4 +1,5 @@
 var mongoose = require('mongoose');
+var moment = require('moment'); 
 
 var Schema = mongoose.Schema;
 
@@ -14,6 +15,24 @@ var JobSchema = Schema(
         applicants: [{type: Schema.ObjectId, ref: 'Student'}]
     }
 );
+
+JobSchema
+.virtual('date_start_formatted')
+.get(function () {
+  return moment(this.dob).format('YYYY-MM-DD');
+});
+
+JobSchema
+.virtual('date_end_formatted')
+.get(function () {
+  return moment(this.dob).format('YYYY-MM-DD');
+});
+
+JobSchema
+.virtual('url')
+.get(function () {
+  return '/bank/employerDB/postedJobs/' + this._id;
+});
 
 // add date formatting
 // add periodStart < periodEnd verifyer

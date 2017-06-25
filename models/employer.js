@@ -57,5 +57,17 @@ EmployerSchema
   return '/bank/employerDB/profile/' + this._id;
 });
 
+EmployerSchema
+.virtual('postedJobs_url')
+.get(function () {
+  return '/bank/employerDB/postedJobs/' + this._id;
+});
+
+EmployerSchema
+.virtual('postJob_url')
+.get(function () {
+  return '/bank/employerDB/postJob/' + this._id;
+});
+
 //Export model
 module.exports = mongoose.model('Employer', EmployerSchema);

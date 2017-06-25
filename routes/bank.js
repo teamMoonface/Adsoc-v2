@@ -40,13 +40,9 @@ router.post('/signup/employer', signup_controller.signup_employer_create_post);
 //StudentDB segment
 router.get('/studentDB/profile/:id', studentDB_controller.profile_get);
 
-router.get('/studentDB/appliedjobs', function(req, res, next) {
-  res.render('appliedjobs');
-});
+router.get('/studentDB/appliedjobs/:id', studentDB_controller.applied_jobs_get);
 
-router.get('/studentDB/favourites', function(req, res, next) {
-    res.render('favourites');
-});
+router.get('/studentDB/favourites/:id', studentDB_controller.favourites_get);
 
 
 				

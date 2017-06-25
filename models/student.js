@@ -55,11 +55,23 @@ StudentSchema
   return this.about;
 });
 
-// Virtual for employer's URL
+// Virtual for student's URL
 StudentSchema
 .virtual('url')
 .get(function () {
   return '/bank/studentDB/profile/' + this._id;
+});
+
+StudentSchema
+.virtual('applied_url')
+.get(function () {
+  return '/bank/studentDB/appliedjobs/' + this._id;
+});
+
+StudentSchema
+.virtual('favourites_url')
+.get(function () {
+  return '/bank/studentDB/favourites/' + this._id;
 });
 
 StudentSchema

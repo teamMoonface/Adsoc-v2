@@ -14,7 +14,6 @@ exports.profile_get = function(req, res, next) {
 };
 
 exports.postjob_get = function(req, res, next) {
-    
     Employer.findById(req.params.id)
         .exec(function(err, employerInstance) {
             if (err) { return next(err); }
@@ -97,15 +96,30 @@ exports.postjob_post = function(req, res, next) {
 
 // Display employers' list of posted jobs
 exports.postedjobsList = function(req, res, next) {
-    
-    Employer.findById(req.params.id, 'postedJobs')
-        .populate('postedJobs')
-        .exec(function(err, jobsList) {
-            if (err) { return next(err); }
-            res.render('postedjobs', {title: 'Posted Jobs', postedJobs: jobsList});
-            console.log(jobsList);
-            // why is job undefined??
-            for (var i = 0; i < 10; i++)
-                console.log(jobsList[i] + ' ' + i);
-        });
+    async.parallel({
+        jobFunc: function(callback){
+            Job.find({'employer': req.params.id})
+                .populate('postedjobs')
+                .exec(callback);
+        },
+        employFunc: function(callback){
+            Employer.findById(req.params.id)
+                .exec(callback);
+        },
+    },function(err, results) {
+      if (err) { return next(err); }
+      res.render('postedjobs', {title: 'Posted Jobs', postedJobs: results.jobFunc, employer: results.employFunc});
+    });
 };
+
+//List of all jobs
+exports.job_list = function(req, res, next) {
+  Job.find()
+    .sort([['name', 'ascending']])
+    .exec(function (err, joblist) {
+      if (err) { return next(err); }
+      //Successful, so render
+      res.render('searchPage', { title: 'Brwose Jobs', job_list: joblist });
+    });
+};
+

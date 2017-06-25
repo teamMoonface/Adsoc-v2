@@ -110,26 +110,23 @@
 }
 
 .Quick_SearchBar{
-  margin-top: 40px;
+  margin-top: 30px;
   width:100%;
+  position:relative;
+  left: 125px;
 }
 
 input[type=text]{
-    width: 150px;
+    position:relative;
+    width: 80%;
     padding: 12px;
     border: 1px solid #ccc;
     border-radius: 4px;
     box-sizing: border-box;
     margin-top: 6px;
     margin-bottom: 16px;
-    resize: vertical;
-     -webkit-transition: width 0.8s ease-in-out;
-    transition: width 0.8s ease-in-out;
 }
 
-input[type=text]:focus {
-    width: 100%;
-}
 
 .python{
   background-color: purple;

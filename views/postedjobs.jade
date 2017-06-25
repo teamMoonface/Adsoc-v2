@@ -16,19 +16,19 @@ block sidebar
         p someone@example.com
       ul.nav.nav-pills.nav-stacked
         li.active
-          a(href='/employerDB/postedjobs')
+          a(href='#')
             | Posted Jobs
             span.glyphicon.glyphicon-chevron-right.pull-right
         li
-          a(href='/employerDB/postjob')
+          a(href=employer.postJob_url)
             | Post a Job
             span.glyphicon.glyphicon-chevron-right.pull-right
         li
-          a(href='/employerDB/profile')
+          a(href=employer.url)
             | Profile
             span.glyphicon.glyphicon-chevron-right.pull-right
         li
-          a(href='#')
+          a(href='/')
             | Log Out
             span.glyphicon.glyphicon-chevron-right.pull-right
 
@@ -37,7 +37,6 @@ block content
       h2
         strong Posted Jobs
       br
-      
       if postedJobs
           each job in postedJobs
              .job-post
@@ -45,10 +44,9 @@ block content
                 .row
                   .col-xs-9
                     p
-                      small 'Period:' + #{job.startDate} '- ' + #{job.endDate}
-                      // TODO: format date
+                      small Period: #{job.date_start_formatted} - #{job.date_end_formatted}
                   .col-xs-3.salary
-                    p '$' + #{job.remun} + ' /hr'
+                    p $#{job.remun}/hr
                 hr
                 // job description
                 p

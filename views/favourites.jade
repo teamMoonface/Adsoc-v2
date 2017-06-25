@@ -10,28 +10,38 @@ block sidebar
     .student-sidebar
       .user-info
         br
-        img#profile-pic(src='/images/student-default-profile-pic.png', alt='profile pic')
-        h4
-          strong John Doe
-        p someone@example.com
-        p 88888888
+        .ProfileImage
+          img#profile-pic(src='/images/man-team.png', alt='profile pic')
+        h4.user-name
+          strong #{student.name}
+        .email
+          strong #{student.email}
+        label.verify Verified
       ul.nav.nav-pills.nav-stacked
-        li
-          a(href='/studentDB/appliedjobs')
-            | Applied Jobs
-            span.glyphicon.glyphicon-chevron-right.pull-right
-        li.active
-          a(href='/studentDB/favourites')
-            | Favourites
-            span.glyphicon.glyphicon-chevron-right.pull-right
-        li
-          a(href='/studentDB/profile')
-            | Profile
-            span.glyphicon.glyphicon-chevron-right.pull-right
-        li
-          a(href='#')
-            | Log Out
-        span.glyphicon.glyphicon-chevron-right.pull-right
+        li.side
+          a(href=student.applied_url)
+            div.miniContainers
+              img#star(src='/images/applied.png', alt='applied') 
+              p.app Applied Jobs
+              span.glyphicon.glyphicon-chevron-right.pull-right
+        li.side.active
+          a(href=student.favourites_url)
+            div.miniContainers
+              img#star(src='/images/star.png', alt='star') 
+              p.favs Favourites
+              span.glyphicon.glyphicon-chevron-right.pull-right
+        li.side
+          a(href=student.url)
+            div.miniContainers
+              img#star(src='/images/profile.png', alt='profile')
+              p.prof Profile
+              span.glyphicon.glyphicon-chevron-right.pull-right
+        li.side
+          a(href='/')
+            div.miniContainers
+              img#star(src='/images/arrow.png', alt='logout')
+              p.Log Log out
+              span.glyphicon.glyphicon-chevron-right.pull-right
 
 block content
     .favourites-panel

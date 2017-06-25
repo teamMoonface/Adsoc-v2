@@ -19,25 +19,25 @@ block sidebar
         label.verify Verified
       ul.nav.nav-pills.nav-stacked
         li.side
-          a(href='/studentDB/appliedjobs')
+          a(href=student.applied_url)
             div.miniContainers
               img#star(src='/images/applied.png', alt='applied') 
               p.app Applied Jobs
               span.glyphicon.glyphicon-chevron-right.pull-right
         li.side
-          a(href='/studentDB/favourites')
+          a(href=student.favourites_url)
             div.miniContainers
               img#star(src='/images/star.png', alt='star') 
               p.favs Favourites
               span.glyphicon.glyphicon-chevron-right.pull-right
         li.active.side
-          a(href='/studentDB/profile')
+          a(href=student.url)
             div.miniContainers
               img#star(src='/images/profile.png', alt='profile')
               p.prof Profile
               span.glyphicon.glyphicon-chevron-right.pull-right
         li.side
-          a(href='#')
+          a(href='/')
             div.miniContainers
               img#star(src='/images/arrow.png', alt='logout')
               p.Log Log out
