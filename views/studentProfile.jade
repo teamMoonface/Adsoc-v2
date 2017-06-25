@@ -10,58 +10,66 @@ block sidebar
     .student-sidebar
       .user-info
         br
-        img#profile-pic(src='/images/student-default-profile-pic.png', alt='profile pic')
-        h4
+        .ProfileImage
+          img#profile-pic(src='/images/man-team.png', alt='profile pic')
+        h4.user-name
           strong #{student.name}
-        p #{student.email}
-        p #{student.phoneNum}
+        .email
+          strong #{student.email}
+        label.verify Verified
       ul.nav.nav-pills.nav-stacked
-        li
+        li.side
           a(href='/studentDB/appliedjobs')
-            | Applied Jobs
-            span.glyphicon.glyphicon-chevron-right.pull-right
-        li
+            div.miniContainers
+              img#star(src='/images/applied.png', alt='applied') 
+              p.app Applied Jobs
+              span.glyphicon.glyphicon-chevron-right.pull-right
+        li.side
           a(href='/studentDB/favourites')
-            | Favourites
-            span.glyphicon.glyphicon-chevron-right.pull-right
-        li.active
+            div.miniContainers
+              img#star(src='/images/star.png', alt='star') 
+              p.favs Favourites
+              span.glyphicon.glyphicon-chevron-right.pull-right
+        li.active.side
           a(href='/studentDB/profile')
-            | Profile
-            span.glyphicon.glyphicon-chevron-right.pull-right
-        li
+            div.miniContainers
+              img#star(src='/images/profile.png', alt='profile')
+              p.prof Profile
+              span.glyphicon.glyphicon-chevron-right.pull-right
+        li.side
           a(href='#')
-            | Log Out
-            span.glyphicon.glyphicon-chevron-right.pull-right
+            div.miniContainers
+              img#star(src='/images/arrow.png', alt='logout')
+              p.Log Log out
+              span.glyphicon.glyphicon-chevron-right.pull-right
 
 
 block content
     .profile-panel
-      h2
-        strong Profile
-      br
+      h2.edit-profile Edit Profile
       .profile-details
-        h3 Basic Info
-        img#profile-pic.image-rounded(src='/images/student-default-profile-pic.png', alt='profile pic')
+        .basic-header Basic Information
+        img#profile-pic1(src='/images/man1.png', alt='profile pic')
         br
         // upload profile pic
-        button.btn.btn-primary.upload-file-btn(type='button')
+        button.btn.upload-file-btn(type='button')
           | Upload Photo
         br
         form.form-horizontal
           .form-group.row
-            label.col-xs-3.control-label(for='fullname') Full Name
+            label.col-xs-4.control-label(for='fullname') Full Name
             .col-xs-8
-              input#fullname.form-control(type='text', value='John Doe')
+              input#fullname.form-control(type='text', value='#{student.name}')
           .form-group.row
-            label.col-xs-3.control-label(for='email') Email
+            label.col-xs-4.control-label(for='email') Email
             .col-xs-8
-              input#email.form-control(type='email', value='someone@example.com')
+              input#email.form-control(type='email', value='#{student.email}')
           .form-group.row
-            label.col-xs-3.control-label(for='mobileno') Mobile Number
+            label.col-xs-4.control-label(for='mobileno') Mobile Number
             .col-xs-8
-              input#mobileno.form-control(type='text', value='8888888')
+              input#mobileno.form-control(type='text', value='91239812')
           .form-group.row
-            label.col-xs-3.control-label(for='gender') Gender
+            label.col-xs-4.control-label(for='gender') Gender
             .col-xs-8.gender
               fieldset
                 label.radio-inline(for='male')
@@ -72,40 +80,25 @@ block content
                   |  Female
           // bootstrap datepicker...??
           .form-group.row
-            label.col-xs-3.control-label(for='dob') Date of Birth
+            label.col-xs-4.control-label(for='dob') Date of Birth
             .col-xs-8
-              input#dob.form-control(type='date', value='01/01/1990')
+              input#dob.form-control(type='date', value='#{student.date_of_birth_formatted}')
           .form-group.row
-            label.col-xs-3.control-label(for='aboutme') About Me
-            .col-xs-8
-              textarea#aboutme.form-control(rows='5', maxlength='500') I am John Doe
-              small Max length: 500 words
-          input.btn.btn-primary.btn-block(type='submit', value='Update Basic Info')
+            label.col-xs-4.control-label(for='aboutme') About Me
+            .col-xs-8.bzz
+              textarea#aboutme.form-control(rows='5', maxlength='500') #{student.aboutme}
+              p.brr Max length: 500 words
+          input.btn.update_button(type='submit', value='Update Basic Info')
+    br
+    br
+    .skill-panel
+      .skill-details
+        .basic-header-1 Skills
         br
-        h3 Skills
-        br
-        // how to space out equally without columns?
-        .skills-list.row
-          .skill-panel.col-xs-offset-1.col-xs-3
-            p Java
-            // TODO: button to remove skill from DB and animate remove, collapsing other panels
-            button#delete-btn(type='button', data-toggle='tooltip', title='Remove this skill', data-placement='bottom')
-              span.glyphicon.glyphicon-trash
-          .skill-panel.col-xs-offset-1.col-xs-3
-            p Javascript
-            // TODO: button to remove skill from DB and animate remove, collapsing other panels
-            button#delete-btn(type='button', data-toggle='tooltip', title='Remove this skill', data-placement='bottom')
-              span.glyphicon.glyphicon-trash
-          .skill-panel.col-xs-offset-1.col-xs-3
-            p Python
-            // TODO: button to remove skill from DB and animate remove, collapsing other panels
-            button#delete-btn(type='button', data-toggle='tooltip', title='Remove this skill', data-placement='bottom')
-              span.glyphicon.glyphicon-trash
-          .skill-panel.col-xs-offset-1.col-xs-3
-            p jQuery
-            // TODO: button to remove skill from DB and animate remove, collapsing other panels
-            button#delete-btn(type='button', data-toggle='tooltip', title='Remove this skill', data-placement='bottom')
-              span.glyphicon.glyphicon-trash
+        div
+          p.skill1 JavaScript
+          p.skill2 Expressjs
+          p.skill3 Java
         br
         button.btn.btn-primary.btn-block.add-skills-btn(type='button', data-toggle='modal', data-target='#add-skills') Add Skills
         // add skills modal
@@ -113,7 +106,7 @@ block content
           .modal-dialog
             .modal-content
               .modal-header
-                button.close(type='button', data-dismiss='modal') ×
+                button.close(type='button', data-dismiss='modal') 
                 h4.modal-title Add Skills
               .modal-body
                 p Select a skill

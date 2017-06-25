@@ -1,37 +1,5 @@
-.student{
-	padding: 10px;
-	color:#ffffff;
-	border-left:1px solid #bbb;
-}
-.signup{
-    padding: 10px;
-    color:#ffffff;
-    border-left:1px solid #bbb;
-}
-.employer{
-	padding: 10px;
-	border-left:1px solid #bbb;
+.container-fluid{
+    background-color: #000051;
+    color:white;
 }
 
-ul {
-    list-style-type: none;
-    margin: 0;
-    padding: 0;
-    overflow: hidden;
-}
-
-li {
-    float: left;
-}
-
-li a {
-    display: block;
-    color: white;
-    text-align: center;
-    padding: 14px 16px;
-    text-decoration: none;
-}
-
-li a:hover:not(.active) {
-    background-color: #111;
-}

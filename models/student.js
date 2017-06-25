@@ -1,4 +1,5 @@
 var mongoose = require('mongoose');
+var moment = require('moment'); 
 
 var Schema = mongoose.Schema;
 
@@ -8,7 +9,7 @@ var StudentSchema = Schema (
         password: {type: String, required: true, min: 6},
         name: {type: String, required: true},
         phoneNum: {type: Number},
-        dob: {type: Date},
+        dob: {type: String},
         email: {type: String, required: true},
         gender: {type: String, enum: ['Male', 'Female']},
         aboutme: {type: String, max: 500},
@@ -64,7 +65,7 @@ StudentSchema
 StudentSchema
 .virtual('date_of_birth_formatted')
 .get(function () {
-  return moment(this.dob).format('MMMM Do, YYYY');
+  return moment(this.dob).format('YYYY-MM-DD');
 });
 // can add in a email + password verifyer later
 // (email must be valid, password a certain complexity)

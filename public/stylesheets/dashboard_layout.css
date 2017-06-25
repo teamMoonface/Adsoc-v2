@@ -1,0 +1,217 @@
+body{
+	background-color: #f2f2f2;
+}
+.student-sidebar{
+	background-color: white;
+	border-radius: 5px;
+}
+
+.user-info{
+	padding-top: 10px;
+	background-color:#000051;
+	border-radius: 7px;
+	font-family: 'Quicksand', sans-serif;
+	color:white;
+	height: 250px;
+	text-align: center;
+}
+
+.user-name{
+	font-size: 25px;
+}
+
+.email{
+	font-size: 12px;
+}
+
+.verify{
+	margin-top: 7px;
+	background-color: #4d9188; 
+	padding: 2px 3px 2px 3px;
+	border-radius: 3px;
+	width: 65px;
+	color:white;
+	font-size: 13px;
+	font-weight: 100;
+}
+
+#profile-pic{
+	height:100px;
+	width:100px;
+	border-radius: 50%;
+}
+
+.nav > li > a {
+    color: black;
+	font-family: 'Quicksand', sans-serif;
+	font-weight: 400;
+	font-size: 15px;
+}
+
+.nav > li > a:hover,
+.nav > li > a:focus
+.nav > li > a:active{
+    color: black;
+    background-color: white;
+	font-family: 'Quicksand', sans-serif;
+	font-weight: 400;
+	font-size: 15px;
+}
+
+.side{
+	height:50px;
+}
+
+#star{
+	height:20px;
+	width:20px;
+}
+
+.miniContainers{
+	height:100%;
+    margin:0;
+    padding:0;
+    text-align:left;
+}
+
+p{
+	display:inline-block;
+	margin-left: 20px;
+}
+
+.favs, .prof, .app{
+	margin-top: 5px;
+}
+
+.glyphicon{
+	margin-top: 5px;
+}
+
+/*Moving on to profile side*/
+.profile-details{
+	background-color: white;
+	padding-left: 20px;
+	text-align: center;
+}
+
+.edit-profile{
+	font-size:25px;
+	font-weight: 700;
+}
+.basic-header{
+	text-align: left;
+	color: #8e8e8e;
+	font-size:25px;
+	font-family: 'Open sans', sans-serif;
+	margin-top: 7px;
+	font-weight: 400; 
+}
+
+#profile-pic1{
+	height:150px;
+	width:150px;
+	border-radius: 50%;
+	padding: 10px;
+}
+
+#fullname, #mobileno{
+	width:100%;
+}
+
+.gender{
+	text-align: left;
+}
+
+.upload-file-btn{
+	height: 40px;
+	margin-top: 10px;
+	background-color: #4d9188; 
+	border-color:#4d9188; 
+	color:white;
+}
+
+.upload-file-btn:hover,
+.upload-file-btn:active{
+	color:white;
+	background-color: #62bcb0;
+	border-color:#62bcb0; 
+}
+
+.update_button{
+	height:40px;
+	width: 300px;
+	font-size: 15px;
+	font-family: 'Open sans', sans-serif;	
+	font-weight: 550;
+	background-color: white; 
+	border-color:#000066;
+	color:#000066;
+	border-width: 1.5px;
+	margin-left: 110px;
+}
+
+.update_button:hover,
+.update_button:active{
+	color:white;
+	background-color: #000066;
+	border-color:white; 
+
+}
+
+.bzz{
+	font-size:12px;
+	text-align: left;
+}
+
+.brr{
+	margin-left: 0px;
+	font-family: 'Open sans', sans-serif;	
+}
+
+/*Moving to skills end*/
+.skill-panel{
+	width: 100%;
+	background-color: white;
+	border-color:white;
+	border-radius: 5px;
+}
+
+.skill-details{
+	text-align: center;
+}
+
+.basic-header-1{
+	font-weight: 400;
+	text-align: left;
+	margin-top: 15px;
+	margin-left: 18px;
+	color: #8e8e8e;
+	font-size:25px;
+	font-family: 'Open sans', sans-serif;
+}
+
+.skill1{
+	padding: 3px 15px 3px 15px;
+
+	background-color: white;
+	color: #ff26e5;
+	border:2px solid black;
+	height:30px;
+}
+.skill2{
+	padding: 3px 15px 3px 15px;
+	background-color: white;
+	margin: 2000px;
+	color: #ff26e5;
+	border:2px solid black;
+	height:30px;
+}
+
+.skill3{
+	padding: 3px 15px 3px 15px;
+	background-color: white;
+	color: #ff26e5;
+	border:2px solid black;
+	height: 30px;
+	width: auto;
+}

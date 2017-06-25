@@ -1,14 +1,29 @@
-<div class="profile-panel">
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Student Profile</title>
+  <link rel="stylesheet" type="text/css" href="student_profile.css">.
+  <!-- Latest compiled and minified CSS -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+  <!-- Optional theme -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+
+  <!-- Latest compiled and minified JavaScript -->
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+</head>
+<body>
+  <div class="profile-panel">
   <h2><strong>Profile</strong></h2><br/>
   <div class="profile-details">
-    <h3>Basic Info</h3><img id="profile-pic" src="/images/student-default-profile-pic.png" alt="profile pic" class="image-rounded"/><br/>
+    <h3>Basic Info</h3><br/>
     <!-- upload profile pic-->
     <button type="button" class="btn btn-primary upload-file-btn">Upload Photo</button><br/>
     <form class="form-horizontal">
       <div class="form-group row">
         <label for="fullname" class="col-xs-3 control-label">Full Name</label>
         <div class="col-xs-8">
-          <p>#{student.name}</p>
+          <p>student name</p>
         </div>
       </div>
       <div class="form-group row">
@@ -137,3 +152,5 @@
     </div>
   </div>
 </div>
+</body>
+</html>
