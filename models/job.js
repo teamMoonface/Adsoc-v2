@@ -34,7 +34,10 @@ JobSchema
   return '/bank/employerDB/postedJobs/' + this._id;
 });
 
-// add date formatting
-// add periodStart < periodEnd verifyer
+JobSchema
+.virtual('viewApplicantsURL')
+.get(function() {
+    return '/bank/job/' + this._id + '/viewApplicants'
+});
 
 module.exports = mongoose.model('Job', JobSchema);

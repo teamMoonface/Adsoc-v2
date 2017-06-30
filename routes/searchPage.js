@@ -1,8 +1,8 @@
 var express = require('express');
 var router = express.Router();
 
-router.get('/', function(req, res, next) {
-  res.render('searchPage');
-});
+var employerDB_controller = require('../controllers/employerdbController');
+
+router.get('/', employerDB_controller.job_list);
 
 module.exports = router;

@@ -16,22 +16,18 @@ block content
       h2
        strong Posted Jobs
       br
-      ul
       each job in job_list
-        li
-          .job-post
-              h3 #{job.name}
-              .row
-                .col-xs-9
-                  p
-                    small Period: #{job.date_start_formatted} - #{job.date_end_formatted}
-                .col-xs-3.salary
-                  p $#{job.remun}/hr
-              hr
-              p #{job.desc}
-              br
-              button.btn.btn-info
-                | View Applicants 
-                span.badge 5
-              button.btn.btn-danger.pull-right Remove Post
+        .job-post
+            h3 #{job.name}
+            .row
+            .col-xs-9
+                p
+                small Period: #{job.date_start_formatted} - #{job.date_end_formatted}
+            .col-xs-3.salary
+                p $#{job.remun}/hr
+            hr
+            p #{job.desc}
             br
+            button.btn.btn-primary
+                | Apply 
+        br
