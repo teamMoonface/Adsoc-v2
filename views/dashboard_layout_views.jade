@@ -1,0 +1,22 @@
+doctype html
+html(lang='en')
+
+header
+    block title
+    include header
+    link(rel='stylesheet', href='/stylesheets/profile_view.css')
+    link(rel='stylesheet', href='/stylesheets/navBar_student.css')
+    <link href="https://fonts.googleapis.com/css?family=Bubbler+One|Fira+Sans+Extra+Condensed|Quicksand|Roboto" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Abel|Droid+Sans|Oxygen|Questrial|Quicksand|Work+Sans" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Oswald" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet">	
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans+Condensed:300" rel="stylesheet">
+
+body
+    .container    
+        block navbar        
+        .row
+            .col-xs-8
+                block content
+            .col-xs-4
+                block sidebar

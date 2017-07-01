@@ -57,8 +57,7 @@ block content
             label.col-xs-3.control-label(for='jobtitle')
               | Job Title
             .col-xs-8
-              input#jobtitle.form-control(type='text', name='name', value=(undefined==job ? '' : job.name))
-              
+              input#jobtitle.form-control(type='text', name='name', value=(undefined==job ? '' : job.name))   
           .form-group.row
             label.col-xs-3.control-label(for='jobdesc')
               | Job Description
@@ -68,7 +67,6 @@ block content
                     | #{job.desc}
               small
                 i Max Length: 1000 words
-                
           .form-group.row
             label.col-xs-3.control-label
               | Job Duration
@@ -78,8 +76,7 @@ block content
               .col-xs-2
                 p#date-to to
               .col-xs-5
-                input.form-control(type='date', name='endDate', value=(undefined==job ? '' : job.endDate))
-                
+                input.form-control(type='date', name='endDate', value=(undefined==job ? '' : job.endDate))                
           .form-group.row
             label.col-xs-3.control-label
               | Remuneration
@@ -87,42 +84,21 @@ block content
               input.form-control(type='number', name='remun', value=(undefined==job ? '' : job.remun))
               small SGD$
             .col-xs-2
-              p#perhour per hour
-              
-          // need a better form for this
+              p#perhour per hour     
           .form-group.row
-            label.col-xs-3.control-label
-              | Skills Required
-            .col-xs-8.row.skills-list
-              .col-xs-4.skill
-                .checkbox
-                  input#java(type='checkbox')
-                  label(for='java')
-                    | Java
-              .col-xs-4.skill
-                .checkbox
-                  input#javascript(type='checkbox')
-                  label(for='javascript')
-                    | Javascript
-              .col-xs-4.skill
-                .checkbox
-                  input#python(type='checkbox')
-                  label(for='python')
-                    | Python
-              .col-xs-4.skill
-                .checkbox
-                  input#html(type='checkbox')
-                  label(for='html')
-                    | HTML
-              .col-xs-4.skill
-                .checkbox
-                  input#css(type='checkbox')
-                  label(for='css')
-                    | CSS
-              .col-xs-4.skill
-                .checkbox
-                  input#sql(type='checkbox')
-                  label(for='sql')
-                    | SQL
+            fieldset
+              label.col-xs-3.control-label Skills Required
+              .col-xs-8.row.skills-list
+                label.radio-inline(for='frontend')
+                  input#frontend(type='radio',name='job_type',value='Frontend',checked=((undefined==job) ? false : (job.skill_type=='Frontend' ? true : false))) 
+                  |  Frontend
+                label.radio-inline(for='backend')
+                  input#backend(type='radio',name='job_type',value='Backend',checked=((undefined==job) ? false : (job.skill_type=='Backend' ? true : false)))
+                  |  Backend
+                label.radio-inline(for='fullstack')
+                  input#fullstack(type='radio',name='job_type',value='Fullstack',checked=((undefined==job) ? false : (job.skill_type=='Fullstack' ? true : false)))
+                  |  Fullstack         
           br
-          button.btn.btn-primary.btn-block(type='submit') Post Job
+          input.btn.btn-primary#submitBtn(type='submit', value='Post Job')
+          br
+          

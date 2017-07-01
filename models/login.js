@@ -12,7 +12,7 @@ var LoginSchema = Schema(
     }
 );
 
-LoginSchema.pre('save', function(next) {
+/*LoginSchema.pre('save', function(next) {
     var login = this;
 
     // only hash the password if it has been modified (or is new)
@@ -38,6 +38,6 @@ LoginSchema.methods.comparePassword = function(candidatePassword, cb) {
         if (err) return cb(err);
         cb(null, isMatch);
     });
-};
+};*/
 
 module.exports = mongoose.model('Login', LoginSchema);

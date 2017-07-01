@@ -12,6 +12,16 @@ exports.profile_get = function(req, res, next) {
         })
 };
 
+//Open Student profile - open for everyone to view
+exports.open_profile_get = function(req, res, next) {
+    Student.findById(req.params.id)
+        .exec(function(err, studentInstance) {
+            if (err) { return next(err); }
+            // successful, so render
+             res.render('profile_view', {title: 'Profile', student: studentInstance});
+        })
+};
+
 exports.favourites_get = function(req, res, next) {
     
     Student.findById(req.params.id)
