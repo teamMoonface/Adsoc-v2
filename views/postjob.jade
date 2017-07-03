@@ -90,14 +90,14 @@ block content
               label.col-xs-3.control-label Skills Required
               .col-xs-8.row.skills-list
                 label.radio-inline(for='frontend')
-                  input#frontend(type='radio',name='job_type',value='Frontend',checked=((undefined==job) ? false : (job.skill_type=='Frontend' ? true : false))) 
+                  input#frontend(type='radio',name='skill_type',value='Frontend',checked=((undefined==job) ? false : (job.skill_type=='Frontend' ? true : false))) 
                   |  Frontend
                 label.radio-inline(for='backend')
-                  input#backend(type='radio',name='job_type',value='Backend',checked=((undefined==job) ? false : (job.skill_type=='Backend' ? true : false)))
+                  input#backend(type='radio',name='skill_type',value='Backend',checked=((undefined==job) ? false : (job.skill_type=='Backend' ? true : false)))
                   |  Backend
                 label.radio-inline(for='fullstack')
-                  input#fullstack(type='radio',name='job_type',value='Fullstack',checked=((undefined==job) ? false : (job.skill_type=='Fullstack' ? true : false)))
-                  |  Fullstack         
+                  input#fullstack(type='radio',name='skill_type',value='Fullstack',checked=((undefined==job) ? false : (job.skill_type=='Fullstack' ? true : false)))
+                  |  Fullstack  
           br
           input.btn.btn-primary#submitBtn(type='submit', value='Post Job')
           br

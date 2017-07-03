@@ -13,7 +13,8 @@ var JobSchema = Schema(
         skill_type: {type: String, required: true, enum :['Frontend', 'Backend', 'Fullstack']},
         remun: {type: Number}, // remuneration
         employer: {type: Schema.ObjectId, ref: 'Employer'},
-        applicants: [{type: Schema.ObjectId, ref: 'Student'}]
+        applicants: [{type: Schema.ObjectId, ref: 'Student'}],
+        test: {type: String}
     }
 );
 
