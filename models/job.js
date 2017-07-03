@@ -14,7 +14,6 @@ var JobSchema = Schema(
         remun: {type: Number}, // remuneration
         employer: {type: Schema.ObjectId, ref: 'Employer'},
         applicants: [{type: Schema.ObjectId, ref: 'Student'}],
-        test: {type: String}
     }
 );
 
