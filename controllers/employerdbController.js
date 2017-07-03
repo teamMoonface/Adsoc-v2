@@ -116,10 +116,6 @@ exports.postedjobsList = function(req, res, next) {
     });
 };
 
-//Display Specific posted job
-exports.job_detail = function(req, res, next) {
-
-<<<<<<< HEAD
 // View applicants for a job posting
 exports.view_job_applicants = function(req, res,next) {
     async.parallel({
@@ -135,7 +131,10 @@ exports.view_job_applicants = function(req, res,next) {
         if (err) { return next(err); }
         res.render('job_viewApplicants', {title: 'View Applicants for ', students: results.students, job: results.job});
     });
-=======
+};
+
+// Display Specific posted job
+exports.job_detail = function(req, res, next) {   
   async.parallel({
     job: function(callback) {     
       Job.findById(req.params.id)
@@ -150,6 +149,4 @@ exports.view_job_applicants = function(req, res,next) {
     //Successful, so render
     res.render('job_view', { title: 'Job details', job: results.job, employer: results.employer });
   });
-    
->>>>>>> master
 };

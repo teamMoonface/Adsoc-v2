@@ -42,18 +42,15 @@ JobSchema
 });
 
 JobSchema
-<<<<<<< HEAD
 .virtual('viewApplicantsURL')
 .get(function() {
     return '/bank/job/' + this._id + '/viewApplicants'
 });
-=======
+
+JobSchema
 .virtual('posted_url')
 .get(function(){
   return '/bank/employerDB/' +this.employer
 })
-// add date formatting
-// add periodStart < periodEnd verifyer
->>>>>>> master
 
 module.exports = mongoose.model('Job', JobSchema);
