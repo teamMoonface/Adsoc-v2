@@ -1,0 +1,119 @@
+body{
+	background-color:#f2f2f2;
+}
+
+.information{
+	font-size: 15px;
+	color:black;
+	font-family: 'Open sans', sans-serif;
+	text-align: right;
+
+}
+
+.profile_information{
+	color: darkgrey;
+	font-size: 25px;
+}
+
+.student_profile_info{
+	border: 1px solid black;
+	border-radius: 7px;
+	padding-left: 30px;
+	background-color: white;
+}
+
+.student_info{
+	text-align: left;
+	padding-left: 20px;
+}
+
+.profile-image{
+	text-align: center;
+}
+
+#profile_pic{
+	height:120px;
+	width:120px;
+	border-radius:50%;
+	border:2px darkgrey solid;
+}
+
+/*styling for job_view*/
+
+/*Side bar*/
+
+.student_profile_sidebar{
+	text-align: center;
+	height: 300px;
+	background-color:#e8e8e8;
+	border-radius: 7px;
+	font-size: 15px;
+	font-family: 'Arial', sans-serif;
+	padding-top: 40px;
+}
+
+.header, .save_job{
+	font-weight: 300;
+	text-align: left;
+	padding-left: 20px;
+	font-size: 17px;
+	padding-bottom: 7px
+}
+
+.apply_button {
+	width: 90%;
+	border-radius: 5px;
+	font-size: 15px;
+	background-color: #247a66;
+	color: white;
+	height: 40px;
+
+}
+
+.apply_button:hover,
+.apply_button:active{
+	background-color:#2a9179;
+	text-decoration: none;
+	color:white;
+}
+
+.save_button{
+	width: 90%;
+	border-radius: 5px;
+	font-size: 15px;
+	background-color: #e8e8e8;
+	color: #247a66;
+	border-color: #247a66;
+	height: 40px;
+}
+
+.save_button:hover,
+.save_button:active{
+	background-color:#f2f2f2;
+	border-color: #2c997f;
+	text-decoration: none;
+	color: #247a66;
+}
+
+/*Content*/
+.job-box{
+	font-size: 15px;
+	font-weight: 300;
+	font-family: 'Open sans', sans-serif;
+}
+
+.job-title{
+	font-size: 30px;
+	font-weight: 700;
+}
+.summary{
+	background-color:#e8e8e8;
+	height:160px;
+	font-family: 'Abel', sans-serif; 
+	font-weight: 300;
+	font-size: 20px;
+	padding-top: 20px;
+	padding-left: 20px;
+	border-radius: 7px;
+}
+

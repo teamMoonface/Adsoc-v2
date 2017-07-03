@@ -1,8 +1,9 @@
 var express = require('express');
 var router = express.Router();
 
-var employerDB_controller = require('../controllers/employerdbController');
+var searchPagedb_controller =  require('../controllers/searchPagedbController');
 
-router.get('/', employerDB_controller.job_list);
+/* GET request for list of all Students. */
+router.get('/', searchPagedb_controller.job_list);
 
 module.exports = router;

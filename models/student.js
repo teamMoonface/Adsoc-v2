@@ -11,7 +11,7 @@ var StudentSchema = Schema (
         phoneNum: {type: Number},
         dob: {type: String},
         email: {type: String, required: true},
-        gender: {type: String, enum: ['Male', 'Female']},
+        gender: {type: String, required: true, enum: ['Male', 'Female']},
         aboutme: {type: String, max: 500},
         experienceList: [{type: Schema.ObjectId, ref: 'Experience'}],
         skillsList: [{type: Schema.ObjectId, ref: 'Skill'}],

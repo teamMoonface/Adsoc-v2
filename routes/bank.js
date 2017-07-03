@@ -44,6 +44,9 @@ router.get('/studentDB/appliedjobs/:id', studentDB_controller.applied_jobs_get);
 
 router.get('/studentDB/favourites/:id', studentDB_controller.favourites_get);
 
+/* GET request for student profile-non private*/
+router.get('/student_profile/:id', studentDB_controller.open_profile_get);
+
 
 				
 //EmployerDB segment
@@ -58,10 +61,16 @@ router.get('/employerDB/postjob/:id', employerDB_controller.postjob_get);
 /* POST request posting new job */
 router.post('/employerDB/postjob/:id', employerDB_controller.postjob_post);
 
+<<<<<<< HEAD
 // Job post segment
 
 /* GET request to view job applicants */
 router.get('/job/:id/viewApplicants', employerDB_controller.view_job_applicants
 );
+=======
+/* GET Job details of specific job*/
+router.get('/listed-job/:id', employerDB_controller.job_detail)
+
+>>>>>>> master
 
 module.exports = router;

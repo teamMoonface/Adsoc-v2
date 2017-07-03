@@ -65,6 +65,8 @@ exports.postjob_post = function(req, res, next) {
     req.sanitize('desc').trim();
     req.sanitize('remun').escape();
     req.sanitize('remun').trim();
+    req.sanitize('remun1').escape();
+    req.sanitize('remun1').trim();
 
     var errors = req.validationErrors();
     
@@ -74,8 +76,10 @@ exports.postjob_post = function(req, res, next) {
         startDate: req.body.startDate,
         endDate: req.body.endDate,
         remun: req.body.remun,
-        employer: req.params.id
+        skill_type: req.body.skill_type,
+        employer: req.params.id,
     });
+
     
     if (errors) {
         res.render('postjob', {title: 'Post a Job', job: job, errors: errors});
@@ -84,7 +88,7 @@ exports.postjob_post = function(req, res, next) {
     else {
         job.save(function(err) {
             if (err) { return next(err); }           
-            res.render('postedjobs', {title: 'Posted Jobs'})
+            res.redirect(job.url)
         });
         
         // add to employer's posted jobs
@@ -112,17 +116,10 @@ exports.postedjobsList = function(req, res, next) {
     });
 };
 
-//List of all jobs
-exports.job_list = function(req, res, next) {
-  Job.find()
-    .sort([['name', 'ascending']])
-    .exec(function (err, joblist) {
-      if (err) { return next(err); }
-      //Successful, so render
-      res.render('searchPage', { title: 'Brwose Jobs', job_list: joblist });
-    });
-};
+//Display Specific posted job
+exports.job_detail = function(req, res, next) {
 
+<<<<<<< HEAD
 // View applicants for a job posting
 exports.view_job_applicants = function(req, res,next) {
     async.parallel({
@@ -138,4 +135,21 @@ exports.view_job_applicants = function(req, res,next) {
         if (err) { return next(err); }
         res.render('job_viewApplicants', {title: 'View Applicants for ', students: results.students, job: results.job});
     });
+=======
+  async.parallel({
+    job: function(callback) {     
+      Job.findById(req.params.id)
+        .exec(callback);
+    },
+    employer: function(callback) {
+      Employer.findOne({ 'postedJobs': req.params.id})
+        .exec(callback);
+    },
+  }, function(err, results) {
+    if (err) { return next(err); }
+    //Successful, so render
+    res.render('job_view', { title: 'Job details', job: results.job, employer: results.employer });
+  });
+    
+>>>>>>> master
 };

@@ -9,25 +9,39 @@ block Search_Bar
     input#myInput(type='text', onkeyup='myFunction()', placeholder='Search for Jobs...', title='Type in a name')
 
 block sidebar
-
+    
 
 block content
     .postedjobs-panel
       h2
-       strong Posted Jobs
+        strong Posted Jobs
       br
-      each job in job_list
-        .job-post
-            h3 #{job.name}
-            .row
-            .col-xs-9
-                p
-                small Period: #{job.date_start_formatted} - #{job.date_end_formatted}
-            .col-xs-3.salary
-                p $#{job.remun}/hr
-            hr
-            p #{job.desc}
-            br
-            button.btn.btn-primary
-                | Apply 
-        br
+
+      if job_list
+          each job in job_list
+             .job-post
+                .row
+                  .col-xs-9
+                    h2.job-name #{job.name} 
+                    p
+                      small.time-frame 
+                        strong Working period: 
+                        | #{job.date_start_formatted} - #{job.date_end_formatted}
+                    p
+                    | #{job.desc} Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. 
+                  .col-xs-3
+                    div.wrapper 
+                      strong $#{job.remun}/hr
+                hr
+                .row
+                  .col-xs-9
+                    div.skill-container
+                      div.skill-header Skills
+                      div.skill-requirements
+                  .col-xs-3
+                    div.salary
+                      a(href=job.url).btn.view-more-button View More
+                br
+              br
+        else
+            p No posted jobs!
