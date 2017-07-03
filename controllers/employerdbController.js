@@ -1,7 +1,7 @@
 var Employer = require('../models/employer');
 var Job = require('../models/job');
+var Student = require('../models/student');
 var async = require('async');
-
 
 exports.profile_get = function(req, res, next) {
     
@@ -109,16 +109,33 @@ exports.postedjobsList = function(req, res, next) {
         employFunc: function(callback){
             Employer.findById(req.params.id)
                 .exec(callback);
-        },
+        }
     },function(err, results) {
       if (err) { return next(err); }
-      res.render('postedjobs', {title: 'Posted Jobs', postedJobs: results.jobFunc, employer: results.employFunc});
+      res.render('postedjobs', {title: 'Posted Jobs', postedJobs: results.jobFunc, employer: results.employFunc, numApplicants: results.applicantsCount});
     });
 };
 
 //Display Specific posted job
 exports.job_detail = function(req, res, next) {
 
+<<<<<<< HEAD
+// View applicants for a job posting
+exports.view_job_applicants = function(req, res,next) {
+    async.parallel({
+        students: function(callback) {
+            Student.find({'appliedJobs': req.params.id})
+                    .exec(callback);
+        },
+        job: function(callback) {
+            Job.findById(req.params.id)
+                .exec(callback);
+        }
+    }, function(err, results) {
+        if (err) { return next(err); }
+        res.render('job_viewApplicants', {title: 'View Applicants for ', students: results.students, job: results.job});
+    });
+=======
   async.parallel({
     job: function(callback) {     
       Job.findById(req.params.id)
@@ -134,4 +151,5 @@ exports.job_detail = function(req, res, next) {
     res.render('job_view', { title: 'Job details', job: results.job, employer: results.employer });
   });
     
+>>>>>>> master
 };

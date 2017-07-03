@@ -1,0 +1,55 @@
+doctype html
+html(lang='en')
+
+header
+    title #{title} #{job.name}
+    include header
+    link(rel='stylesheet', href='/stylesheets/viewApplicants.css')
+
+body
+    .container    
+        include navbar_homePage
+        
+        h2 #{title} #{job.name}
+        br
+        if students
+            each student in students
+                .viewApplicants
+                    .row
+                        .col-xs-4
+                            img#profile-pic2(src='/images/man1.png', alt='profile pic')
+                        .col-xs-8
+                            h2
+                                strong #{student.name}
+                            #profile-details
+                                p
+                                    strong Gender: 
+                                    if(student.gender==undefined)
+                                        | -
+                                    else
+                                             #{student.gender}
+                                p
+                                    strong DOB: 
+                                    if(student.dob==undefined)
+                                        | -
+                                    else
+                                        | #{student.date_of_birth_formatted}
+                                p
+                                    strong Email: 
+                                    | #{student.email}
+                                p
+                                    strong Phone Number:
+                                    if(student.phoneNum==undefined)
+                                        | -
+                                    else
+                                        | #{student.phoneNum}
+                                p
+                                    strong About Me: 
+                                    if(student.aboutme==undefined)
+                                        | -
+                                    else
+                                        | #{student.aboutme}
+                                p
+                                    strong Skills:
+            else
+                p No applicants yet!

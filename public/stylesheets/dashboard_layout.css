@@ -215,3 +215,14 @@ p{
 	height: 30px;
 	width: auto;
 }
+
+.modal-dialog{
+    width: 60%;
+}
+
+#profile-pic2{
+	height:100px;
+	width:100px;
+	border-radius: 50%;
+    float: left;
+}
