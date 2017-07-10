@@ -17,6 +17,10 @@ var JobSchema = Schema(
     }
 );
 
+/******** INDEXING *******/
+JobSchema.index({name: 1, desc: 1, posted_date: 1, skill_type: 1, remun: 1}, {'name': 'text', desc: 'text'});
+
+/******* VIRTUALS *******/
 JobSchema
 .virtual('date_posted_formatted')
 .get(function () {

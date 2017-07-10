@@ -1,47 +1,102 @@
 extends Layout_3_Search_Page
 
 block title
-  title Search Page
-
-block Search_Bar
-  .Quick_SearchBar
-    h2 Quick Search
-    input#myInput(type='text', onkeyup='myFunction()', placeholder='Search for Jobs...', title='Type in a name')
-
-block sidebar
-    
+  title #{title}
+  
+block heading
+    h2 
+        strong #{title}
+br
 
 block content
-    .postedjobs-panel
-      h2
-        strong Posted Jobs
-      br
+    form#searchForm(method='POST' action='/searchPage/search')
+        .search
+            input#searchBar(type='text', placeholder='Search for Jobs...', name='searchPhrase', value=(undefined==searchPhrase ? '' : searchPhrase))
 
-      if job_list
-          each job in job_list
-             .job-post
-                .row
-                  .col-xs-9
-                    h2.job-name #{job.name} 
-                    p
-                      small.time-frame 
-                        strong Working period: 
-                        | #{job.date_start_formatted} - #{job.date_end_formatted}
-                    p
-                    | #{job.desc} Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. 
-                  .col-xs-3
-                    div.wrapper 
-                      strong $#{job.remun}/hr
+            button.btn#submitBtn(type='submit')
+                    span.glyphicon.glyphicon-search
+
+            .searchType
+                 fieldset.searchType
+                    label.control-label Search jobs by: &nbsp; 
+                    label.radio-inline
+                        input(type='radio', name='search_type', value='job', checked=(type == 'job' ? true : (type == undefined ? true : false)))
+                        | Job Name
+                    label.radio-inline
+                        input(type='radio', name='search_type', value='employer', checked=(type == 'employer' ? true : false))
+                        | Employer Name
+        .filters
+            fieldset
+                label#filterByTitle FILTER BY
                 hr
-                .row
-                  .col-xs-9
-                    div.skill-container
-                      div.skill-header Skills
-                      div.skill-requirements
-                  .col-xs-3
-                    div.salary
-                      a(href=job.url).btn.view-more-button View More
                 br
-              br
+                label#skillTypeTitle Skill Type: &nbsp;
+                .skillTypeSelect
+                    label.radio
+                        input(type='radio', name='skill_type', value='all', checked=(skill_type == 'all') ? true : (skill_type == undefined ? true : false))
+                        | All
+                    label.radio
+                        input(type='radio', name='skill_type', value='Frontend', checked=(skill_type == 'Frontend' ? true : false))
+                        | Front End
+                    label.radio
+                        input(type='radio', name='skill_type', value='Backend', checked=(skill_type == 'Backend' ? true : false))
+                        | Back End
+                    label.radio
+                        input(type='radio', name='skill_type', value='Fullstack', checked=(skill_type == 'Fullstack' ? true : false))
+                        | Full Stack
+            .form-group
+                label.control-label#minRemunLabel
+                    strong Minimum Remuneration (per hr): $ &nbsp;
+                    select.form-control#minRemunSelect(name='remun')
+                        - for (var i = 1; i <= 100; i++) {
+                            option(value=i, selected=(remun == i ? true : false)) #{i}
+                        - }
+                br
+
+            .sortPanel
+                .form-group
+                    label#sortByTitle SORT BY
+                    hr
+                    br
+                    select.form-control#sortOptions(name='sortBy')
+                        option(value='relevantRes', selected=(sortBy == 'relevantRes' ? true : false)) Relevant Results
+                        option(value='recentPosts', selected=(sortBy == 'recentPosts' ? true : false)) Recent Posts
+                        option(value='highestRemun', selected=(sortBy == 'highestRemun' ? true : false)) Highest Remuneration           
+    .jobposts
+        if job_list
+            each job in job_list
+                .postedjobs-panel
+                     .job-post
+                        .row
+                          .col-xs-9
+                            h2.job-name #{job.name} 
+                            p
+                              small.time-frame 
+                                strong Working period: 
+                                | #{job.date_start_formatted} - #{job.date_end_formatted}
+                            p
+                            | #{job.desc} Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. 
+                          .col-xs-3
+                            div.wrapper 
+                              strong $#{job.remun}/hr
+                        hr
+                        p#coyname
+                          strong Company/Project: 
+                          | #{job.employer.name}
+                        p#postedon
+                          strong Posted on: 
+                          | #{job.date_posted_formatted}
+
+                        hr
+                        .row
+                          .col-xs-9
+                            div.skill-container
+                              div.skill-header Skills
+                              div.skill-requirements
+                          .col-xs-3
+                            div.salary
+                              a(href=job.url).btn.view-more-button View More
+                        br
+                    br
         else
             p No posted jobs!

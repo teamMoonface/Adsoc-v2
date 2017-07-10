@@ -16,6 +16,11 @@ var EmployerSchema = Schema(
     }
 )
 
+/******** INDEXING *******/
+EmployerSchema.index({name: 1}, {'name': 'text'});
+
+/******** VIRTUALS *******/
+
 // Virtual for employer's full name
 EmployerSchema
 .virtual('_name')
