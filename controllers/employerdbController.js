@@ -28,6 +28,7 @@ exports.postjob_post = function(req, res, next) {
     req.checkBody('startDate', 'Starting date requried').notEmpty();
     req.checkBody('endDate', 'Ending date required').notEmpty();
     req.checkBody('remun', 'Remuneration required').notEmpty();
+    req.checkBody('skill_type', 'Skill type required').notEmpty();
     
     req.checkBody({
         'desc': {

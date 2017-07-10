@@ -179,3 +179,11 @@ input[type=text]{
   width: 120px;
   height: 40px;
 }
+
+.inline {
+    float: left;
+}
+
+.clearBoth {
+    clear: both;
+}
