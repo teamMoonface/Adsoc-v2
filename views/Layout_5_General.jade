@@ -1,0 +1,29 @@
+doctype html
+html(lang='en')
+
+header
+    block title
+    include header
+
+    link(rel='stylesheet', href='/stylesheets/student_login.css')
+    link(rel='stylesheet', href='/stylesheets/signup.css')
+    link(rel='stylesheet', href='/stylesheets/navBar.css')
+    link(href="https://fonts.googleapis.com/css?family=Bubbler+One|Fira+Sans+Extra+Condensed|Quicksand|Roboto" rel="stylesheet")
+    link(href="https://fonts.googleapis.com/css?family=Oswald" rel="stylesheet")
+    link(href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet")
+    link(href="https://fonts.googleapis.com/css?family=Open+Sans+Condensed:300" rel="stylesheet")
+
+    script(src='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js',integrity='sha384-c5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa', crossorigin='anonymous')
+
+body
+    if success_msg
+        #{success_msg.success_msg}
+    if error_msg
+        #{error_msg.error_msg}
+    if error
+        #{error.error}
+    .container
+        include navbar
+        .row
+            .signup-box
+                block content

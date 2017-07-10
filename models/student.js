@@ -1,17 +1,20 @@
 var mongoose = require('mongoose');
 var moment = require('moment'); 
+var bcrypt = require('bcrypt');
 
 var Schema = mongoose.Schema;
 
 var StudentSchema = Schema (
     {
+        //During signup
         username: {type: String, required: true, min: 5, max: 15},
         password: {type: String, required: true, min: 6},
         name: {type: String, required: true},
+        email: {type: String, required: true},
         phoneNum: {type: Number},
         dob: {type: String},
-        email: {type: String, required: true},
-        gender: {type: String, required: true, enum: ['Male', 'Female']},
+        gender: {type: String, required: true, enum: ['Male', 'Female']}, 
+        //Not filled in during signup   
         aboutme: {type: String, max: 500},
         experienceList: [{type: Schema.ObjectId, ref: 'Experience'}],
         skillsList: [{type: Schema.ObjectId, ref: 'Skill'}],
@@ -59,19 +62,19 @@ StudentSchema
 StudentSchema
 .virtual('url')
 .get(function () {
-  return '/bank/studentDB/profile/' + this._id;
+  return '/student/profile';
 });
 
 StudentSchema
 .virtual('applied_url')
 .get(function () {
-  return '/bank/studentDB/appliedjobs/' + this._id;
+  return '/student/appliedjobs';
 });
 
 StudentSchema
 .virtual('favourites_url')
 .get(function () {
-  return '/bank/studentDB/favourites/' + this._id;
+  return '/student/favourites';
 });
 
 StudentSchema
@@ -82,4 +85,30 @@ StudentSchema
 // can add in a email + password verifyer later
 // (email must be valid, password a certain complexity)
 
-module.exports = mongoose.model('Student', StudentSchema);
+var Student = module.exports = mongoose.model('Student', StudentSchema);
+
+module.exports.createStudent =  function(newStudent, callback){
+  var bcrypt = require('bcryptjs');
+  bcrypt.genSalt(10, function(err, salt) {
+    bcrypt.hash(newStudent.password, salt, function(err, hash) {
+        newStudent.password = hash;
+        newStudent.save(callback);
+    });
+  });
+}
+
+module.exports.getUserByUsername = function(username, callback){
+  var query = {'username': username};
+  Student.findOne(query, callback);
+}
+
+module.exports.getUserById = function(id, callback){
+  Student.findById(id,callback)
+}
+
+module.exports.comparePassword = function(candidatePassword, hash, callback){
+  bcrypt.compare(candidatePassword, hash, function(err, isMatch) {
+      if(err) throw err;
+      callback(null, isMatch);
+  });
+}

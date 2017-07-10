@@ -38,19 +38,19 @@ JobSchema
 JobSchema
 .virtual('url')
 .get(function () {
-  return '/bank/listed-job/' + this._id;
+  return '/employer/listed-job/' + this._id;
 });
 
 JobSchema
 .virtual('viewApplicantsURL')
 .get(function() {
-    return '/bank/job/' + this._id + '/viewApplicants'
+    return '/employer/job/' + this._id + '/viewApplicants'
 });
 
 JobSchema
 .virtual('posted_url')
 .get(function(){
-  return '/bank/employerDB/' +this.employer
+  return '/employer/' +this.employer
 })
 
 module.exports = mongoose.model('Job', JobSchema);

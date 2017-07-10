@@ -1,0 +1,29 @@
+extends Layout_5_General
+
+block content
+  .wrapper
+    br
+    if(message.length > 0)
+      div.alert.alert-danger #{message}
+    if(error)
+      div.alert.alert-danger #{error}         
+    br
+    h2.title
+      center Sign in here
+    form.login(method='POST' action='')
+      .form-group
+        label(for='username') Username:
+        input#username.form-control(type='usr' name="username")
+      .form-group
+        label(for='pwd') Password:
+        input#pwd.form-control(type='password' name="password")
+      .checkbox
+        label
+          input(type='checkbox')
+          |  Remember me
+      .forgot_information
+        a(href='') forgot your password
+        br
+        a(href='') forgot your username?
+      br
+      input.btn.btn-primary#submitBtn(type='submit', value='Log in')

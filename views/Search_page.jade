@@ -1,0 +1,47 @@
+extends Layout_3_Search_Page
+
+block title
+  title Search Page
+
+block Search_Bar
+  .Quick_SearchBar
+    h2 Quick Search
+    input#myInput(type='text', onkeyup='myFunction()', placeholder='Search for Jobs...', title='Type in a name')
+
+block sidebar
+    
+
+block content
+    .postedjobs-panel
+      h2
+        strong Posted Jobs
+      br
+
+      if job_list
+          each job in job_list
+             .job-post
+                .row
+                  .col-xs-9
+                    h2.job-name #{job.name} 
+                    p
+                      small.time-frame 
+                        strong Working period: 
+                        | #{job.date_start_formatted} - #{job.date_end_formatted}
+                    p
+                    | #{job.desc} Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. 
+                  .col-xs-3
+                    div.wrapper 
+                      strong $#{job.remun}/hr
+                hr
+                .row
+                  .col-xs-9
+                    div.skill-container
+                      div.skill-header Skills
+                      div.skill-requirements
+                  .col-xs-3
+                    div.salary
+                      a(href=job.url).btn.view-more-button View More
+                br
+              br
+        else
+            p No posted jobs!

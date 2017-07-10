@@ -1,30 +1,43 @@
-nav.navbar.navbar-inverse
+nav.navbar.navbar-default
   .container-fluid
     .navbar-header
       button.navbar-toggle(type='button', data-toggle='collapse', data-target='#mainNavBar')
         span.icon-bar
         span.icon-bar
         span.icon-bar
-      a.navbar-brand(href='/home') ADSOC
+      a.navbar-brand(href='/') ADSOC      
     #mainNavBar.collapse.navbar-collapse
       ul.nav.navbar-nav
         li
-          a(href='/home') Home
+          a(href='/') Home
         li
           a(href='/searchPage') Find Jobs
       ul.nav.navbar-nav.navbar-right
-        .dropdown
-          button.btn.btn-default.dropdown-toggle.navbar-btn(type=' button', data-toggle='dropdown')
-            span.glyphicon.glyphicon-user
-            |  John Doe 
-            span.caret
-          ul.dropdown-menu
-            li
-              a(href='studentDB/appliedjobs') Applied Jobs
-            li
-              a(href='studentDB/favourites') Favourites
-            li
-              a(href='studentDB/profile') Profile
-            li.divider
-            li
-              a(href='#') Log Out
+        if user
+          .dropdown
+            button.btn.btn-default.dropdown-toggle.navbar-btn(type=' button', data-toggle='dropdown')
+              div
+                span.glyphicon.glyphicon-user.logo
+                span.carretName #{student.name} 
+                span.caret  
+            ul.dropdown-menu
+              li
+                a(href=student.applied_url) Applied Jobs
+              li
+                a(href=student.favourites_url) Favourites
+              li
+                a(href=student.url) Profile
+              li.divider
+              li
+                a(href='/student/logout') Log Out
+        else if employer
+            div lololol      
+        else
+          li
+            a.signup(href='/student/signup/') Sign up as a Student
+          li
+            a.signup(href='/employer/signup') Sign up as an Employer
+          li
+            a.student(href='/student/login') Log in as Student
+          li
+            a.employer(href='/employer/login') Log in as Employer            

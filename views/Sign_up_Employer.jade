@@ -1,0 +1,50 @@
+extends Layout_5_General
+
+block title
+    title #{title}
+
+block content
+    h2#title #{title}
+    br
+    // display error messages
+    if errors
+        .alert.alert-danger.box
+            span.glyphicon.glyphicon-warning-sign
+            p 
+                strong Error(s):
+            ol
+                for error in errors
+                    li!=error.msg + '&nbsp'
+                    br
+        
+    // add in upload profile pic + scrolltips later
+
+    form.form-horizontal(method='POST' action='')
+        .form-group
+            label.control-label.col-xs-3(for='name') Company/Project Name*
+            .col-xs-8
+                input#fullname.form-control(type='text', name='name' placeholder='Enter company/project name (required)', value=(undefined==employer ? '' : employer.name))
+        .form-group
+            label.control-label.col-xs-3(for='email') Email*
+            .col-xs-8
+                input#email.form-control(type='text', name='email', placeholder='Enter email (required)', value=(undefined==employer ? '' : employer.email))
+            
+        .form-group
+            label.control-label.col-xs-3(for='phonenum') Contact Number
+            .col-xs-8
+                input#dob.form-control(type='text', name='phonenum', placeholder='Enter contact number (optional)', value=(undefined==employer ? '' : employer.phonenum))
+        
+        .form-group
+            label.control-label.col-xs-3(for='un') Username*
+            .col-xs-8
+                input#un.form-control(type='text', name='username', placeholder='Enter preferred username (required)', value=(undefined==employer ? '' : employer.username))
+        
+        .form-group
+            label.control-label.col-xs-3(for='pw') Password*
+            .col-xs-8
+                input#pw.form-control(type='password', name='password', placeholder='Enter password (required)')
+        
+        br
+        center
+            input.btn.btn-primary#submitBtn(type='submit', value='Sign Up')
+        br

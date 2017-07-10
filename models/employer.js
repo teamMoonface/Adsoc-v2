@@ -1,4 +1,6 @@
 var mongoose = require('mongoose');
+var moment = require('moment');
+var bcrypt = require('bcrypt');
 
 var Schema = mongoose.Schema;
 
@@ -54,20 +56,46 @@ EmployerSchema
 EmployerSchema
 .virtual('url')
 .get(function () {
-  return '/bank/employerDB/profile/' + this._id;
+  return '/employer/profile';
 });
 
 EmployerSchema
 .virtual('postedJobs_url')
 .get(function () {
-  return '/bank/employerDB/postedJobs/' + this._id;
+  return '/employer/postedJobs';
 });
 
 EmployerSchema
 .virtual('postJob_url')
 .get(function () {
-  return '/bank/employerDB/postJob/' + this._id;
+  return '/employer/postJob';
 });
 
 //Export model
-module.exports = mongoose.model('Employer', EmployerSchema);
+var Employer = module.exports = mongoose.model('Employer', EmployerSchema);
+
+module.exports.createEmployer =  function(newEmployer, callback){
+  var bcrypt = require('bcryptjs');
+  bcrypt.genSalt(10, function(err, salt) {
+    bcrypt.hash(newEmployer.password, salt, function(err, hash) {
+        newEmployer.password = hash;
+        newEmployer.save(callback);
+    });
+  });
+}
+
+module.exports.getUserByUsername = function(username, callback){
+  var query = {'username': username};
+  Employer.findOne(query, callback);
+}
+
+module.exports.getUserById = function(id, callback){
+  Employer.findById(id,callback)
+}
+
+module.exports.comparePassword = function(candidatePassword, hash, callback){
+  bcrypt.compare(candidatePassword, hash, function(err, isMatch) {
+      if(err) throw err;
+      callback(null, isMatch);
+  });
+}
