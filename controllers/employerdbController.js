@@ -25,6 +25,7 @@ exports.postjob_get = function(req, res, next) {
         res.redirect('/employer/login');
     }
     var store = req.session.emp;
+    console.log(req.session.emp);
     Employer.findById(store._id)
         .exec(function(err, employerInstance) {
             if (err) { return next(err); }
@@ -81,7 +82,8 @@ exports.postjob_post = function(req, res, next) {
     req.sanitize('remun1').trim();
 
     var errors = req.validationErrors();
-    
+    var store = req.session.emp;
+
     var job = new Job({
         name: req.body.name,
         desc: req.body.desc,
@@ -89,7 +91,7 @@ exports.postjob_post = function(req, res, next) {
         endDate: req.body.endDate,
         remun: req.body.remun,
         skill_type: req.body.skill_type,
-        employer: req.params.id,
+        employer: store._id,
     });
 
     
@@ -104,7 +106,7 @@ exports.postjob_post = function(req, res, next) {
         });
         
         // add to employer's posted jobs
-        Employer.findByIdAndUpdate(req.params.id, {$push: {postedJobs: job}}, function(err) {
+        Employer.findByIdAndUpdate(store._id, {$push: {postedJobs: job}}, function(err) {
             console.log(err);
         });
     }
@@ -154,21 +156,41 @@ exports.view_job_applicants = function(req, res,next) {
 };
 
 // Display Specific posted job
-exports.job_detail = function(req, res, next) {   
-  async.parallel({
-    job: function(callback) {     
-      Job.findById(req.params.id)
-        .exec(callback);
-    },
-    employer: function(callback) {
-      Employer.findOne({ 'postedJobs': req.params.id})
-        .exec(callback);
-    },
-  }, function(err, results) {
-    if (err) { return next(err); }
-    //Successful, so render
-    res.render('./Job_view', { title: 'Job details', job: results.job, employer: results.employer });
-  });
+exports.job_detail = function(req, res, next) {  
+    if(req.session.emp){
+      async.parallel({
+        job: function(callback) {     
+          Job.findById(req.params.id)
+            .exec(callback);
+        },
+        employer: function(callback) {
+          Employer.findById({ '_id': req.session.emp._id})
+            .exec(callback);
+        },
+        employer_poster: function(callback) {
+          Employer.findOne({ 'postedJobs': req.params.id})
+            .exec(callback);
+        },
+      }, function(err, results) {
+        if (err) { return next(err); }
+        //Successful, so render
+        res.render('./Job_view', { title: 'Job details', job: results.job, employer_poster: results.employer_poster, employer: results.employer });
+      });
+    }
+    async.parallel({
+        job: function(callback) {     
+            Job.findById(req.params.id)
+                .exec(callback);
+        },
+        employer_poster: function(callback) {
+            Employer.findOne({ 'postedJobs': req.params.id})
+                .exec(callback);
+        },
+      }, function(err, results) {
+        if (err) { return next(err); }
+        //Successful, so render
+        res.render('./Job_view', { title: 'Job details', job: results.job, employer_poster: results.employer_poster });
+    });
 };
 
 //=========================================================DIVDER=========================================================

@@ -18,21 +18,38 @@ nav.navbar.navbar-default
             button.btn.btn-default.dropdown-toggle.navbar-btn(type=' button', data-toggle='dropdown')
               div
                 span.glyphicon.glyphicon-user.logo
-                span.carretName #{student.name} 
+                span.carretName #{user.name} 
                 span.caret  
             ul.dropdown-menu
               li
-                a(href=student.applied_url) Applied Jobs
+                a(href='/student/appliedJobs') Applied Jobs
               li
-                a(href=student.favourites_url) Favourites
+                a(href='/student/favourites') Favourites
               li
-                a(href=student.url) Profile
+                a(href='/student/profile') Profile
               li.divider
               li
                 a(href='/student/logout') Log Out
-        else if employer
-            div lololol      
-        else
+
+        if employer
+          .dropdown
+            button.btn.btn-default.dropdown-toggle.navbar-btn(type=' button', data-toggle='dropdown')
+              div
+                span.glyphicon.glyphicon-briefcase.logo
+                span.carretName #{employer.name} 
+                span.caret  
+            ul.dropdown-menu
+              li
+                a(href=employer.postedJobs_url) Posted Jobs
+              li
+                a(href=employer.postJob_url) Post Jobs
+              li
+                a(href=employer.url) Profile
+              li.divider
+              li
+                a(href='/employer/logout') Log Out     
+
+        if !employer && !user
           li
             a.signup(href='/student/signup/') Sign up as a Student
           li
@@ -40,4 +57,4 @@ nav.navbar.navbar-default
           li
             a.student(href='/student/login') Log in as Student
           li
-            a.employer(href='/employer/login') Log in as Employer            
+            a.employer(href='/employer/login') Log in as Employer      

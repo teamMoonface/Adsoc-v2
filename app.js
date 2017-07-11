@@ -13,6 +13,7 @@ var passport = require('passport');
 var LocalStrategy = require('passport-local').Strategy;
 var util = require('util');
 
+
 // import routes
 var searchPage = require('./routes/searchPage');
 var home = require('./routes/home');
@@ -76,15 +77,15 @@ app.use(expressValidator({
 
 
 //Global Var
-/*app.use(function(req, res, next){
-	res.locals.success_msg = req.flash('success_msg');
+app.use(function(req, res, next){
+	/*res.locals.success_msg = req.flash('success_msg');
 	res.locals.error_msg = req.flash('error_msg');
-	res.locals.error = req.flash('error');
-  res.locals.user = req.user || null;
+	res.locals.error = req.flash('error');*/
   res.locals.emp = req.emp || null;
-
+  res.locals.user = req.user || null;
 	next();
-})	*/
+})	
+
 
 app.use('/', home);
 app.use('/searchPage', searchPage);

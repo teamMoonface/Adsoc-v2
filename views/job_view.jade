@@ -4,23 +4,39 @@ block title
 	title 
 
 block navbar
-	include navbar_employer
+	include navbar
 
 block sidebar
-	div.student_profile_sidebar
-		div.header
-			| Interested in this job? Apply now!
-		div.apply_job
-			.btn.apply_button Apply for this job
-		br
-		div.save_job
-			p Not sure yet? Save it for later
-			.btn.save_button Save this job
-	
+	if user
+		div.student_profile_sidebar
+			div.header
+				| Interested in this job? Apply now!
+			div.apply_job
+				.btn.apply_button Apply for this job
+			br
+			div.save_job
+				p Not sure yet? Save it for later
+				.btn.save_button Save this job
+	else if (employer._id == employer_poster._id)
+		div.employer_profile_sidebar
+			div.header
+				| Edit Job Post
+			div.apply_job
+				.btn.apply_button Click to edit
+			br
+	else 
+		div.open_profile_sidebar
+			div.header
+				| Register/ Signup with us before applying!
+			div.register
+				a(href='/student/signup') Sign up here
+			div.login
+				a(href='/student/login') Log in now!
+
 block content
 	div.job-box
 		div.job-title #{job.name} 
-		div.job-Company #{employer.name}
+		div.job-Company #{employer_poster.name}
 		div.job-posted-date #{job.date_posted_formatted}
 	br
 	div.summary

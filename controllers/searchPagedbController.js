@@ -53,7 +53,7 @@ exports.search = function(req, res, next) {
                 .sort(sortBy == 'relevantRes' ? {score: {$meta:'textScore'}} : (sortBy == 'recentPosts' ? {'posted_date': -1} : {'remun': -1}))
                 .exec(function(err, results) {
                     if(err) { return next(err);}
-                    res.render('searchPage', {title: 'Search Results', job_list: results, searchPhrase: searchString, skill_type: skillTypeQuery, remun: minRemun, type: type, sortBy: sortBy});
+                    res.render('Search_page', {title: 'Search Results', job_list: results, searchPhrase: searchString, skill_type: skillTypeQuery, remun: minRemun, type: type, sortBy: sortBy});
                 
                     // for testing & debugging
                     console.log("search type: " + type);
@@ -75,7 +75,7 @@ exports.search = function(req, res, next) {
                 .sort(sortBy == 'relevantRes' ? {'posted_date': -1} : (sortBy == 'recentPosts' ? {'posted_date': -1} : {'remun': -1}))
                 .exec(function(err, results) {
                     if(err) { return next(err);}
-                    res.render('searchPage', {title: 'Search Results', job_list: results, searchPhrase: searchString, skill_type: skillTypeQuery, remun: minRemun, type: type, sortBy: sortBy});
+                    res.render('Search_page', {title: 'Search Results', job_list: results, searchPhrase: searchString, skill_type: skillTypeQuery, remun: minRemun, type: type, sortBy: sortBy});
                 
                     // for testing & debugging
                     console.log("search type: " + type);
@@ -129,7 +129,7 @@ exports.search = function(req, res, next) {
             }
         ], function (err, results) {
                 if (err) { return next(err); }
-                res.render('searchPage', {title: 'Search Results', job_list: results, searchPhrase: searchString, skill_type: skillTypeQuery, remun: minRemun, type: type, sortBy: sortBy});
+                res.render('Search_page', {title: 'Search Results', job_list: results, searchPhrase: searchString, skill_type: skillTypeQuery, remun: minRemun, type: type, sortBy: sortBy});
             
                 // for testing & debugging
                 console.log("search type: " + type);
