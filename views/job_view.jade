@@ -1,33 +1,43 @@
 extends Layout_1_Job_View
 
 block title
-	title 
+    title 
 
 block navbar
-	include navbar
+    include navbar
 
 block sidebar
-	div.student_profile_sidebar
-		div.header
-			| Interested in this job? Apply now!
-		div.apply_job
-			.btn.apply_button Apply for this job
-		br
-		div.save_job
-			p Not sure yet? Save it for later
-			.btn.save_button Save this job
-	
+    div.student_profile_sidebar
+        div.header
+            | Interested in this job? Apply now!
+        div.apply_job
+            button.btn.apply_button(data-toggle='modal', data-target='#confirmApply') Apply for this job	
+        div.modal.fade#confirmApply
+            div.modal-dialog
+                div.modal-content
+                    div.modal-body
+                        h3 Confirm application for (jobname)?
+                        p We will send your application to (companyname)
+                        br
+                        button.btn#cancelBtn(type='button', data-dismiss='modal') Cancel
+                        form#confirm
+                            button.btn(type='submit') Confirm
+        br
+        div.save_job
+            p Not sure yet? Save it for later
+            .btn.save_button Save this job
+    
 block content
-	div.job-box
-		div.job-title #{job.name} 
-		div.job-Company #{employer.name}
-		div.job-posted-date #{job.date_posted_formatted}
-	br
-	div.summary
-		div.job-requirement #{job.skill_type}
-		div.location Location
-		div.job-hours Working hours/ Times a week
-		div.expiry 1 month from posted date
-	br
-	div.fulldesc
-		div.job-desc #{job.desc}
+    div.job-box
+        div.job-title #{job.name} 
+        div.job-Company #{employer.name}
+        div.job-posted-date #{job.date_posted_formatted}
+    br
+    div.summary
+        div.job-requirement #{job.skill_type}
+        div.location Location
+        div.job-hours Working hours/ Times a week
+        div.expiry 1 month from posted date
+    br
+    div.fulldesc
+        div.job-desc #{job.desc}
