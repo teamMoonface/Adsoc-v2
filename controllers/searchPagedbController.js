@@ -47,13 +47,13 @@ exports.search = function(req, res, next) {
                 $and: [
                     {remun: {$gte: minRemun}},
                     {skill_type: skillTypeQuery != 'all' ? skillTypeQuery : {$in: ['Frontend', 'Backend', 'Fullstack']} },
-                    {$text: {$search: searchString, $caseSensitive: false} }
+                    {$text: {$search: searchString, $caseSensitive: true, $diacriticSensitive: true} }
                 ]}, {score: {$meta: 'textScore'}})
                 .populate('employer')
                 .sort(sortBy == 'relevantRes' ? {score: {$meta:'textScore'}} : (sortBy == 'recentPosts' ? {'posted_date': -1} : {'remun': -1}))
                 .exec(function(err, results) {
                     if(err) { return next(err);}
-                    res.render('searchPage', {title: 'Search Results', job_list: results, searchPhrase: searchString, skill_type: skillTypeQuery, remun: minRemun, type: type, sortBy: sortBy});
+                    res.render('./Search_page', {title: 'Search Results', job_list: results, searchPhrase: searchString, skill_type: skillTypeQuery, remun: minRemun, type: type, sortBy: sortBy});
                 
                     // for testing & debugging
                     console.log("search type: " + type);
@@ -75,7 +75,7 @@ exports.search = function(req, res, next) {
                 .sort(sortBy == 'relevantRes' ? {'posted_date': -1} : (sortBy == 'recentPosts' ? {'posted_date': -1} : {'remun': -1}))
                 .exec(function(err, results) {
                     if(err) { return next(err);}
-                    res.render('searchPage', {title: 'Search Results', job_list: results, searchPhrase: searchString, skill_type: skillTypeQuery, remun: minRemun, type: type, sortBy: sortBy});
+                    res.render('./Search_page', {title: 'Search Results', job_list: results, searchPhrase: searchString, skill_type: skillTypeQuery, remun: minRemun, type: type, sortBy: sortBy});
                 
                     // for testing & debugging
                     console.log("search type: " + type);
@@ -95,7 +95,7 @@ exports.search = function(req, res, next) {
             function(callback) {
                 // non-empty search string
                 if (searchString != '') {
-                    Employer.find({$text: {$search: searchString, $caseSensitive: false}}, {score: {$meta: 'textScore'}}, '_id')
+                    Employer.find({$text: {$search: searchString, $caseSensitive: true, $diacriticSensitive: true}}, {score: {$meta: 'textScore'}}, '_id')
                             .sort({score: {$meta: 'textScore'}})
                             .exec(function(err, results) {
                                 if (err) { return next(err); }
@@ -129,7 +129,7 @@ exports.search = function(req, res, next) {
             }
         ], function (err, results) {
                 if (err) { return next(err); }
-                res.render('searchPage', {title: 'Search Results', job_list: results, searchPhrase: searchString, skill_type: skillTypeQuery, remun: minRemun, type: type, sortBy: sortBy});
+                res.render('./Search_page', {title: 'Search Results', job_list: results, searchPhrase: searchString, skill_type: skillTypeQuery, remun: minRemun, type: type, sortBy: sortBy});
             
                 // for testing & debugging
                 console.log("search type: " + type);

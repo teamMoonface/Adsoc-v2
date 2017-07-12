@@ -9,6 +9,10 @@ block heading
 br
 
 block content
+    // scroll to top button
+    a#goTopBtn(href='#')
+        span.icon-chevron-up
+    
     form#searchForm(method='POST' action='/searchPage/search')
         .search
             input#searchBar(type='text', placeholder='Search for Jobs...', name='searchPhrase', value=(undefined==searchPhrase ? '' : searchPhrase))
