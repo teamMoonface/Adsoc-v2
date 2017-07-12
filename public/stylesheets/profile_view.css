@@ -114,3 +114,13 @@ body{
 	border-radius: 7px;
 }
 
+/*Confirm apply job modal*/
+#confirm{
+    display: inline-block;
+    margin-left: 10px;
+}
+
+#cancelBtn{
+    display: inline-block;
+    margin-right: 10px;
+}
