@@ -85,7 +85,11 @@ router.get('/logout', function(req,res) {
 
 
 //Employer database segment
+/*GET request profile view*/
 router.get('/profile', employerDB_controller.profile_get);
+
+/*POST request profile view*/
+router.post('/profile', employerDB_controller.profile_post);
 
 /* GET request view jobs posted*/
 router.get('/postedjobs', employerDB_controller.postedjobsList);

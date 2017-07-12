@@ -21,18 +21,18 @@ block content
 
     form.form-horizontal(method='POST' action='')
         .form-group
-            label.control-label.col-xs-3(for='name') Company/Project Name*
+            label.control-label.col-xs-3(for='name') Company name*
             .col-xs-8
-                input#fullname.form-control(type='text', name='name' placeholder='Enter company/project name (required)', value=(undefined==employer ? '' : employer.name))
+                input#name.form-control(type='text', name='name' placeholder='Enter Company name (required)', value=(undefined==employer ? '' : employer.name))
         .form-group
             label.control-label.col-xs-3(for='email') Email*
             .col-xs-8
                 input#email.form-control(type='text', name='email', placeholder='Enter email (required)', value=(undefined==employer ? '' : employer.email))
             
         .form-group
-            label.control-label.col-xs-3(for='phonenum') Contact Number
+            label.control-label.col-xs-3(for='phoneNum') Contact Number
             .col-xs-8
-                input#dob.form-control(type='text', name='phonenum', placeholder='Enter contact number (optional)', value=(undefined==employer ? '' : employer.phonenum))
+                input#phoneNum.form-control(type='text', name='phoneNum', placeholder='Enter contact number (optional)', value=(undefined==employer ? '' : employer.phoneNum))
         
         .form-group
             label.control-label.col-xs-3(for='un') Username*

@@ -90,7 +90,7 @@ p{
 /*Moving on to profile side*/
 .profile-details, .student_profile_info{
 	background-color: white;
-	padding-left: 20px;
+
 	text-align: center;
 }
 
@@ -225,4 +225,8 @@ p{
 	width:100px;
 	border-radius: 50%;
     float: left;
+}
+
+.#profile-pic{
+	
 }

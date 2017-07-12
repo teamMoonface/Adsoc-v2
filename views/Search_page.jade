@@ -12,7 +12,7 @@ block content
     // scroll to top button
     a#goTopBtn(href='#')
         span.icon-chevron-up
-    
+        
     form#searchForm(method='POST' action='/searchPage/search')
         .search
             input#searchBar(type='text', placeholder='Search for Jobs...', name='searchPhrase', value=(undefined==searchPhrase ? '' : searchPhrase))
@@ -84,22 +84,24 @@ block content
                             div.wrapper 
                               strong $#{job.remun}/hr
                         hr
-                        p#coyname
-                          strong Company/Project: 
-                          | #{job.name}
-                        p#postedon
-                          strong Posted on: 
-                          | #{job.date_posted_formatted}
-
+                        div.row
+                            div.col-xs-9
+                                p#coyname
+                                  strong Company/Project: 
+                                  | #{job.name}
+                                p#postedon
+                                  strong Posted on: 
+                                  | #{job.date_posted_formatted}
+                            div.col-xs-3
+                                a(href=job.url).btn.view_more_button 
+                                    div.text View More
                         hr
                         .row
                           .col-xs-9
                             div.skill-container
-                              div.skill-header Skills
-                              div.skill-requirements
+                              div.skill-header Skill type:
+                                span.skill_type  &nbsp;#{job.skill_type}
                           .col-xs-3
-                            div.salary
-                              a(href=job.url).btn.view-more-button View More
                         br
                     br
         else

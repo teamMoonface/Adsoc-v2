@@ -66,8 +66,6 @@ body{
 	font-size: 15px;
 	background-color: #247a66;
 	color: white;
-	height: 40px;
-
 }
 
 .apply_button:hover,
@@ -84,7 +82,6 @@ body{
 	background-color: #e8e8e8;
 	color: #247a66;
 	border-color: #247a66;
-	height: 40px;
 }
 
 .save_button:hover,

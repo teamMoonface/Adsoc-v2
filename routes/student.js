@@ -84,6 +84,8 @@ router.get('/logout', function(req,res) {
 
 router.get('/profile', studentDB_controller.profile_get);
 
+router.post('/profile', studentDB_controller.profile_post);
+
 router.get('/appliedjobs', studentDB_controller.applied_jobs_get);
 
 router.get('/favourites', studentDB_controller.favourites_get);

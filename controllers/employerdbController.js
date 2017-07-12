@@ -20,6 +20,46 @@ exports.profile_get = function(req, res, next) {
         })
 };
 
+exports.profile_post = function(req,res,next) {
+
+    req.checkBody('company_name', 'Company name is required').notEmpty();
+
+        // run validators
+    var errors = req.validationErrors();
+    
+    // create a student object
+    
+    if (errors) {
+        //show 'unable to update message'
+        console.log(errors);
+        res.render('./Employer_profile', {
+            errors: errors
+        });        
+    }
+    else {
+        Employer.findOne({_id: req.session.emp._id}, function(err, foundObject){
+            if(req.body.company_name)
+                foundObject.name = req.body.company_name;
+            if(req.body.aboutme)
+                foundObject.aboutme = req.body.aboutme;
+            foundObject.save(function(err,updatedObject) {
+                if(err) {
+                    console.log(err);
+                    res.status(500).send();
+                } else {                    
+                    //res.send(updatedObject);
+                    
+                    req.flash('success_msg', 'Your profile has been successfully updated!');
+
+                    res.redirect('/employer/profile');
+                }
+            });
+        })
+    };
+        
+
+};
+
 exports.postjob_get = function(req, res, next) {
     if(!req.session.emp) {
         res.redirect('/employer/login');
@@ -221,7 +261,7 @@ exports.signup_employer_create_post = function(req, res, next) {
     var password = req.body.password;
     var name= req.body.name;
     var email= req.body.email;
-    var phonenum = req.body.phonenum;
+    var phoneNum = req.body.phonenum;
 
     // check for validity
     req.checkBody('name', 'Company/Project name required').notEmpty();
@@ -239,7 +279,7 @@ exports.signup_employer_create_post = function(req, res, next) {
                 errorMessage: "Invalid email address"
             },
         },
-        'phonenum': {
+        'phoneNum': {
             optional: {
                 options: { checkFalsy: true}
             },
@@ -283,8 +323,9 @@ exports.signup_employer_create_post = function(req, res, next) {
             username: req.body.username,
             password: req.body.password,
             name: req.body.name,
-            phonenum: req.body.phonenum,
+            phoneNum: req.body.phoneNum,
             email: req.body.email,
+            aboutme: '',
         });
 
         Employer.createEmployer(newEmployer, function(err,user) {

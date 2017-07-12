@@ -10,7 +10,7 @@ block sidebar
     .employer-sidebar
       .user-info
         br
-        img#profile-pic(src='/images/employer-default-profile-pic.png', alt='profile pic')
+        img#profile-pic(src='/images/Building-vector.jpg', alt='profile pic')
         h4
           strong #{employer.name}
         p #{employer.email}
@@ -39,28 +39,36 @@ block content
       br
       .profile-details
         br
-        img#profile-pic.image-rounded(src='/images/employer-default-profile-pic.png', alt='profile pic')
+
+        if errors
+          each error in errors
+            div.alert.alert-danger #{error.msg}
+
+        if success_msg
+          div.alert.alert-success #{success_msg}
+
+        br
+        img#profile-pic1(src='/images/Building-vector.jpg', alt='profile pic')
         br
         // upload profile pic
         button.btn.btn-primary.upload-file-btn
           | Upload Photo
         br
-        form.form-horizontal
+        form.form-horizontal(method='POST' action='')
           .form-group.row
-            label.col-xs-3.control-label(for='name') Company/Project Name
+            label.col-xs-3.control-label(for='company_name') Company Name
             .col-xs-8
-              input#name.form-control(type='text', value=employer.name)
+              input#name.form-control(type='text', value=(undefined==employer ? '' : employer.name), name='company_name')
+
           .form-group.row
             label.col-xs-3.control-label(for='email') Email
             .col-xs-8
-              input#email.form-control(type='email', value=employer.email)
+              input#email.form-control(type='email', value=employer.email, name='email' disabled)
+
           .form-group.row
-            label.col-xs-3.control-label(for='aboutme') About the Company/Project
-            .col-xs-8
-              textarea#aboutme.form-control(rows='5', maxlength='500')
-                if (employer.about)
-                    | #{employer.about} 
-              small Max length: 500 words
+            label.col-xs-3.control-label(for='aboutme') About Me
+            .col-xs-9.bzz
+              textarea#aboutme.form-control(rows='5', maxlengths='500', name="aboutme") #{employer.aboutme}
+              p.brr Max length: 500 words
           br
-          button.btn.btn-primary.btn-block
-            | Update Profile
+          input.btn.update_button(type='submit', value='Update Company Info')

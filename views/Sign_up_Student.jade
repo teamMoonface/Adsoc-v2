@@ -26,7 +26,7 @@ block content
         .form-group
             label.control-label.col-xs-3(for='phonenum') Contact Number
             .col-xs-8
-                input#dob.form-control(type='text', name='phonenum', placeholder='Enter contact number (optional)', value=(undefined==student ? '' : student.phonenum))
+                input#dob.form-control(type='number', name='phoneNum', placeholder='Enter contact number (optional)', value=(undefined==student ? '' : student.phoneNum))
         
         .form-group
             label.control-label.col-xs-3(for='dob') Date of Birth

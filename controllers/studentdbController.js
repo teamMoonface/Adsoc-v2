@@ -20,6 +20,56 @@ exports.profile_get = function(req, res, next) {
 
 };
 
+
+exports.profile_post = function(req,res,next) {
+
+    req.checkBody('fullname', 'Name is required').notEmpty();
+
+    console.log('hello can you see me');
+        // run validators
+    var errors = req.validationErrors();
+    
+    // create a student object
+    
+    if (errors) {
+        //show 'unable to update message'
+        console.log(errors);
+        res.render('./Student_profile', {
+            errors: errors
+        });        
+    }
+    else {
+        Student.findOne({_id: req.session.user._id}, function(err, foundObject){
+            console.log('hello can you see me 3');
+            if(req.body.fullname)
+                foundObject.name = req.body.fullname;
+            if(req.body.phoneNum)
+                foundObject.phoneNum = req.body.phoneNum;
+            if(req.body.dob)
+                foundObject.dob = req.body.dob;
+            if(req.body.gender)
+                foundObject.gender = req.body.gender;
+            if(req.body.aboutme)
+                foundObject.aboutme = req.body.aboutme;
+            foundObject.save(function(err,updatedObject) {
+                if(err) {
+                    console.log(err);
+                    res.status(500).send();
+                } else {                    
+                    //res.send(updatedObject);
+                    
+                    req.flash('success_msg', 'Your profile has been successfully updated!');
+
+                    res.redirect('/student/profile');
+                }
+            });
+        })
+    };
+        
+
+};
+
+
 //Open Student profile - open for everyone to view
 exports.open_profile_get = function(req, res, next) {
     Student.findById(req.params.id)
@@ -43,6 +93,17 @@ exports.favourites_get = function(req, res, next) {
             return res.render('./Student_profile_favourites', {title: 'Favourites', student: studentInstance});
         }) 
 };
+
+exports.add_favourite = function(req,res,next) {
+    if(!req.session.user){
+        res.redirect('/student/login');
+        req.flash(message: 'Please Sign in first before applying!');
+    }
+    var store = req.session.user;
+    Student.findByIdAndUpdate(store._id, {$push: {postedJobs: job}}, function(err){
+        console.log(err);
+    });
+}
 
 exports.applied_jobs_get = function(req, res, next) {
     if(!req.session.user) {
@@ -87,9 +148,10 @@ exports.signup_student_create_post = function(req, res,next) {
     var password2 = req.body.password2;
     var name= req.body.fullname;
     var email= req.body.email;
-    var phonenum = req.body.phonenum;
+    var phoneNum = req.body.phonenum;
     var dob = req.body.dob;
     var gender = req.body.gender;
+    var aboutme = " ";
 
     // check for validity
     req.checkBody('fullname', 'Name is required').notEmpty();
@@ -120,7 +182,7 @@ exports.signup_student_create_post = function(req, res,next) {
                 options: [{min: 5, max: 15}]
             }
         },
-        'phonenum': {
+        'phoneNum': {
             optional: {
                 options: {checkFalsy: true}
             },
@@ -156,10 +218,10 @@ exports.signup_student_create_post = function(req, res,next) {
             password: req.body.password1, 
             name: req.body.fullname,
             email: req.body.email,
-            phonenum: req.body.phonenum,
+            phoneNum: req.body.phoneNum,
             dob: req.body.dob,
             gender: req.body.gender,
-      
+            aboutme: " ",
         });
 
         Student.createStudent(newStudent, function(err,user) {
