@@ -168,6 +168,10 @@ p{
 	font-family: 'Open sans', sans-serif;	
 }
 
+.jobposts.db {
+    width: 100%;
+}
+
 /*Moving to skills end*/
 .skill-panel{
 	width: 100%;
@@ -225,8 +229,4 @@ p{
 	width:100px;
 	border-radius: 50%;
     float: left;
-}
-
-.#profile-pic{
-	
 }

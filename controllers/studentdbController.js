@@ -1,5 +1,6 @@
 var Student = require('../models/student');
 var Employer = require('../models/employer');
+var Job = require('../models/job')
 var async = require('async');
 var passport = require('passport');
 var LocalStrategy = require('passport-local').Strategy;
@@ -84,48 +85,45 @@ exports.favourites_get = function(req, res, next) {
     if(!req.session.user) {
         res.redirect('/student/login');
     }
-    var store = req.session.user;
-    Student.findById(store._id)
-        .exec(function(err, studentInstance) {
+    else {
+        var store = req.session.user;
+        async.parallel({
+            studentInstance: function(callback) {
+                Student.findById(store._id)
+                    .populate('favouriteJobs')
+                    .exec(callback);
+            },
+        }, function(err, results) {
             if (err) { return next(err); }
-            // successful, so render
             console.log(req.session.user);
-            return res.render('./Student_profile_favourites', {title: 'Favourites', student: studentInstance});
-        }) 
-};
-
-exports.add_favourite = function(req,res,next) {
-    if(!req.session.user){
-        res.redirect('/student/login');
-        req.flash(message: 'Please Sign in first before applying!');
+            res.render('./Student_profile_favourites', {title: 'Favourite Jobs', student: results.studentInstance});
+        });
     }
-    var store = req.session.user;
-    Student.findByIdAndUpdate(store._id, {$push: {postedJobs: job}}, function(err){
-        console.log(err);
-    });
-}
+};
 
 exports.applied_jobs_get = function(req, res, next) {
     if(!req.session.user) {
         res.redirect('/student/login');
     }
-    var store = req.session.user;
-    Student.findById(store._id)
-        .exec(function(err, studentInstance) {
+    else {
+        var store = req.session.user;
+        async.parallel({
+            studentInstance: function(callback) {
+                Student.findById(store._id)
+                    .exec(callback);
+            },
+            appliedJobs: function(callback) {
+                Job.find({'applicants': store._id})
+                    .populate('employer')
+                    .exec(callback);
+            }
+        }, function(err, results) {
             if (err) { return next(err); }
-            // successful, so render
             console.log(req.session.user);
-             return res.render('./Student_profile_appliedjobs', {title: 'Applied Jobs', student: studentInstance});
-        }) 
-};
-
-exports.apply_jobs_post = function(req, res, next) {
-    if(!req.session.user) {
-        res.redirect('/student/login');
+            res.render('./Student_profile_appliedjobs', {title: 'Applied Jobs', student: results.studentInstance, appliedJobs: results.appliedJobs});
+        });
     }
-    var store = req.session.user;
-    
-}
+};
 
 //=========================================================DIVDER=========================================================
 //=========================================================DIVDER=========================================================

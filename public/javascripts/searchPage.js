@@ -9,10 +9,8 @@
  $(window).scroll(function() {
      if ($(this).scrollTop() >= 50) {   // If page is scrolled more than 50px
          $('#goTopBtn').fadeIn(200);    // Fade in the arrow
-         console.log('fade in arrow');
      } else {
          $('#goTopBtn').fadeOut(200);   // Else fade out the arrow
-         console.log('fade out arrow');
      }
  });
  

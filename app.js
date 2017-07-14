@@ -12,7 +12,7 @@ var flash = require('connect-flash');
 var passport = require('passport');
 var LocalStrategy = require('passport-local').Strategy;
 var util = require('util');
-var confirm = require('jquery-confirm');
+//var confirm = require('jquery-confirm');
 
 
 // import routes
@@ -77,7 +77,7 @@ app.use(expressValidator({
 }));
 
 //query jquery-confirm
-app.use(confirm());
+//app.use(confirm());
 
 //Global Var
 app.use(function(req, res, next){
@@ -96,7 +96,7 @@ app.use('/student', student);
 app.use('/employer', employer);
 
 //Set Port
-app.set('port', (process.env.PORT || 3000));
+app.set('port', (process.env.PORT || 8080));
 
 app.listen(app.get('port'), function(){
 	console.log('Server started on port ' + app.get('port'));

@@ -7,231 +7,393 @@ var LocalStrategy = require('passport-local').Strategy;
 
 
 exports.profile_get = function(req, res, next) {
-    if(!req.session.emp) {
-        res.redirect('/employer/login');
-    }
-    var store = req.session.emp;
-    console.log(store);
-    Employer.findById(store._id)
-        .exec(function(err, employerInstance) {
-            if (err) { return next(err); }
-            // successful, so render
-            res.render('./Employer_profile', {title: 'Profile', employer: employerInstance});
-        })
+	if(!req.session.emp) {
+		res.redirect('/employer/login');
+	}
+	else {
+		var store = req.session.emp;
+		console.log(store);
+		Employer.findById(store._id)
+			.exec(function(err, employerInstance) {
+				if (err) { return next(err); }
+				// successful, so render
+				res.render('./Employer_profile', {title: 'Profile', employer: employerInstance});
+			})
+	}
 };
 
 exports.profile_post = function(req,res,next) {
 
-    req.checkBody('company_name', 'Company name is required').notEmpty();
+	req.checkBody('company_name', 'Company name is required').notEmpty();
 
-        // run validators
-    var errors = req.validationErrors();
-    
-    // create a student object
-    
-    if (errors) {
-        //show 'unable to update message'
-        console.log(errors);
-        res.render('./Employer_profile', {
-            errors: errors
-        });        
-    }
-    else {
-        Employer.findOne({_id: req.session.emp._id}, function(err, foundObject){
-            if(req.body.company_name)
-                foundObject.name = req.body.company_name;
-            if(req.body.aboutme)
-                foundObject.aboutme = req.body.aboutme;
-            foundObject.save(function(err,updatedObject) {
-                if(err) {
-                    console.log(err);
-                    res.status(500).send();
-                } else {                    
-                    //res.send(updatedObject);
-                    
-                    req.flash('success_msg', 'Your profile has been successfully updated!');
+		// run validators
+	var errors = req.validationErrors();
+	
+	// create a student object
+	
+	if (errors) {
+		//show 'unable to update message'
+		console.log(errors);
+		res.render('./Employer_profile', {
+			errors: errors
+		});        
+	}
+	else {
+		Employer.findOne({_id: req.session.emp._id}, function(err, foundObject){
+			if(req.body.company_name)
+				foundObject.name = req.body.company_name;
+			if(req.body.aboutme)
+				foundObject.aboutme = req.body.aboutme;
+			foundObject.save(function(err,updatedObject) {
+				if(err) {
+					console.log(err);
+					res.status(500).send();
+				} else {                    
+					//res.send(updatedObject);
+					
+					req.flash('success_msg', 'Your profile has been successfully updated!');
 
-                    res.redirect('/employer/profile');
-                }
-            });
-        })
-    };
-        
+					res.redirect('/employer/profile');
+				}
+			});
+		})
+	};
+		
 
 };
 
 exports.postjob_get = function(req, res, next) {
-    if(!req.session.emp) {
-        res.redirect('/employer/login');
-    }
-    var store = req.session.emp;
-    console.log(req.session.emp);
-    Employer.findById(store._id)
-        .exec(function(err, employerInstance) {
-            if (err) { return next(err); }
-            res.render('./Employer_profile_post', { title: 'Post a Job', employer: employerInstance})
-    })
+	if(!req.session.emp) {
+		res.redirect('/employer/login');
+	}
+	else {
+		var store = req.session.emp;
+		console.log(req.session.emp);
+		Employer.findById(store._id)
+			.exec(function(err, employerInstance) {
+				if (err) { return next(err); }
+				res.render('./Employer_profile_post', { title: 'Post a Job', employer: employerInstance})
+		})
+	}
 };
 
 exports.postjob_post = function(req, res, next) {
-    
-    req.checkBody('name', 'Job name required').notEmpty();
-    req.checkBody('desc', 'Job description required').notEmpty();
-    req.checkBody('startDate', 'Starting date requried').notEmpty();
-    req.checkBody('endDate', 'Ending date required').notEmpty();
-    req.checkBody('remun', 'Remuneration required').notEmpty();
-    req.checkBody('skill_type', 'Skill type required').notEmpty();
-    
-    req.checkBody({
-        'desc': {
-            optional: {
-                options: { checkFalsy: true}
-            },
-            isLength: {
-                options: [{max: 1000}],
-                errorMessage: 'Desc: max length of 1000 characters'
-            }
-        },
-        'endDate': {
-            optional: {
-                options: { checkFalsy: true}
-            },
-            isAfter: {
-                options: [req.body.startDate],
-                errorMessage: 'Ending job period must be after starting job period'
-            }
-        },
-        'remun': {
-            optional: {
-                options: { checkFalsy: true}
-            },
-            isFloat: {
-                options: [{min: 0}],
-                errorMessage: 'Invalid remuneration entered'
-            }
-        }
-    });
-    
-    req.sanitize('name').escape();
-    req.sanitize('name').trim();
-    req.sanitize('desc').escape();
-    req.sanitize('desc').trim();
-    req.sanitize('remun').escape();
-    req.sanitize('remun').trim();
-    req.sanitize('remun1').escape();
-    req.sanitize('remun1').trim();
+	
+	req.checkBody('name', 'Job name required').notEmpty();
+	req.checkBody('desc', 'Job description required').notEmpty();
+	req.checkBody('startDate', 'Starting date requried').notEmpty();
+	req.checkBody('endDate', 'Ending date required').notEmpty();
+	req.checkBody('remun', 'Remuneration required').notEmpty();
+	req.checkBody('skill_type', 'Skill type required').notEmpty();
+	
+	req.checkBody({
+		'desc': {
+			optional: {
+				options: { checkFalsy: true}
+			},
+			isLength: {
+				options: [{max: 1000}],
+				errorMessage: 'Desc: max length of 1000 characters'
+			}
+		},
+		'endDate': {
+			optional: {
+				options: { checkFalsy: true}
+			},
+			isAfter: {
+				options: [req.body.startDate],
+				errorMessage: 'Ending job period must be after starting job period'
+			}
+		},
+		'remun': {
+			optional: {
+				options: { checkFalsy: true}
+			},
+			isFloat: {
+				options: [{min: 0}],
+				errorMessage: 'Invalid remuneration entered'
+			}
+		}
+	});
+	
+	req.sanitize('name').escape();
+	req.sanitize('name').trim();
+	req.sanitize('desc').escape();
+	req.sanitize('desc').trim();
+	req.sanitize('remun').escape();
+	req.sanitize('remun').trim();
+	req.sanitize('remun1').escape();
+	req.sanitize('remun1').trim();
 
-    var errors = req.validationErrors();
-    var store = req.session.emp;
+	var errors = req.validationErrors();
+	var store = req.session.emp;
 
-    var job = new Job({
-        name: req.body.name,
-        desc: req.body.desc,
-        startDate: req.body.startDate,
-        endDate: req.body.endDate,
-        remun: req.body.remun,
-        skill_type: req.body.skill_type,
-        employer: store._id,
-    });
+	var job = new Job({
+		name: req.body.name,
+		desc: req.body.desc,
+		startDate: req.body.startDate,
+		endDate: req.body.endDate,
+		remun: req.body.remun,
+		skill_type: req.body.skill_type,
+		employer: store._id,
+	});
 
-    
-    if (errors) {
-        res.render('./Employer_profile_post', {title: 'Post a Job', job: job, errors: errors});
-        return;
-    }
-    else {
-        job.save(function(err) {
-            if (err) { return next(err); }           
-            res.redirect(job.url)
-        });
-        
-        // add to employer's posted jobs
-        Employer.findByIdAndUpdate(store._id, {$push: {postedJobs: job}}, function(err) {
-            console.log(err);
-        });
-    }
+	
+	if (errors) {
+		res.render('./Employer_profile_post', {title: 'Post a Job', job: job, errors: errors});
+		return;
+	}
+	else {
+		job.save(function(err) {
+			if (err) { return next(err); }           
+			res.redirect(job.url)
+		});
+		
+		// add to employer's posted jobs
+		Employer.findByIdAndUpdate(store._id, {$push: {postedJobs: job}}, function(err) {
+			console.log(err);
+		});
+	}
 };
 
 // Display employers' list of posted jobs
 exports.postedjobsList = function(req, res, next) {
-    if(!req.session.emp) {
-        res.redirect('/employer/login');
-    }
-    var store = req.session.emp;
-    async.parallel({
-        jobFunc: function(callback){
-            Job.find({'employer': store._id})
-                .populate('./Employer_profile_post')
-                .exec(callback);
-        },
-        employFunc: function(callback){
-            Employer.findById(store._id)
-                .exec(callback);
-        }
-    },function(err, results) {
-      if (err) { return next(err); }
-      res.render('./Employer_profile_posted', {title: 'Posted Jobs', postedJobs: results.jobFunc, employer: results.employFunc, numApplicants: results.applicantsCount});
-    });
+	if(!req.session.emp) {
+		res.redirect('/employer/login');
+	}
+	else {
+		var store = req.session.emp;
+		async.parallel({
+			jobFunc: function(callback){
+				Job.find({'employer': store._id})
+					.populate('./Employer_profile_post')
+					.exec(callback);
+			},
+			employFunc: function(callback){
+				Employer.findById(store._id)
+					.exec(callback);
+			}
+		},function(err, results) {
+		  if (err) { return next(err); }
+		  res.render('./Employer_profile_posted', {title: 'Posted Jobs', postedJobs: results.jobFunc, employer: results.employFunc, numApplicants: results.applicantsCount});
+		});
+	}
 };
 
 // View applicants for a job posting
 exports.view_job_applicants = function(req, res,next) {
-    if(!req.session.emp) {
-        res.redirect('/employer/login');
-    }
-    var store = req.session.emp;
-    async.parallel({
-        students: function(callback) {
-            Student.find({'appliedJobs': store._id})
-                    .exec(callback);
-        },
-        job: function(callback) {
-            Job.findById(store._id)
-                .exec(callback);
-        }
-    }, function(err, results) {
-        if (err) { return next(err); }
-        res.render('./Employer_profile_view_applicants', {title: 'View Applicants for ', students: results.students, job: results.job});
-    });
+	if(!req.session.emp) {
+		res.redirect('/employer/login');
+	}
+	else {
+		var store = req.session.emp;
+		async.parallel({
+			students: function(callback) {
+				Student.find({'appliedJobs': store._id})
+						.exec(callback);
+			},
+			job: function(callback) {
+				Job.findById(store._id)
+					.exec(callback);
+			}
+		}, function(err, results) {
+			if (err) { return next(err); }
+			res.render('./Employer_profile_view_applicants', {title: 'View Applicants for ', students: results.students, job: results.job});
+		});
+	}
 };
 
 // Display Specific posted job
 exports.job_detail = function(req, res, next) {  
-    if(req.session.emp){
-      async.parallel({
-        job: function(callback) {     
-          Job.findById(req.params.id)
-            .exec(callback);
-        },
-        employer: function(callback) {
-          Employer.findById({ '_id': req.session.emp._id})
-            .exec(callback);
-        },
-        employer_poster: function(callback) {
-          Employer.findOne({ 'postedJobs': req.params.id})
-            .exec(callback);
-        },
-      }, function(err, results) {
-        if (err) { return next(err); }
-        //Successful, so render
-        res.render('./Job_view', { title: 'Job details', job: results.job, employer_poster: results.employer_poster, employer: results.employer });
-      });
-    }
-    async.parallel({
-        job: function(callback) {     
-            Job.findById(req.params.id)
-                .exec(callback);
-        },
-        employer_poster: function(callback) {
-            Employer.findOne({ 'postedJobs': req.params.id})
-                .exec(callback);
-        },
-      }, function(err, results) {
-        if (err) { return next(err); }
-        //Successful, so render
-        res.render('./Job_view', { title: 'Job details', job: results.job, employer_poster: results.employer_poster });
-    });
+	if(req.session.emp){
+	  async.parallel({
+		job: function(callback) {     
+		  Job.findById(req.params.id)
+			.exec(callback);
+		},
+		employer: function(callback) {
+		  Employer.findById({ '_id': req.session.emp._id})
+			.exec(callback);
+		},
+		employer_poster: function(callback) {
+		  Employer.findOne({ 'postedJobs': req.params.id})
+			.exec(callback);
+		},
+	  }, function(err, results) {
+		if (err) { return next(err); }
+		//Successful, so render
+		res.render('./Job_view', { title: 'Job details', job: results.job, employer_poster: results.employer_poster, employer: results.employer });
+	  });
+	}
+	
+	else {
+		async.parallel({
+		job: function(callback) {     
+			Job.findById(req.params.id)
+				.exec(callback);
+		},
+		employer_poster: function(callback) {
+			Employer.findOne({ 'postedJobs': req.params.id})
+				.exec(callback);
+		},
+		student: function(callback) {
+			if (req.session.user) {
+				var store = req.session.user;
+				Student.findById({'_id': req.session.user._id})
+					.exec(callback);
+			}
+		}
+		}, function(err, results) {
+			if (err) { return next(err); }
+			
+			/* have already applied to job */
+			if (results.job.applicants.indexOf(req.session.user._id) > -1) {
+				console.log('job status: applied')
+                /* favourited job */
+                if (results.student.favouriteJobs.indexOf(req.params.id) > -1) {
+                    console.log('fav: true');
+				    res.render('./Job_view', {job: results.job, employer_poster: results.employer_poster, status: 'applied', fav: true});
+                }
+                /* have not fav job */
+                else {
+                    console.log('fav: false');
+                    res.render('./Job_view', {job: results.job, employer_poster: results.employer_poster, status: 'applied', fav: false});
+                }
+            }
+			else {
+				/* have not applied to job*/
+				console.log('job status: not applied')
+                /* favourited job */
+				if (results.student.favouriteJobs.indexOf(req.params.id) > -1) {
+				    console.log('fav: true');
+                    res.render('./Job_view', {job: results.job, employer_poster: results.employer_poster, status: 'notApplied', fav: true});
+                }
+                /* have not fav job */
+                else {
+                    console.log('fav: false');
+                    res.render('./Job_view', {job: results.job, employer_poster: results.employer_poster, status: 'notApplied', fav: false});
+                }
+			}
+		});
+	}
 };
+
+exports.apply_job = function(req, res, next) {
+	if(!req.session.user) {
+		res.redirect('/student/login');
+	}
+	else {
+		var store = req.session.user;
+		async.parallel({
+			student: function(callback) {
+				Student.findByIdAndUpdate(store._id, {$push: {appliedJobs: req.params.id}})
+					   .exec(callback);
+			},
+			job: function(callback) {     
+				Job.findByIdAndUpdate(req.params.id, {$push: {applicants: store._id}})
+					.exec(callback);
+			},
+			employer_poster: function(callback) {
+				Employer.findOne({ 'postedJobs': req.params.id})
+					.exec(callback);
+			}
+		}, function(err, results) {
+			if (err) { return next(err); }
+			console.log('job status: apply success');
+			res.render('./job_view', {job: results.job, employer_poster: results.employer_poster, status: 'applySuccess'});
+		}); 
+	}    
+};
+
+exports.delete_job = function(req, res, next) {
+	if(!req.session.user) {
+		res.redirect('/student/login')
+	}
+	else {
+		var store = req.session.user;
+        async.parallel({
+            student: function(callback) {
+                Student.findByIdAndUpdate(store._id, {$pull: {appliedJobs: req.params.id}})
+                    .exec(callback);
+            },
+            job: function(callback) {
+                Job.findByIdAndUpdate(req.params.id, {$pull: {applicants: store._id}})
+                    .exec(callback);
+            },
+            employer_poster: function(callback) {
+                Employer.findOne({'postedJobs': req.params.id})
+                    .exec(callback);
+            }
+        }, function(err, results) {
+            if(err) { return next(err); }
+            console.log('deleting job application');
+            /* favourited job */
+            if (results.student.favouriteJobs.indexOf(req.params.id) > -1) {
+                console.log('fav: true');
+                res.render('./Job_view', {job: results.job, employer_poster: results.employer_poster, status: 'deleteSuccess', fav: true});
+            }
+            /* have not fav job */
+            else {
+                console.log('fav: false');
+                res.render('./Job_view', {job: results.job, employer_poster: results.employer_poster, status: 'deleteSuccess', fav: false});
+            }          
+        });
+	}
+};
+
+exports.favourite_job = function(req, res, next) {
+    if (!req.session.user) {
+        res.redirect('/student/login')
+    }
+    else {
+        var store = req.session.user;
+        async.parallel({
+            student: function(callback) {
+                Student.findByIdAndUpdate(store._id, {$push: {favouriteJobs: req.params.id}})
+                    .exec(callback);
+            },
+            job: function(callback) {
+                Job.findById(req.params.id)
+                    .exec(callback);
+            },
+            employer_poster: function(callback) {
+                Employer.findOne({'postedJobs': req.params.id})
+                    .exec(callback);
+            }
+        }, function(err, results) {
+            if (err) { return next(err); }
+            console.log('favouriting job')
+            res.render('./job_view', {job: results.job, employer_poster: results.employer_poster, status: 'notApplied', fav: true});
+        })
+    }
+};
+
+exports.remove_fav = function(req, res, next) {
+    if (!req.session.user) {
+        res.redirect('/student/login')
+    }
+    else {
+        var store = req.session.user;
+        async.parallel({
+            student: function(callback) {
+                Student.findByIdAndUpdate(store._id, {$pull: {favouriteJobs: req.params.id}})
+                    .exec(callback);
+            },
+            job: function(callback) {
+                Job.findById(req.params.id)
+                    .exec(callback);
+            },
+            employer_poster: function(callback) {
+                Employer.findOne({'postedJobs': req.params.id})
+                    .exec(callback);
+            }
+        }, function(err, results) {
+            if (err) { return next(err); }
+            console.log('removing job from fav')
+            res.render('./job_view', {job: results.job, employer_poster: results.employer_poster, status: 'notApplied', fav: false});
+        })
+    }
+}
 
 //=========================================================DIVDER=========================================================
 //=========================================================DIVDER=========================================================
@@ -242,100 +404,100 @@ exports.job_detail = function(req, res, next) {
 exports.employer_list = function(req, res, next) {
 
   Employer.find()
-    .sort([['name', 'ascending']])
-    .exec(function (err, list_employers) {
-      if (err) { return next(err); }
-      //Successful, so render
-      res.render('./A-Employer_list', { title: 'Employer List', employer_list: list_employers });
-    });
+	.sort([['name', 'ascending']])
+	.exec(function (err, list_employers) {
+	  if (err) { return next(err); }
+	  //Successful, so render
+	  res.render('./A-Employer_list', { title: 'Employer List', employer_list: list_employers });
+	});
 
 };
 
 exports.signup_employer_create_get = function(req, res, next) {
-    res.render('./Sign_up_employer', {title: 'Employer Sign-Up'});
+	res.render('./Sign_up_employer', {title: 'Employer Sign-Up'});
 };
 
 exports.signup_employer_create_post = function(req, res, next) {
-    
-    var username =req.body.username;
-    var password = req.body.password;
-    var name= req.body.name;
-    var email= req.body.email;
-    var phoneNum = req.body.phonenum;
+	
+	var username =req.body.username;
+	var password = req.body.password;
+	var name= req.body.name;
+	var email= req.body.email;
+	var phoneNum = req.body.phonenum;
 
-    // check for validity
-    req.checkBody('name', 'Company/Project name required').notEmpty();
-    req.checkBody('email', 'Email required').isEmail();
-    req.checkBody('username', 'Username required').notEmpty();
-    req.checkBody('password', 'Password required').notEmpty();
-    
-    // check only when field is not empty
-    req.checkBody({
-        'email': {
-            optional: {
-                options: { checkFalsy: true}
-            },
-            isEmail: {
-                errorMessage: "Invalid email address"
-            },
-        },
-        'phoneNum': {
-            optional: {
-                options: { checkFalsy: true}
-            },
-            isNumeric: {
-                errorMessage: "Invalid phone number"
-            }
-        },
-        'username': {
-            optional: {
-                options: { checkFalsy: true}
-            },
-            isLength: {
-                options: [{min: 5, max: 15}],
-                errorMessage: "Username: min 5 characters, max 15 characters"
-            }
-        },
-        'password': {
-            optional: {
-                options: { checkFalsy: true}
-            },
-            isLength: {
-                options: [{min: 6}],
-                errorMessage: "Password: min 6 characters" 
-            }
-        }
-    });
-    
-    // run validators
-    var errors = req.validationErrors();
-    
-    
-    if (errors) {
-        res.render('./Sign_up_employer', {
-            errors: errors
-        });
-    }
-    else {
+	// check for validity
+	req.checkBody('name', 'Company/Project name required').notEmpty();
+	req.checkBody('email', 'Email required').isEmail();
+	req.checkBody('username', 'Username required').notEmpty();
+	req.checkBody('password', 'Password required').notEmpty();
+	
+	// check only when field is not empty
+	req.checkBody({
+		'email': {
+			optional: {
+				options: { checkFalsy: true}
+			},
+			isEmail: {
+				errorMessage: "Invalid email address"
+			},
+		},
+		'phoneNum': {
+			optional: {
+				options: { checkFalsy: true}
+			},
+			isNumeric: {
+				errorMessage: "Invalid phone number"
+			}
+		},
+		'username': {
+			optional: {
+				options: { checkFalsy: true}
+			},
+			isLength: {
+				options: [{min: 5, max: 15}],
+				errorMessage: "Username: min 5 characters, max 15 characters"
+			}
+		},
+		'password': {
+			optional: {
+				options: { checkFalsy: true}
+			},
+			isLength: {
+				options: [{min: 6}],
+				errorMessage: "Password: min 6 characters" 
+			}
+		}
+	});
+	
+	// run validators
+	var errors = req.validationErrors();
+	
+	
+	if (errors) {
+		res.render('./Sign_up_employer', {
+			errors: errors
+		});
+	}
+	else {
 
-        // create an employer object
-        var newEmployer = new Employer({
-            username: req.body.username,
-            password: req.body.password,
-            name: req.body.name,
-            phoneNum: req.body.phoneNum,
-            email: req.body.email,
-            aboutme: '',
-        });
+		// create an employer object
+		var newEmployer = new Employer({
+			username: req.body.username,
+			password: req.body.password,
+			name: req.body.name,
+			phoneNum: req.body.phoneNum,
+			email: req.body.email,
+			aboutme: '',
+		});
 
-        Employer.createEmployer(newEmployer, function(err,user) {
-            if (err) throw err;
-            console.log(user);
-        }) 
+		Employer.createEmployer(newEmployer, function(err,user) {
+			if (err) throw err;
+			console.log(user);
+		}) 
 
-        
-        req.flash('success_msg', 'Thank you for registering with Adsoc, you may now login');
+		
+		req.flash('success_msg', 'Thank you for registering with Adsoc, you may now login');
 
-        res.redirect('/employer/login');
-    }
+		res.redirect('/employer/login');
+	}
 }

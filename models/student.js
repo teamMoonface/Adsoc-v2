@@ -18,7 +18,8 @@ var StudentSchema = Schema (
         aboutme: {type: String, max: 500},
         experienceList: [{type: Schema.ObjectId, ref: 'Experience'}],
         skillsList: [{type: Schema.ObjectId, ref: 'Skill'}],
-        appliedJobs: [{type: Schema.ObjectId, ref: 'Job'}]
+        appliedJobs: [{type: Schema.ObjectId, ref: 'Job'}],
+        favouriteJobs: [{type: Schema.ObjectId, ref: 'Job'}] 
     }
 );
 

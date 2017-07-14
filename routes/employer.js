@@ -103,9 +103,24 @@ router.post('/postjob', employerDB_controller.postjob_post);
 
 // Job post segment
 /* GET request to view job applicants */
-router.get('/job/viewApplicants', employerDB_controller.view_job_applicants
-);
+router.get('/job/viewApplicants', employerDB_controller.view_job_applicants);
+
 /* GET Job details of specific job*/
-router.get('/listed-job/:id', employerDB_controller.job_detail)
+router.get('/listed-job/:id', employerDB_controller.job_detail);
+
+/* GET request for students to apply job */
+router.get('/listed-job/:id/apply', employerDB_controller.job_detail);
+
+/* POST request for students to apply job */
+router.post('/listed-job/:id/apply', employerDB_controller.apply_job);
+
+/* POST request for students to delete job application */
+router.post('/listed-job/:id/delete', employerDB_controller.delete_job);
+
+/* POST request for students to fav job applications */
+router.post('/listed-job/:id/addToFav', employerDB_controller.favourite_job);
+
+/* POST request for students to remove job from fav */
+router.post('/listed-job/:id/removeFromFav', employerDB_controller.remove_fav)
 
 module.exports = router;

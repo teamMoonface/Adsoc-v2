@@ -21,6 +21,7 @@
     "express-session": "*",
     "express-validator": "^3.2.0",
     "jade": "~1.11.0",
+    "jquery": "^3.2.1",
     "moment": "^2.18.1",
     "mongodb": "*",
     "mongoose": "^4.10.4",

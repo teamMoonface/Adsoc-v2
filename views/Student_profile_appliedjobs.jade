@@ -49,35 +49,42 @@ block content
       h2
         strong Applied Jobs
       br
-      // ***********should render job posts from database**************
-      .job-post
-        // job title & company
-        h3 Web Developer @ Google
-        .row
-          .col-xs-9
-            p
-              small Period: 20 May 2017 - 20 August 2017
-          .col-xs-3.salary
-            p $9 /hr
-        hr
-        // job description
-        p
-          | You’re a curious and collaborative visionary, someone excited about tackling the hard problems in technology. Google is and always will be an engineering company that thinks big and takes risks. Together, we’ll create and iterate on the products and tools of the future—for billions of users.
-        br
-        button.btn.btn-danger Delete Application
-      br
-      .job-post
-        // job title & company
-        h3 Software Engineer @ ABC
-        .row
-          .col-xs-9
-            p
-              small Period: 16 May 2017 - 30 August 2017
-          .col-xs-3.salary
-            p $10 /hr
-        hr
-        // job description
-        p
-          | Your work is at the core of everything we build. Develop massive, complex software systems that scale globally.
-        br
-        button.btn.btn-danger Delete Application
+      .jobposts.db
+        if appliedJobs
+            each job in appliedJobs
+                .postedjobs-panel
+                     .job-post
+                        .row
+                          .col-xs-9
+                            h2.job-name #{job.name} 
+                            p
+                              small.time-frame 
+                                strong Working period: 
+                                | #{job.date_start_formatted} - #{job.date_end_formatted}
+                            p
+                            | #{job.desc} 
+                            div.wrapper 
+                              strong $#{job.remun}/hr
+                        hr
+                        div.row
+                            div.col-xs-9
+                                p#coyname
+                                  strong Company/Project: 
+                                  | #{job.name}
+                                p#postedon
+                                  strong Posted on: 
+                                  | #{job.date_posted_formatted}
+                            div.col-xs-3
+                                a(href=job.url).btn.view_more_button 
+                                    div.text View More
+                        hr
+                        .row
+                          .col-xs-9
+                            div.skill-container
+                              div.skill-header Skill type:
+                                span.skill_type  &nbsp;#{job.skill_type}
+                          .col-xs-3
+                        br
+                    br
+        else
+            p No posted jobs!

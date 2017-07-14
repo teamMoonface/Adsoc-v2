@@ -63,8 +63,8 @@ block content
                     hr
                     br
                     select.form-control#sortOptions(name='sortBy')
-                        option(value='relevantRes', selected=(sortBy == 'relevantRes' ? true : false)) Relevant Results
                         option(value='recentPosts', selected=(sortBy == 'recentPosts' ? true : false)) Recent Posts
+                        option(value='relevantRes', selected=(sortBy == 'relevantRes' ? true : false)) Relevant Results
                         option(value='highestRemun', selected=(sortBy == 'highestRemun' ? true : false)) Highest Remuneration           
     .jobposts
         if job_list
