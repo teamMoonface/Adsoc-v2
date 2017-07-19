@@ -495,7 +495,6 @@ exports.signup_employer_create_post = function(req, res, next) {
 			console.log(user);
 		}) 
 
-		
 		req.flash('success_msg', 'Thank you for registering with Adsoc, you may now login');
 
 		res.redirect('/employer/login');
