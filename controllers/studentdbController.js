@@ -8,7 +8,7 @@ var LocalStrategy = require('passport-local').Strategy;
 
 exports.profile_get = function(req, res, next) {
     if(!req.session.user) {
-        res.redirect('/student/login');
+        res.redirect('/');
     }
     console.log(req.session.user);
     var store = req.session.user;
@@ -26,7 +26,6 @@ exports.profile_post = function(req,res,next) {
 
     req.checkBody('fullname', 'Name is required').notEmpty();
 
-    console.log('hello can you see me');
         // run validators
     var errors = req.validationErrors();
     
@@ -56,12 +55,10 @@ exports.profile_post = function(req,res,next) {
                 if(err) {
                     console.log(err);
                     res.status(500).send();
-                } else {                    
-                    //res.send(updatedObject);
-                    
-                    req.flash('success_msg', 'Your profile has been successfully updated!');
-
-                    res.redirect('/student/profile');
+                } 
+                else {                    
+                    req.flash('status', 'Your profile has been successfully updated!');
+                    res.render('./Student_profile',{ student: foundObject, status: "profileUpdated"});
                 }
             });
         })
@@ -83,7 +80,7 @@ exports.open_profile_get = function(req, res, next) {
 
 exports.favourites_get = function(req, res, next) {
     if(!req.session.user) {
-        res.redirect('/student/login');
+        res.redirect('/');
     }
     else {
         var store = req.session.user;
@@ -103,7 +100,7 @@ exports.favourites_get = function(req, res, next) {
 
 exports.applied_jobs_get = function(req, res, next) {
     if(!req.session.user) {
-        res.redirect('/student/login');
+        res.redirect('/');
     }
     else {
         var store = req.session.user;
