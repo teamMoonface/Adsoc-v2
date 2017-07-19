@@ -11,7 +11,7 @@ var Job = require('../models/job');
 var async = require('async');
 var searchPagedb_controller =  require('../controllers/searchPagedbController');
 
-/* GET request for list of all Students. */
+
 router.get('/', function(req,res,next){
 	if(req.session.user){
 		var user_store = req.session.user;
