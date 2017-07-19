@@ -1,19 +1,32 @@
 body{
-	background-color: #f2f2f2;
+	background-color: #f7f7f7;
+	font-family: 'Quicksand', sans-serif;
+	background-size: cover;
 }
+
 .student-sidebar{
 	background-color: white;
 	border-radius: 5px;
 }
 
 .user-info{
+	background-color: #16163f;
 	padding-top: 10px;
-	background-color:#000051;
 	border-radius: 7px;
 	font-family: 'Quicksand', sans-serif;
-	color:white;
+	color: #e2e2e2;
+	border-color: none;
 	height: 250px;
 	text-align: center;
+	-webkit-transition: background-color 0.3s ease-out;
+    -moz-transition: background-color 0.3s ease-out;
+    -ms-transition: background-color 0.3s ease-out;
+    -o-transition: background-color 0.3s ease-out;
+    transition: background-color 0.3s ease-out;
+}
+
+.user-info:hover{
+	background-color: #1a1a4f;
 }
 
 .user-name{
@@ -30,7 +43,7 @@ body{
 	padding: 2px 3px 2px 3px;
 	border-radius: 3px;
 	width: 65px;
-	color:white;
+	color: white;
 	font-size: 13px;
 	font-weight: 100;
 }
@@ -41,18 +54,24 @@ body{
 	border-radius: 50%;
 }
 
-.nav > li > a {
+.nav > li.side > a {
     color: black;
 	font-family: 'Quicksand', sans-serif;
 	font-weight: 400;
 	font-size: 15px;
+	background-color: white;
+	-webkit-transition: background-color 0.3s ease-out;
+    -moz-transition: background-color 0.3s ease-out;
+    -ms-transition: background-color 0.3s ease-out;
+    -o-transition: background-color 0.3s ease-out;
+    transition: background-color 0.3s ease-out;
 }
 
-.nav > li > a:hover,
-.nav > li > a:focus
-.nav > li > a:active{
+.nav > li.side > a:hover,
+.nav > li.side > a:focus
+.nav > li.side > a:active{
     color: black;
-    background-color: white;
+    background-color: #dbdbdb;
 	font-family: 'Quicksand', sans-serif;
 	font-weight: 400;
 	font-size: 15px;
@@ -60,6 +79,9 @@ body{
 
 .side{
 	height:50px;
+}
+
+.side:hover{
 }
 
 #star{
@@ -74,7 +96,7 @@ body{
     text-align:left;
 }
 
-p{
+.miniContainers p{
 	display:inline-block;
 	margin-left: 20px;
 }
@@ -88,15 +110,21 @@ p{
 }
 
 /*Moving on to profile side*/
+
+.profile-panel{
+	margin-top: 0px;
+}
 .profile-details, .student_profile_info{
 	background-color: white;
-
 	text-align: center;
+
 }
 
 .edit-profile{
 	font-size:25px;
 	font-weight: 700;
+	color: #666666;
+	margin-top: 0px;
 }
 .basic-header{
 	text-align: left;
@@ -104,6 +132,7 @@ p{
 	font-size:25px;
 	font-family: 'Open sans', sans-serif;
 	margin-top: 7px;
+	margin-left: 0px;
 	font-weight: 400; 
 }
 
@@ -125,16 +154,22 @@ p{
 .upload-file-btn{
 	height: 40px;
 	margin-top: 10px;
-	background-color: #4d9188; 
-	border-color:#4d9188; 
+	background-color: #62bcb0; 
+	border-color:#62bcb0; 
 	color:white;
+	font-weight: bold;
+	 -webkit-transition: background-color 0.3s ease-out;
+    -moz-transition: background-color 0.3s ease-out;
+    -ms-transition: background-color 0.3s ease-out;
+    -o-transition: background-color 0.3s ease-out;
+    transition: background-color 0.3s ease-out;
 }
 
 .upload-file-btn:hover,
 .upload-file-btn:active{
 	color:white;
-	background-color: #62bcb0;
-	border-color:#62bcb0; 
+	background-color: #7dd8cc;
+	border-color:#7dd8cc; 
 }
 
 .update_button{
@@ -143,18 +178,26 @@ p{
 	font-size: 15px;
 	font-family: 'Open sans', sans-serif;	
 	font-weight: 550;
-	background-color: white; 
-	border-color:#000066;
-	color:#000066;
+	color: white;
+	font-weight:;
+	background-color: #31bae0;
 	border-width: 1.5px;
 	margin-left: 110px;
+    -webkit-transition: background-color 0.5s ease-out;
+    -moz-transition: background-color 0.5s ease-out;
+    -ms-transition: background-color 0.5s ease-out;
+    -o-transition: background-color 0.5s ease-out;
+    transition: background-color 0.5s ease-out;
 }
 
 .update_button:hover,
 .update_button:active{
-	color:white;
-	background-color: #000066;
-	border-color:white; 
+
+	text-decoration: none;
+	color: white;
+	background-color: #72e0ff;
+	color: white;
+	cursor: pointer;
 
 }
 
@@ -166,10 +209,6 @@ p{
 .brr{
 	margin-left: 0px;
 	font-family: 'Open sans', sans-serif;	
-}
-
-.jobposts.db {
-    width: 100%;
 }
 
 /*Moving to skills end*/
@@ -230,3 +269,110 @@ p{
 	border-radius: 50%;
     float: left;
 }
+
+#profile-pic{
+	border: none;
+}
+
+
+/* Favourites page && Appled Jobs page*/
+
+.title_of{
+	font-family: 'Open sans', sans-serif;
+}
+
+.postedjobs-panel{
+	font-family: 'Open sans', sans-serif;
+}
+
+.job-post{
+    font-family: 'Open sans', sans-serif;
+    border-radius: 5px;
+    border: 0px #d1d1d1 solid;
+    background-color: white;
+}
+
+.job-name{
+	font-family: 'Open sans', sans-serif;
+	font-weight: 700;
+}
+
+.job-pay{
+	position:relative;
+	top:50px;
+	right: 70px;
+	font-size: 20px;
+}
+
+.time-frame{
+	letter-spacing: 0px;
+    font-weight: 100;
+    margin-left: 0px;
+}
+
+.view_more_button{
+	color: white;
+    background-color: #36849c;
+	font-family: 'Quicksand', sans-serif;
+    font-size: 12px;
+	border: 1px solid #36849c;
+	border-radius: 5px;
+    -webkit-transition: all 0.3s ease;
+    -moz-transition: all 0.3s ease;
+    -ms-transition: all 0.3s ease;
+    -o-transition: all 0.3s ease;
+    transition: all 0.3s ease;
+}
+
+.view_more_button:hover,
+.view_more_button:active,
+.view_more_button:focus{
+	color:white;
+    background-color: #48b5d6;
+	border-color: #48b5d6;
+	text-decoration: none;
+}
+
+.butt{
+    text-align: center;
+}
+
+.text{
+    padding-top: 4px;
+}
+
+#postedon {
+    margin: 0px;
+}
+
+#coyname {
+    margin: 0px;
+}
+
+.wrapper{
+    text-align: center;
+    font-size: 22px;
+}
+
+.wrapper_deep{
+    margin-top: 100px;
+    font-family: 'Open sans', sans-serif;   
+    font-weight: 100;
+    color:#007a5d;
+}
+
+.skill-header{
+	font-size: 13px;
+	color: darkgrey;
+}
+
+.skill_type{
+    font-size: 13px;
+    color: black;
+    font-weight: 400;
+}
+
+.butt{
+    text-align: center;
+}
+

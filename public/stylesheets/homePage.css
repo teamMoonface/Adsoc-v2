@@ -1,34 +1,58 @@
-.b1{
-	font-size:20px;
-	padding: 20px 25px 20px 25px;
-	border-radius: 5px;
-	background-color:rgb(90, 152, 252);
-	color:white;
+body{
+	background-image: url("/images/amazing.jpg");
+    font-family: 'Quicksand', sans-serif;
+    background-repeat: no-repeat;
+    background-size: cover;  
 }
+
+.b1, .b2{
+	font-size: 17px;
+	padding: 16px 50px 16px 50px;
+	border-radius: 5px;
+	background-color: #4fb0cc;
+	color: white;
+	font-weight: bold;
+	background-color: #31bae0;
+
+    -webkit-transition: background-color 1s ease-out;
+    -moz-transition: background-color 1s ease-out;
+    -ms-transition: background-color 1s ease-out;
+    -o-transition: background-color 1s ease-out;
+    transition: background-color 1s ease-out;
+}
+
 
 .b1:hover{
 	text-decoration: none;
-}
-
-.b2{
-	background-color:rgb(91, 247, 164);
-	color:white;
-	font-size:20px;
-	padding: 20px 25px 20px 25px;
-	border-radius: 5px;
+	color: white;
+	background-color: #72e0ff;
+	color: white;
+	cursor: pointer;
 }
 
 .b2:hover{
 	text-decoration: none;
 	cursor: pointer;
+	color: white;
+	background-color: #72e0ff;
+	color: white;
 }
+
 
 .Wrapper{
 	margin: auto;
 	margin-top: 25%;
 	text-align: center;
 }
-.edit{
-	font-weight: bold;
+
+.head1, .head2{
+	font-size: 18px;
+	color:white;
+}
+
+.edit2, .edit1{
+	font-weight: 700;
+	font-family: 'Open sans',sans-serif;
 	font-size: 40px;
+	color:white;
 }

@@ -1,5 +1,8 @@
 body{
-	background-color:#f2f2f2;
+    background-image: url("/images/background.png");
+    font-family: 'Quicksand', sans-serif;
+    background-attachment: fixed;
+    background-position: center; 
 }
 
 .information{
@@ -75,14 +78,6 @@ body{
 	color:white;
 }
 
-.delete_button {
-	width: 90%;
-	border-radius: 5px;
-	font-size: 15px;
-	background-color: #E20606;
-	color: white;
-}
-
 .save_button{
 	width: 90%;
 	border-radius: 5px;
@@ -122,13 +117,3 @@ body{
 	border-radius: 7px;
 }
 
-/*Confirm modals*/
-#confirm{
-    display: inline-block;
-    margin-left: 10px;
-}
-
-#cancelBtn{
-    display: inline-block;
-    margin-right: 10px;
-}

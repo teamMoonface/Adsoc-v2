@@ -1,13 +1,20 @@
 body{
-    background-color: #f2f2f2;
+    font-family: 'Quicksand', sans-serif;
+    background-color: #f7f7f7;
 }
-.postedjobs-panel{
+
+
+.job-post{
     background-color: white;
+    font-family: 'Open sans', sans-serif;
+    border-radius: 5px;
+    border: 0px #d1d1d1 solid;
 }
 
 .job-name{
 	font-family: 'Open sans', sans-serif;
 	font-weight: 700;
+  color: #3a3a3a;
 }
 
 .job-pay{
@@ -18,37 +25,39 @@ body{
 }
 
 .time-frame{
-	font-family: 'Quicksand', sans-serif;
 	letter-spacing: 0px;
-}
-
-.wrapper{
-	text-align: center;
-	position: absolute;
-	top: 85px;
-	left: 60px;
-	font-family: 'Quicksand', sans-serif;
-	font-size:25px;
-	color: darkgreen;
+    font-weight: 100;
 }
 
 .view_more_button{
-	color: #ff87ec;
-    background-color: white;
+	color: white;
+    background-color: #36849c;
 	font-family: 'Quicksand', sans-serif;
     font-size: 12px;
-	border: 1px solid #ff87ec;
+	border: 1px solid #36849c;
 	border-radius: 5px;
+    -webkit-transition: all 0.3s ease;
+    -moz-transition: all 0.3s ease;
+    -ms-transition: all 0.3s ease;
+    -o-transition: all 0.3s ease;
+    transition: all 0.3s ease;
+}
+
+.view_more_button:hover,
+.view_more_button:active,
+.view_more_button:focus{
+	color:white;
+    background-color: #48b5d6;
+	border-color: #48b5d6;
+	text-decoration: none;
+}
+
+.butt{
+    text-align: center;
 }
 
 .text{
     padding-top: 4px;
-}
-
-.view_more_button:hover{
-	color:#ff42e2;
-	border-color:#ff42e2;
-	text-decoration: none;
 }
 
 #postedon {
@@ -92,6 +101,15 @@ a.link-decor:active{
      -moz-border-radius: 35px;
      border-radius: 35px;
      display: none;
+     -webkit-transition: all 0.3s ease-out;
+     -moz-transition: all 0.3s ease-out;
+     -ms-transition: all 0.3s ease-out;
+     -o-transition: all 0.3s ease-out;
+     transition: all 0.3s ease-out;
+ }
+
+ #goTopBtn:hover{
+    background-color: #000293;
  }
  
  #goTopBtn span {
@@ -107,10 +125,7 @@ a.link-decor:active{
      -o-transition: all 0.3s ease;
      transition: all 0.3s ease;
  }
- 
- #goTopBtn:hover {
-     background: black;
- }
+
  
  #goTopBtn:hover span {
      color: #fff;
@@ -121,11 +136,18 @@ a.link-decor:active{
 #searchBar {
     width: 93%;
     margin-bottom: 0px;
+    border-color: #ededed;
 }
 
 #submitBtn {
     width: 5%;
     margin-left: 4px;
+    background-color: #36849c;
+    height: 40px;
+}
+
+#submitBtn:hover{
+    background-color: #48b5d6;
 }
 
 .searchType {
@@ -133,24 +155,29 @@ a.link-decor:active{
     margin-bottom: 20px;
     font-family: 'Raleway', sans-serif;
 }
+.radio{
+    margin-left: 30px;
+    margin-top: 15px;
+}
 
 .filters {
     float: left;
     margin-right: 25px;
     width: 25%;
     padding: 10px 10px 10px 10px;
-    border: 1px groove;
-    font-family: 'Raleway', sans-serif;
+    border: none;
+    font-family: 'Open sans', sans-serif;
     border-radius: 7px;
     background-color: white;
 }
 
-#filterByTitle {
-    font-size: 16px;
-    font-weight: 400;
-    padding-left: 37%;
+#filterByTitle, #sortByTitle, #renumTitle {
+    font-size: 13px;
 }
 
+.filter-titles{
+    text-align: left;
+}
 
 .skillTypeSelect {
     margin-left: 20px;
@@ -158,9 +185,6 @@ a.link-decor:active{
     
 }
 
-#skillTypeTitle {
-    margin-bottom: 0px;
-}
 
 .filters hr {
     border: 0; 
@@ -174,15 +198,9 @@ a.link-decor:active{
 }
 
 #minRemunSelect {
-    width: 40%;
+    width: 30%;
     margin-top: 5px;
     margin-left: 0px;
-}
-
-#sortByTitle {
-    font-size: 16px;
-    font-weight: 400;
-    padding-left: 37%;
 }
 
 .sortOptions {
@@ -190,8 +208,182 @@ a.link-decor:active{
 }
 
 .skill_type{
-    font-size: 15px;
+    font-size: 13px;
     color: black;
-    font-family: 'Raleway', sans-serif;
+    font-family: 'Open sans', sans-serif;
     font-weight: 400;
+}
+
+.head{
+    font-family: 'Open Sans', sans-serif;
+    font-size: 35px;
+    font-weight: 500;
+    color:black;
+}
+
+.radio-font{
+    font-size: 12px;
+}
+
+.radio_container input[type="radio"]{
+  display: none;
+}
+
+.radio_container label {
+  position: relative;
+}
+
+.radio_container span::before,
+.radio_container span::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  margin: auto;
+}
+
+.radio_container span.radio:hover {
+  cursor: pointer;
+}
+.radio_container span.radio::before {
+  left: -52px;
+  width: 45px;
+  height: 25px;
+  background-color: #A8AAC1;
+  border-radius: 50px;
+}
+.radio_container span.radio::after {
+  left:-49px;
+  width: 17px;
+  height: 17px;
+  border-radius: 10px;
+  background-color: #36849c;
+  transition: left .25s, background-color .25s;
+}
+
+input[type="radio"]:checked + label span.radio::after {
+  left: -27px;
+  background-color: white;
+}
+
+.wrapper{
+    text-align: center;
+    font-size: 22px;
+}
+
+.wrapper_deep{
+    margin-top: 100px;
+    font-family: 'Open sans', sans-serif;   
+    font-weight: 100;
+    color:#007a5d;
+}
+
+.desc_justify{
+    text-align: justify;
+}
+
+
+.skillTypeSelect ul{
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    padding-left: 0pt;
+    overflow: auto;
+    width: 100%;
+}
+
+
+
+/*Circle*/
+
+fieldset .container{
+  display: block;
+  position: relative;
+  height: auto;
+  width: 500px;
+}
+
+h2 {
+    color: #AAAAAA;
+}
+
+.container ul.searchbarz{
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    overflow: auto;
+}
+
+ul.searchbarz li{
+    color: #AAAAAA;
+    display: block;
+    position: relative;
+    float: left;
+    width: 100%;
+}
+
+ul.searchbarz li input[type=radio]{
+  position: absolute;
+  visibility: hidden;
+}
+
+ul.searchbarz li label{
+    display: block;
+    position: relative;
+    font-weight: 300;
+    font-size: 1em;
+    padding: 5px 55px 5px 30px;
+    margin: 0px auto;
+    height: 30px;
+    z-index: 9;
+    cursor: pointer;
+    -webkit-transition: all 0.25s linear;
+    }
+
+ul.searchbarz li:hover label{
+    color: #383838;
+}
+
+ul.searchbarz li .check{
+    display: block;
+    position: absolute;
+    border: 1px solid #AAAAAA;
+    border-radius: 100%;
+    height: 15px;
+    width: 15px;
+    top: 8px;
+    left: 0px;
+    z-index: 5;
+   /*insert webki transition here*/
+}
+
+ul.searchbarz li:hover .check {
+  border: 1px solid black;
+}
+
+
+ul.searchbarz li .check::before {
+    display: block;
+    position: absolute;
+    content: '';
+    border-radius: 100%;
+    height: 9px;
+    width: 9px;
+    top: 1px;
+    left: 1px;
+    margin: auto;
+   /*insert webki transition here*/
+}
+
+
+input.r[type=radio]:checked ~ .check {
+  border: 2px solid #494949;
+}
+
+input.r[type=radio]:checked ~ .check::before{
+  background: #383838;
+}
+
+input.r[type=radio]:checked ~ label{
+  color: #383838;
 }

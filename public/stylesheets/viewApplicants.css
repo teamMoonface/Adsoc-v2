@@ -33,3 +33,8 @@
 	color: white;
 	background-color: #2ea58b;
 }
+
+body{
+    background-image: url("/images/background.png");
+    font-family: 'Quicksand', sans-serif;
+}
