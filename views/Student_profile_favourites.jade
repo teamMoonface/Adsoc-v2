@@ -37,7 +37,7 @@ block sidebar
               p.prof Profile
               span.glyphicon.glyphicon-chevron-right.pull-right
         li.side
-          a(href='/student/logout')
+          a(href='/logout_student')
             div.miniContainers
               img#star(src='/images/arrow.png', alt='logout')
               p.Log Log out
@@ -45,7 +45,7 @@ block sidebar
 
 block content
     .favourites-panel
-      h2
+      h2.title_of
         strong #{title}
       br
       .jobposts.db
@@ -54,35 +54,41 @@ block content
                 .postedjobs-panel
                      .job-post
                         .row
-                          .col-xs-9
+                          .col-xs-9.desc_justify
                             h2.job-name #{job.name} 
-                            p
+                            p  
                               small.time-frame 
                                 strong Working period: 
                                 | #{job.date_start_formatted} - #{job.date_end_formatted}
                             p
-                            | #{job.desc} 
+                            | #{job.desc}
                           .col-xs-3
                             div.wrapper 
-                              strong $#{job.remun}/hr
+                              div.wrapper_deep $#{job.remun}/hr
                         hr
                         div.row
                             div.col-xs-9
-                                p#coyname
-                                  strong Company/Project: 
-                                  | #{job.name}
-                                p#postedon
-                                  strong Posted on: 
-                                  | #{job.date_posted_formatted}
-                            div.col-xs-3
-                                a(href=job.url).btn.view_more_button 
+                                div
+                                  p#coyname
+                                    strong Company/Project: 
+                                    | #{job.name}
+                                div
+                                  p#postedon
+                                    strong Posted on: 
+                                    | #{job.date_posted_formatted}
+                            div.col-xs-3.butt
+                                div
+                                  a(href=job.url).btn.view_more_button 
                                     div.text View More
                         hr
                         .row
                           .col-xs-9
                             div.skill-container
                               div.skill-header Skill type:
-                                span.skill_type  &nbsp;#{job.skill_type}
+                                if(job.skill_type != null)
+                                    span.skill_type &nbsp;#{job.skill_type}
+                                else
+                                    span.skill_type &nbsp; Not specified
                           .col-xs-3
                         br
                     br

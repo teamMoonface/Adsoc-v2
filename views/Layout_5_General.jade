@@ -5,9 +5,9 @@ header
     block title
     include header
 
-    link(rel='stylesheet', href='/stylesheets/student_login.css')
     link(rel='stylesheet', href='/stylesheets/signup.css')
-    link(rel='stylesheet', href='/stylesheets/navBar.css')
+    link(rel='stylesheet', href='/stylesheets/navbar2.css')
+
     link(href="https://fonts.googleapis.com/css?family=Bubbler+One|Fira+Sans+Extra+Condensed|Quicksand|Roboto" rel="stylesheet")
     link(href="https://fonts.googleapis.com/css?family=Oswald" rel="stylesheet")
     link(href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet")
@@ -22,8 +22,10 @@ body
         #{error_msg.error_msg}
     if error
         #{error.error}
+    include navbar
     .container
-        include navbar
         .row
-            .signup-box
-                block content
+            .col-lg-5
+            .col-lg-7
+                .signup-box
+                    block content

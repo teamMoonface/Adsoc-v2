@@ -3,6 +3,7 @@ extends Layout_5_General
 block title
     title #{title}
 
+
 block content
     h2#title #{title}
     br
@@ -12,7 +13,7 @@ block content
             div.alert.alert-danger #{error.msg}
 
 
-    form.form-horizontal(method='POST' action='')
+    form.form-horizontal.form_font(method='POST' action='')
         .form-group
             label.control-label.col-xs-3(for='fullname') Full Name*
             .col-xs-8
@@ -60,6 +61,8 @@ block content
                 input#pw2.form-control(type='password', name='password2', placeholder='Enter password (required)')
         
         br
-        center 
-            input.btn.btn-primary#submitBtn(type='submit', value='Sign Up')
+        div.sign_up_submit 
+            center
+                input.btn#submitBtn(type='submit', value='Sign up now!')
+        br
         br

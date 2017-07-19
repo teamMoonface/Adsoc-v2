@@ -4,17 +4,23 @@ html(lang='en')
 header
     block title
     include header
-    link(rel='stylesheet', href='/stylesheets/navBar.css')
+    
+    link(rel='stylesheet', href='/stylesheets/nav1.css')
     link(rel='stylesheet', href='/stylesheets/searchPage.css')
+
     link(href="https://fonts.googleapis.com/css?family=Bubbler+One|Fira+Sans+Extra+Condensed|Quicksand|Roboto" rel="stylesheet")
     link(href="https://fonts.googleapis.com/css?family=Oswald" rel="stylesheet")
     link(href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet")
     link(href="https://fonts.googleapis.com/css?family=Open+Sans+Condensed:300" rel="stylesheet")
+    link(href='https://fonts.googleapis.com/css?family=Merriweather+Sans|Pacifico|Poiret+One|Rubik', rel='stylesheet')
+
+
     link(href='https://netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css', rel='stylesheet')
     script(src='/javascripts/searchPage.js')
+    script(src='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js',integrity='sha384-c5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa', crossorigin='anonymous')
 
 body
+    include navbar
     .container    
-        include navbar
         block heading
         block content
