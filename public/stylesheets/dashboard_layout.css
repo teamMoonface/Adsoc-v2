@@ -117,7 +117,7 @@ body{
 .profile-details, .student_profile_info{
 	background-color: white;
 	text-align: center;
-
+	border: none;
 }
 
 .edit-profile{
@@ -376,3 +376,36 @@ body{
     text-align: center;
 }
 
+
+/*Employer: View Posted jobs page*/
+
+.noApp{
+	color: white;
+    background-color: #31bae0;
+	font-family: 'Quicksand', sans-serif;
+    font-size: 13px;
+	border: 1px solid #31bae0;
+	border-radius: 5px;
+    -webkit-transition: all 0.3s ease;
+    -moz-transition: all 0.3s ease;
+    -ms-transition: all 0.3s ease;
+    -o-transition: all 0.3s ease;
+    transition: all 0.3s ease;
+    padding-top: 9px;
+}
+
+.noApp:hover{
+	color:white;
+    background-color: #72e0ff;
+	border-color: #72e0ff;
+	text-decoration: none;
+}
+
+.postJobBtn{
+	text-align: center;
+}
+
+.postjob{
+	background-color: white;
+	border: none;
+}

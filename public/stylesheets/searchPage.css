@@ -1,6 +1,9 @@
 body{
     font-family: 'Quicksand', sans-serif;
     background-color: #f7f7f7;
+    background-image: url('/images/background.png');
+    background-attachment: fixed;
+    background-position: center; 
 }
 
 
@@ -139,14 +142,14 @@ a.link-decor:active{
     border-color: #ededed;
 }
 
-#submitBtn {
+.search #submitBtn {
     width: 5%;
     margin-left: 4px;
     background-color: #36849c;
     height: 40px;
 }
 
-#submitBtn:hover{
+.search #submitBtn:hover{
     background-color: #48b5d6;
 }
 
