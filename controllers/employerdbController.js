@@ -49,11 +49,8 @@ exports.profile_post = function(req,res,next) {
 					console.log(err);
 					res.status(500).send();
 				} else {                    
-					//res.send(updatedObject);
-					
-					req.flash('success_msg', 'Your profile has been successfully updated!');
-
-					res.redirect('/employer/profile');
+                    req.flash('status', 'Your profile has been successfully updated!');
+                    res.render('./Employer_profile',{ employer: foundObject, status: "profileUpdated"});
 				}
 			});
 		})
@@ -187,13 +184,14 @@ exports.view_job_applicants = function(req, res,next) {
 	}
 	else {
 		var store = req.session.emp;
+		console.log(store);
 		async.parallel({
 			students: function(callback) {
 				Student.find({'appliedJobs': store._id})
 						.exec(callback);
 			},
 			job: function(callback) {
-				Job.findById(store._id)
+				Job.find({'postedJobs' : store._id})
 					.exec(callback);
 			}
 		}, function(err, results) {
@@ -495,6 +493,7 @@ exports.signup_employer_create_post = function(req, res, next) {
 			console.log(user);
 		}) 
 
+		
 		req.flash('success_msg', 'Thank you for registering with Adsoc, you may now login');
 
 		res.redirect('/employer/login');
