@@ -38,7 +38,7 @@ router.post('/postjob', employerDB_controller.postjob_post);
 
 // Job post segment
 /* GET request to view job applicants */
-router.get('/job/viewApplicants', employerDB_controller.view_job_applicants);
+router.get('/job/:id/viewApplicants', employerDB_controller.view_job_applicants);
 
 /* GET Job details of specific job*/
 router.get('/listed-job/:id', employerDB_controller.job_detail);
