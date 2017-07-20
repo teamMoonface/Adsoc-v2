@@ -22,7 +22,7 @@ div.navbar.navbar-inverse.transparent.navbar-static-top
                   span.carretName #{user.name} 
                   span.caret  
               ul.dropdown-menu
-                li
+                li 
                   a(href='/student/appliedJobs') Applied Jobs
                 li
                   a(href='/student/favourites') Favourites
@@ -32,7 +32,7 @@ div.navbar.navbar-inverse.transparent.navbar-static-top
                 li
                   a(href='/logout_student') Log Out
 
-          if employer
+          else if employer
             .dropdown
               button.btn.btn-default.dropdown-toggle.navbar-btn(type=' button', data-toggle='dropdown')
                 div

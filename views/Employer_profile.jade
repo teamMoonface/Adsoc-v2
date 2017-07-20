@@ -15,39 +15,42 @@ block sidebar
           strong #{employer.name}
         p #{employer.email}
       ul.nav.nav-pills.nav-stacked
-        li
+        li.side
           a(href=employer.postedJobs_url)
-            | Posted Jobs
-            span.glyphicon.glyphicon-chevron-right.pull-right
-        li
+            div.miniContainers
+              img#star(src='/images/applied.png', alt='applied') 
+              p.app Posted Jobs
+              span.glyphicon.glyphicon-chevron-right.pull-right
+        li.side
           a(href=employer.postJob_url)
-            | Post a Job
-            span.glyphicon.glyphicon-chevron-right.pull-right
+            div.miniContainers
+              img#star(src='/images/applied.png', alt='applied') 
+              p.favs Post a Job
+              span.glyphicon.glyphicon-chevron-right.pull-right
         li.active
           a(href=employer.url)
-            | Profile
-            span.glyphicon.glyphicon-chevron-right.pull-right
-        li
+            div.miniContainers
+              img#star(src='/images/profile.png', alt='profile')
+              p.prof Profile
+              span.glyphicon.glyphicon-chevron-right.pull-right
+        li.side
           a(href='/logout_employer')
-            | Log Out
-            span.glyphicon.glyphicon-chevron-right.pull-right
+            div.miniContainers
+              img#star(src='/images/arrow.png', alt='logout')
+              p.Log Log Out
+              span.glyphicon.glyphicon-chevron-right.pull-right
 
 block content
     .profile-panel
-      h2
-        strong Profile
-      br
+      h2.edit-profile Edit Profile
       .profile-details
-        br
-
         if errors
           each error in errors
             div.alert.alert-danger #{error.msg}
-
-        if success_msg
-          div.alert.alert-success #{success_msg}
-
+        if (status)
+          div.alert.alert-success Your profile has been successfully updated!
         br
+        .basic-header Basic Information
         img#profile-pic1(src='/images/Building-vector.jpg', alt='profile pic')
         br
         // upload profile pic

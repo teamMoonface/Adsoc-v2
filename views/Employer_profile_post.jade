@@ -15,22 +15,30 @@ block sidebar
           strong #{employer.name}
         p #{employer.email}
       ul.nav.nav-pills.nav-stacked
-        li
+        li.side
           a(href=employer.postedJobs_url)
-            | Posted Jobs
-            span.glyphicon.glyphicon-chevron-right.pull-right
+            div.miniContainers
+              img#star(src='/images/applied.png', alt='applied') 
+              p.app Posted Jobs
+              span.glyphicon.glyphicon-chevron-right.pull-right
         li.active
           a(href=employer.postJob_url)
-            | Post a Job
-            span.glyphicon.glyphicon-chevron-right.pull-right
-        li
+            div.miniContainers
+              img#star(src='/images/applied.png', alt='applied') 
+              p.favs Post a Job
+              span.glyphicon.glyphicon-chevron-right.pull-right
+        li.side
           a(href=employer.url)
-            | Profile
-            span.glyphicon.glyphicon-chevron-right.pull-right
-        li
+            div.miniContainers
+              img#star(src='/images/profile.png', alt='profile')
+              p.prof Profile
+              span.glyphicon.glyphicon-chevron-right.pull-right
+        li.side
           a(href='/logout_employer')
-            | Log Out
-            span.glyphicon.glyphicon-chevron-right.pull-right
+            div.miniContainers
+              img#star(src='/images/arrow.png', alt='logout')
+              p.Log Log Out
+              span.glyphicon.glyphicon-chevron-right.pull-right
 
 block content
     
@@ -51,7 +59,7 @@ block content
                 ol
                     for error in errors
                         li!=error.msg + '&nbsp'
-        
+        br
         form.form-horizontal(method='POST' action='')
           .form-group.row
             label.col-xs-3.control-label(for='jobtitle')
@@ -99,6 +107,7 @@ block content
                   input#fullstack(type='radio',name='skill_type',value='Fullstack',checked=((undefined==job) ? false : (job.skill_type=='Fullstack' ? true : false)))
                   |  Fullstack  
           br
-          input.btn.btn-primary#submitBtn(type='submit', value='Post Job')
+          div.postJobBtn
+            input.btn.btn-primary#submitBtn(type='submit', value='Post Job')
           br
           

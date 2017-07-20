@@ -12,25 +12,33 @@ block sidebar
         br
         img#profile-pic(src='/images/Building-vector.jpg', alt='profile pic')
         h4
-          strong Google
-        p someone@example.com
+          strong #{employer.name}
+        p #{employer.email}
       ul.nav.nav-pills.nav-stacked
         li.active
-          a(href='#')
-            | Posted Jobs
-            span.glyphicon.glyphicon-chevron-right.pull-right
-        li
+          a(href=employer.postedJobs_url)
+            div.miniContainers
+              img#star(src='/images/applied.png', alt='applied') 
+              p.app Posted Jobs
+              span.glyphicon.glyphicon-chevron-right.pull-right
+        li.side
           a(href=employer.postJob_url)
-            | Post a Job
-            span.glyphicon.glyphicon-chevron-right.pull-right
-        li
+            div.miniContainers
+              img#star(src='/images/applied.png', alt='applied') 
+              p.favs Post a Job
+              span.glyphicon.glyphicon-chevron-right.pull-right
+        li.side
           a(href=employer.url)
-            | Profile
-            span.glyphicon.glyphicon-chevron-right.pull-right
-        li
+            div.miniContainers
+              img#star(src='/images/profile.png', alt='profile')
+              p.prof Profile
+              span.glyphicon.glyphicon-chevron-right.pull-right
+        li.side
           a(href='/logout_employer')
-            | Log Out
-            span.glyphicon.glyphicon-chevron-right.pull-right
+            div.miniContainers
+              img#star(src='/images/arrow.png', alt='logout')
+              p.Log Log Out
+              span.glyphicon.glyphicon-chevron-right.pull-right
 
 block content
     .postedjobs-panel
@@ -40,20 +48,20 @@ block content
       if postedJobs
           each job in postedJobs
              .job-post
-                h3 #{job.name}
                 .row
-                  .col-xs-9
+                  .col-xs-9.desc_justify
+                    h2.job-name #{job.name} 
                     p
-                      small Period: #{job.date_start_formatted} - #{job.date_end_formatted}
-                  .col-xs-3.salary
-                    p $#{job.remun}/hr
+                      small.time-frame 
+                        strong Working period: 
+                        | #{job.date_start_formatted} - #{job.date_end_formatted}
+                    p
+                    | #{job.desc} 
+                  .col-xs-3
+                    div.wrapper 
+                      div.wrapper_deep $#{job.remun}/hr
                 hr
-                // job description
-                p
-                  | #{job.desc}
-                br
-                br
-                a.btn.btn-info(href=job.viewApplicantsURL, role='button')
+                a.btn.btn-info.noApp(href=job.viewApplicantsURL, role='button')
                   | View Applicants 
                   span.badge #{job.applicants.length}
                 button.btn.btn-danger.pull-right Remove Post
