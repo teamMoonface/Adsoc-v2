@@ -1,13 +1,10 @@
 extends Layout_5_General
 
 block content
-  .wrapper
+  .wrapper 
     br
-    if(message.length > 0)
-      div.alert.alert-danger #{message}
-    if(success_msg)
-      div.alert.alert-success #{success_msg}       
-    br
+    if (status)
+      div.alert.alert-success Thank you for registering with Adsoc, you may now login
     h2.title
       center Welcome back Boss
     form.login(method='POST' action='')

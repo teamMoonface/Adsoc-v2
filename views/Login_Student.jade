@@ -3,10 +3,8 @@ extends Layout_5_General
 block content
   .wrapper
     br
-    if(message.length > 0)
-      div.alert.alert-danger #{message}
-    if(error)
-      div.alert.alert-danger #{error}         
+    if (status)
+      div.alert.alert-success Thank you for registering with Adsoc, you may now login      
     br
     h2.title
       center Sign in here

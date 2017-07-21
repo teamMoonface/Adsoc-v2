@@ -11,12 +11,12 @@ exports.profile_get = function(req, res, next) {
         res.redirect('/');
     }
     console.log(req.session.user);
-    var store = req.session.user;
-    Student.findById(store._id)
+    var store_User = req.session.user;
+    Student.findById(store_User._id)
         .exec(function(err, studentInstance) {
             if (err) { return next(err); }
             // successful, so render
-            res.render('./Student_profile', {title: 'Profile', student: studentInstance});
+            res.render('./Student_profile', {title: 'Profile', student: studentInstance, store_User: "session alive"});
         })
 
 };
@@ -83,17 +83,17 @@ exports.favourites_get = function(req, res, next) {
         res.redirect('/');
     }
     else {
-        var store = req.session.user;
+        var store_User = req.session.user;
         async.parallel({
             studentInstance: function(callback) {
-                Student.findById(store._id)
+                Student.findById(store_User._id)
                     .populate('favouriteJobs')
                     .exec(callback);
             },
         }, function(err, results) {
             if (err) { return next(err); }
             console.log(req.session.user);
-            res.render('./Student_profile_favourites', {title: 'Favourite Jobs', student: results.studentInstance});
+            res.render('./Student_profile_favourites', {title: 'Favourite Jobs', student: results.studentInstance, store_User: 'session alive'});
         });
     }
 };
@@ -103,21 +103,21 @@ exports.applied_jobs_get = function(req, res, next) {
         res.redirect('/');
     }
     else {
-        var store = req.session.user;
+        var store_User = req.session.user;
         async.parallel({
             studentInstance: function(callback) {
-                Student.findById(store._id)
+                Student.findById(store_User._id)
                     .exec(callback);
             },
             appliedJobs: function(callback) {
-                Job.find({'applicants': store._id})
+                Job.find({'applicants': store_User._id})
                     .populate('employer')
                     .exec(callback);
             }
         }, function(err, results) {
             if (err) { return next(err); }
             console.log(req.session.user);
-            res.render('./Student_profile_appliedjobs', {title: 'Applied Jobs', student: results.studentInstance, appliedJobs: results.appliedJobs});
+            res.render('./Student_profile_appliedjobs', {title: 'Applied Jobs', student: results.studentInstance, appliedJobs: results.appliedJobs, store_User: 'session alive'});
         });
     }
 };
@@ -231,11 +231,10 @@ exports.signup_student_create_post = function(req, res,next) {
             if (err) throw err;
             console.log(user);
         }) 
-
         
-        req.flash('success_msg', 'Thank you for registering with Adsoc, you may now login');
+        req.flash('status', 'Thank you for registering with Adsoc, you may now login');
 
-        res.redirect('/student/login');
+        res.redirect('/login_student');
     }
 };
 
