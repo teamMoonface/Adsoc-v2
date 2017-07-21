@@ -30,7 +30,7 @@ router.get('/', function(req,res,next){
 		      res.render('./Search_page', {title: 'Search Page', job_list: results.jobFunc, student: results.studentFunc, store_User: 'session alive'});
 			})
 	}
-	if(req.session.emp){
+	else if(req.session.emp){
 		console.log(req.session.emp)
 		var store_Emp = req.session.emp;
 		async.parallel({
@@ -48,7 +48,8 @@ router.get('/', function(req,res,next){
 		      res.render('./Search_page', {title: 'Search Page', job_list: results.jobFunc, employer: results.employerFunc, store_Emp: 'session alive'});
 			})		
 	}
-	async.parallel({
+	else{
+		async.parallel({
 			        jobFunc: function(callback){
 			            Job.find()
 			                .populate('Search_page')
@@ -58,6 +59,7 @@ router.get('/', function(req,res,next){
 			      if (err) { return next(err); }
 			      res.render('./Search_page', {title: 'Search Page', job_list: results.jobFunc});
 		})
+	}
 });
 
 /* POST request for search bar*/
