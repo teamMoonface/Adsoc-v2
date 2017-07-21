@@ -141,4 +141,15 @@ router.get('/logout_employer', function(req,res) {
 
     req.session.destroy();
 });
+
+
+/* GET request log in page*/
+router.get('/login_employer', function(req, res, next){
+  res.render('Login_Employer')
+});
+
+router.get('/login_student', function(req, res, next){
+  res.render('Login_Student');
+});
+
 module.exports = router;

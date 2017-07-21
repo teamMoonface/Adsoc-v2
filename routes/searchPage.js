@@ -14,7 +14,7 @@ var searchPagedb_controller =  require('../controllers/searchPagedbController');
 
 router.get('/', function(req,res,next){
 	if(req.session.user){
-		var user_store = req.session.user;
+		var store_User = req.session.user;
 		async.parallel({
 		        jobFunc: function(callback){
 		            Job.find()
@@ -27,12 +27,12 @@ router.get('/', function(req,res,next){
 		        }
 		    },function(err, results) {
 		      if (err) { return next(err); }
-		      res.render('./Search_page', {title: 'Search Page', job_list: results.jobFunc, student: results.studentFunc});
+		      res.render('./Search_page', {title: 'Search Page', job_list: results.jobFunc, student: results.studentFunc, store_User: 'session alive'});
 			})
 	}
 	if(req.session.emp){
 		console.log(req.session.emp)
-		var emp_store = req.session.emp;
+		var store_Emp = req.session.emp;
 		async.parallel({
 		        jobFunc: function(callback){
 		            Job.find()
@@ -45,7 +45,7 @@ router.get('/', function(req,res,next){
 		        }
 		    },function(err, results) {
 		      if (err) { return next(err); }
-		      res.render('./Search_page', {title: 'Search Page', job_list: results.jobFunc, employer: results.employerFunc});
+		      res.render('./Search_page', {title: 'Search Page', job_list: results.jobFunc, employer: results.employerFunc, store_Emp: 'session alive'});
 			})		
 	}
 	async.parallel({
