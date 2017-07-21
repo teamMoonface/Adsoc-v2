@@ -1,0 +1,212 @@
+body{
+    background-image: url("/images/background.png");
+    font-family: 'Quicksand', sans-serif;
+    background-attachment: fixed;
+    background-position: center; 
+}
+
+.information{
+	font-size: 15px;
+	color:black;
+	font-family: 'Open sans', sans-serif;
+	text-align: right;
+
+}
+
+.profile_information{
+	color: darkgrey;
+	font-size: 25px;
+}
+
+.student_profile_info{
+	border: 1px solid black;
+	border-radius: 7px;
+	padding-left: 30px;
+	background-color: white;
+}
+
+.student_info{
+	text-align: left;
+	padding-left: 20px;
+}
+
+.profile-image{
+	text-align: center;
+}
+
+#profile_pic{
+	height:120px;
+	width:120px;
+	border-radius:50%;
+	border:2px darkgrey solid;
+}
+
+/*styling for job_view*/
+
+/*Side bar*/
+
+.student_profile_sidebar{
+	text-align: center;
+	height: 260px;
+	background-color:white;
+	border-radius: 7px;
+	font-size: 15px;
+	font-family: 'Arial', sans-serif;
+}
+
+.header, .save_job{
+	font-weight: 300;
+	text-align: left;
+	padding-left: 20px;
+	font-size: 17px;
+	padding-bottom: 7px
+}
+
+.apply_button {
+	width: 90%;
+	border-radius: 5px;
+	font-size: 15px;
+	background-color: #31bae0;
+	color: white;
+	-webkit-transition: background-color 0.5s ease-out;
+    -moz-transition: background-color 0.5s ease-out;
+    -ms-transition: background-color 0.5s ease-out;
+    -o-transition: background-color 0.5s ease-out;
+    transition: background-color 0.5s ease-out;
+}
+
+.apply_button:hover,
+.apply_button:active,
+.apply_button:focus{
+	background-color:#72e0ff;
+	text-decoration: none;
+	color:white;
+}
+
+.save_button{
+	width: 90%;
+	border-radius: 5px;
+	font-size: 15px;
+	background-color: #f9b248;
+	color: white;
+	-webkit-transition: background-color 0.5s ease-out;
+    -moz-transition: background-color 0.5s ease-out;
+    -ms-transition: background-color 0.5s ease-out;
+    -o-transition: background-color 0.5s ease-out;
+    transition: background-color 0.5s ease-out;
+}
+
+.save_button:hover,
+.save_button:active{
+	background-color:#ffdf51;
+	border-color: #ffdf51;
+	text-decoration: none;
+	color: white;	
+}
+
+/*Content*/
+.job-box{
+	font-size: 15px;
+	font-weight: bold;
+	font-family: 'Quicksand', sans-serif;
+	padding-top: 20px;
+	padding-left: 20px;
+}
+
+.job-title{
+	font-size: 30px;
+	font-weight: 700;
+}
+.summary{
+	background-color: white;
+	height:160px;
+	font-family: 'Quicksand', sans-serif; 
+	font-weight: 300;
+	font-size: 17px;
+	padding-top: 20px;
+	padding-left: 20px;
+	border-radius: 7px;
+}
+
+.fulldesc{
+	background-color: white;
+	padding-top: 20px;
+	padding-left: 20px;	
+	border-radius: 7px;
+}
+
+#cancelBtn{
+	width: 200px;;
+	font-size: 15px;
+	padding-top: 8px;
+	color: white;
+	background-color: #ff0038;
+	border: none;
+	-webkit-transition: background-color 0.5s ease-out;
+    -moz-transition: background-color 0.5s ease-out;
+    -ms-transition: background-color 0.5s ease-out;
+    -o-transition: background-color 0.5s ease-out;
+    transition: background-color 0.5s ease-out;
+}
+
+#cancelBtn:hover{
+	background-color: #ff426b;
+}
+
+#confirmBtn{
+	width: 200px;;
+	font-size: 15px;
+	padding-top: 8px;
+	color: white;
+	background-color: #31bae0;
+	border: none;
+	-webkit-transition: background-color 0.5s ease-out;
+    -moz-transition: background-color 0.5s ease-out;
+    -ms-transition: background-color 0.5s ease-out;
+    -o-transition: background-color 0.5s ease-out;
+    transition: background-color 0.5s ease-out;
+}
+
+#confirmBtn:hover{
+	background-color: #72e0ff;
+}
+
+#confirmation_header{
+	font-weight: bold;
+}
+
+.apply_header, .fav_header{
+	font-family: 'Quicksand', sans-serif;
+	font-weight: 900;
+	font-size: 15px;
+	text-align: left;
+}
+
+.delete_button{
+	width: 200px;;
+	font-size: 15px;
+	padding-top: 8px;
+	color: white;
+	background-color: #ff0038;
+	border: none;
+	-webkit-transition: background-color 0.5s ease-out;
+    -moz-transition: background-color 0.5s ease-out;
+    -ms-transition: background-color 0.5s ease-out;
+    -o-transition: background-color 0.5s ease-out;
+    transition: background-color 0.5s ease-out;
+
+}
+
+.delete_button:hover,
+.delete_button:active,
+.delete_button:focus{
+	background-color: #ff426b;
+	color: white;
+}
+
+.contents{
+	top:50%;
+	left:50%;
+	position: relative;
+	transform: translate(-50%,-50%);
+}
