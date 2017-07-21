@@ -11,13 +11,13 @@ exports.profile_get = function(req, res, next) {
 		res.redirect('/employer/login');
 	}
 	else {
-		var store = req.session.emp;
-		console.log(store);
-		Employer.findById(store._id)
+		var store_Emp = req.session.emp;
+		console.log(store_Emp);
+		Employer.findById(store_Emp._id)
 			.exec(function(err, employerInstance) {
 				if (err) { return next(err); }
 				// successful, so render
-				res.render('./Employer_profile', {title: 'Profile', employer: employerInstance});
+				res.render('./Employer_profile', {title: 'Profile', employer: employerInstance, store_Emp: 'session alive'});
 			})
 	}
 };
@@ -64,12 +64,12 @@ exports.postjob_get = function(req, res, next) {
 		res.redirect('/employer/login');
 	}
 	else {
-		var store = req.session.emp;
+		var store_Emp = req.session.emp;
 		console.log(req.session.emp);
-		Employer.findById(store._id)
+		Employer.findById(store_Emp._id)
 			.exec(function(err, employerInstance) {
 				if (err) { return next(err); }
-				res.render('./Employer_profile_post', { title: 'Post a Job', employer: employerInstance})
+				res.render('./Employer_profile_post', { title: 'Post a Job', employer: employerInstance, store_Emp: 'session alive'})
 		})
 	}
 };
@@ -123,7 +123,7 @@ exports.postjob_post = function(req, res, next) {
 	req.sanitize('remun1').trim();
 
 	var errors = req.validationErrors();
-	var store = req.session.emp;
+	var store_Emp = req.session.emp;
 
 	var job = new Job({
 		name: req.body.name,
@@ -132,7 +132,7 @@ exports.postjob_post = function(req, res, next) {
 		endDate: req.body.endDate,
 		remun: req.body.remun,
 		skill_type: req.body.skill_type,
-		employer: store._id,
+		employer: store_Emp._id,
 	});
 
 	
@@ -147,7 +147,7 @@ exports.postjob_post = function(req, res, next) {
 		});
 		
 		// add to employer's posted jobs
-		Employer.findByIdAndUpdate(store._id, {$push: {postedJobs: job}}, function(err) {
+		Employer.findByIdAndUpdate(store_Emp._id, {$push: {postedJobs: job}}, function(err) {
 			console.log(err);
 		});
 	}
@@ -159,20 +159,20 @@ exports.postedjobsList = function(req, res, next) {
 		res.redirect('/employer/login');
 	}
 	else {
-		var store = req.session.emp;
+		var store_Emp = req.session.emp;
 		async.parallel({
 			jobFunc: function(callback){
-				Job.find({'employer': store._id})
+				Job.find({'employer': store_Emp._id})
 					.populate('./Employer_profile_post')
 					.exec(callback);
 			},
 			employFunc: function(callback){
-				Employer.findById(store._id)
+				Employer.findById(store_Emp._id)
 					.exec(callback);
 			}
 		},function(err, results) {
 		  if (err) { return next(err); }
-		  res.render('./Employer_profile_posted', {title: 'Posted Jobs', postedJobs: results.jobFunc, employer: results.employFunc, numApplicants: results.applicantsCount});
+		  res.render('./Employer_profile_posted', {title: 'Posted Jobs', postedJobs: results.jobFunc, employer: results.employFunc, numApplicants: results.applicantsCount, store_Emp: 'session alive'});
 		});
 	}
 };
@@ -183,20 +183,20 @@ exports.view_job_applicants = function(req, res,next) {
 		res.redirect('/employer/login');
 	}
 	else {
-		var store = req.session.emp;
-		console.log(store);
+		var store_Emp = req.session.emp;
+		console.log(store_Emp);
 		async.parallel({
 			students: function(callback) {
-				Student.find({'appliedJobs': store._id})
+				Student.find({'appliedJobs': store_Emp._id})
 						.exec(callback);
 			},
 			job: function(callback) {
-				Job.find({'postedJobs' : store._id})
+				Job.find({'postedJobs' : store_Emp._id})
 					.exec(callback);
 			}
 		}, function(err, results) {
 			if (err) { return next(err); }
-			res.render('./Employer_profile_view_applicants', {title: 'View Applicants for ', students: results.students, job: results.job});
+			res.render('./Employer_profile_view_applicants', {title: 'View Applicants for ', students: results.students, job: results.job, store_Emp: 'session alive'});
 		});
 	}
 };
@@ -220,7 +220,8 @@ exports.job_detail = function(req, res, next) {
 	  }, function(err, results) {
 		if (err) { return next(err); }
 		//Successful, so render
-		res.render('./Job_view', { title: 'Job details', job: results.job, employer_poster: results.employer_poster, employer: results.employer });
+		var store_Emp = req.session.emp;
+		res.render('./Job_view', { title: 'Job details', job: results.job, employer_poster: results.employer_poster, employer: results.employer, store_Emp: 'session alive' });
 	  });
 	}
 	
@@ -236,8 +237,12 @@ exports.job_detail = function(req, res, next) {
 		},
 		student: function(callback) {
 			if (req.session.user) {
-				var store = req.session.user;
+				var store_User = req.session.user;
 				Student.findById({'_id': req.session.user._id})
+					.exec(callback);
+			}
+			else{
+				Student.findById(null)
 					.exec(callback);
 			}
 		}
@@ -245,32 +250,38 @@ exports.job_detail = function(req, res, next) {
 			if (err) { return next(err); }
 			
 			/* have already applied to job */
-			if (results.job.applicants.indexOf(req.session.user._id) > -1) {
-				console.log('job status: applied')
-                /* favourited job */
-                if (results.student.favouriteJobs.indexOf(req.params.id) > -1) {
-                    console.log('fav: true');
-				    res.render('./Job_view', {job: results.job, employer_poster: results.employer_poster, status: 'applied', fav: true});
-                }
-                /* have not fav job */
-                else {
-                    console.log('fav: false');
-                    res.render('./Job_view', {job: results.job, employer_poster: results.employer_poster, status: 'applied', fav: false});
-                }
-            }
-			else {
-				/* have not applied to job*/
-				console.log('job status: not applied')
-                /* favourited job */
-				if (results.student.favouriteJobs.indexOf(req.params.id) > -1) {
-				    console.log('fav: true');
-                    res.render('./Job_view', {job: results.job, employer_poster: results.employer_poster, status: 'notApplied', fav: true});
-                }
-                /* have not fav job */
-                else {
-                    console.log('fav: false');
-                    res.render('./Job_view', {job: results.job, employer_poster: results.employer_poster, status: 'notApplied', fav: false});
-                }
+			if(req.session.user){
+				if (results.job.applicants.indexOf(req.session.user._id) > -1) {
+					console.log('job status: applied')
+	                /* favourited job */
+	                if (results.student.favouriteJobs.indexOf(req.params.id) > -1) {
+	                    console.log('fav: true');
+					    res.render('./Job_view', {job: results.job, employer_poster: results.employer_poster, status: 'applied', fav: true, store_User: 'session alive'});
+	                }
+	                /* have not fav job */
+	                else {
+	                    console.log('fav: false');
+	                    res.render('./Job_view', {job: results.job, employer_poster: results.employer_poster, status: 'applied', fav: false, store_User: 'session alive'});
+	                }
+	            }
+				else {
+					/* have not applied to job*/
+					console.log('job status: not applied')
+	                /* favourited job */
+					if (results.student.favouriteJobs.indexOf(req.params.id) > -1) {
+					    console.log('fav: true');
+	                    res.render('./Job_view', {job: results.job, employer_poster: results.employer_poster, status: 'notApplied', fav: true, store_User: 'session alive'});
+	                }
+	                /* have not fav job */
+	                else {
+	                    console.log('fav: false');
+	                    res.render('./Job_view', {job: results.job, employer_poster: results.employer_poster, status: 'notApplied', fav: false, store_User: 'session alive'});
+	                }
+				}
+			}
+			else{
+				console.log('not logged in');
+				res.render('./Job_view', {job: results.job, employer_poster: results.employer_poster, status: 'notApplied', fav: false});
 			}
 		});
 	}
@@ -281,14 +292,14 @@ exports.apply_job = function(req, res, next) {
 		res.redirect('/student/login');
 	}
 	else {
-		var store = req.session.user;
+		var store_User = req.session.user;
 		async.parallel({
 			student: function(callback) {
-				Student.findByIdAndUpdate(store._id, {$push: {appliedJobs: req.params.id}})
+				Student.findByIdAndUpdate(store_User._id, {$push: {appliedJobs: req.params.id}})
 					   .exec(callback);
 			},
 			job: function(callback) {     
-				Job.findByIdAndUpdate(req.params.id, {$push: {applicants: store._id}})
+				Job.findByIdAndUpdate(req.params.id, {$push: {applicants: store_User._id}})
 					.exec(callback);
 			},
 			employer_poster: function(callback) {
@@ -298,7 +309,7 @@ exports.apply_job = function(req, res, next) {
 		}, function(err, results) {
 			if (err) { return next(err); }
 			console.log('job status: apply success');
-			res.render('./job_view', {job: results.job, employer_poster: results.employer_poster, status: 'applySuccess'});
+			res.render('./job_view', {job: results.job, employer_poster: results.employer_poster, status: 'applySuccess', store_User: 'session alive'});
 		}); 
 	}    
 };
@@ -308,14 +319,14 @@ exports.delete_job = function(req, res, next) {
 		res.redirect('/student/login')
 	}
 	else {
-		var store = req.session.user;
+		var store_User = req.session.user;
         async.parallel({
             student: function(callback) {
-                Student.findByIdAndUpdate(store._id, {$pull: {appliedJobs: req.params.id}})
+                Student.findByIdAndUpdate(store_User._id, {$pull: {appliedJobs: req.params.id}})
                     .exec(callback);
             },
             job: function(callback) {
-                Job.findByIdAndUpdate(req.params.id, {$pull: {applicants: store._id}})
+                Job.findByIdAndUpdate(req.params.id, {$pull: {applicants: store_User._id}})
                     .exec(callback);
             },
             employer_poster: function(callback) {
@@ -328,7 +339,7 @@ exports.delete_job = function(req, res, next) {
             /* favourited job */
             if (results.student.favouriteJobs.indexOf(req.params.id) > -1) {
                 console.log('fav: true');
-                res.render('./Job_view', {job: results.job, employer_poster: results.employer_poster, status: 'deleteSuccess', fav: true});
+                res.render('./Job_view', {job: results.job, employer_poster: results.employer_poster, status: 'deleteSuccess', fav: true, store_User: 'session alive'});
             }
             /* have not fav job */
             else {
@@ -344,10 +355,10 @@ exports.favourite_job = function(req, res, next) {
         res.redirect('/student/login')
     }
     else {
-        var store = req.session.user;
+        var store_User = req.session.user;
         async.parallel({
             student: function(callback) {
-                Student.findByIdAndUpdate(store._id, {$push: {favouriteJobs: req.params.id}})
+                Student.findByIdAndUpdate(store_User._id, {$push: {favouriteJobs: req.params.id}})
                     .exec(callback);
             },
             job: function(callback) {
@@ -361,7 +372,7 @@ exports.favourite_job = function(req, res, next) {
         }, function(err, results) {
             if (err) { return next(err); }
             console.log('favouriting job')
-            res.render('./job_view', {job: results.job, employer_poster: results.employer_poster, status: 'notApplied', fav: true});
+            res.render('./job_view', {job: results.job, employer_poster: results.employer_poster, status: 'notApplied', fav: true, store_User: 'session alive'});
         })
     }
 };
@@ -371,10 +382,10 @@ exports.remove_fav = function(req, res, next) {
         res.redirect('/student/login')
     }
     else {
-        var store = req.session.user;
+        var store_User = req.session.user;
         async.parallel({
             student: function(callback) {
-                Student.findByIdAndUpdate(store._id, {$pull: {favouriteJobs: req.params.id}})
+                Student.findByIdAndUpdate(store_User._id, {$pull: {favouriteJobs: req.params.id}})
                     .exec(callback);
             },
             job: function(callback) {
@@ -388,7 +399,7 @@ exports.remove_fav = function(req, res, next) {
         }, function(err, results) {
             if (err) { return next(err); }
             console.log('removing job from fav')
-            res.render('./job_view', {job: results.job, employer_poster: results.employer_poster, status: 'notApplied', fav: false});
+            res.render('./job_view', {job: results.job, employer_poster: results.employer_poster, status: 'notApplied', fav: false, store_User: 'session alive'});
         })
     }
 }
@@ -494,8 +505,8 @@ exports.signup_employer_create_post = function(req, res, next) {
 		}) 
 
 		
-		req.flash('success_msg', 'Thank you for registering with Adsoc, you may now login');
+		req.flash('status', 'Thank you for registering with Adsoc, you may now login');
 
-		res.redirect('/employer/login');
+		res.redirect('/employer_login');
 	}
 }
