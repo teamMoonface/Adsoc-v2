@@ -183,14 +183,22 @@ exports.view_job_applicants = function(req, res,next) {
 		res.redirect('/employer/login');
 	}
 	else {
-		var store = req.session.emp;
-		console.log(store);
-		Job.findById(req.params.id)
-            .populate('applicants')
-            .exec(function(err, job) {
-                if (err) { return next(err); }
-                res.render('./Employer_profile_view_applicants', {title: 'View Applicants for ', job: job});
-            });
+		var store_Emp = req.session.emp;
+		async.parallel({
+			jobFunc: function(callback){
+				Job.findById(req.params.id)
+					.populate('applicants')
+					.exec(callback);
+			},
+			employFunc: function(callback){
+				Employer.findByIdAndUpdate(store_Emp._id)
+					.exec(callback);
+			}
+		},function(err, results) {
+		  if (err) { return next(err); }
+		  console.log(results.employFunc.name);
+		  res.render('./Employer_profile_view_applicants', {title: 'Job Applicants', job: results.jobFunc, employer: results.employFunc, store_Emp: 'session alive'});
+		});
 	}
 };
 
