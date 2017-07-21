@@ -1,53 +1,51 @@
-extends Layout_5_General
+extends Layout_7_Employer_Sign_Up
 
 block title
     title #{title}
 
 block content
-    h2#title #{title}
-    br
-    // display error messages
-    if errors
-        .alert.alert-danger.box
-            span.glyphicon.glyphicon-warning-sign
-            p 
-                strong Error(s):
-            ol
-                for error in errors
-                    li!=error.msg + '&nbsp'
-                    br
-        
-    // add in upload profile pic + scrolltips later
-
-    form.form-horizontal.form_font(method='POST' action='')
-        .form-group
-            label.control-label.col-xs-3(for='name') Company name*
-            .col-xs-8
-                input#name.form-control(type='text', name='name' placeholder='Enter Company name (required)', value=(undefined==employer ? '' : employer.name))
-        .form-group
-            label.control-label.col-xs-3(for='email') Email*
-            .col-xs-8
-                input#email.form-control(type='text', name='email', placeholder='Enter email (required)', value=(undefined==employer ? '' : employer.email))
+    div.contents
+        h2#title #{title}
+        br
+        // display error messages
+        if errors
+            .alert.alert-danger.box
+                span.glyphicon.glyphicon-warning-sign
+                p 
+                    strong Error(s):
+                ol
+                    for error in errors
+                        li!=error.msg + '&nbsp'
+                        br
             
-        .form-group
-            label.control-label.col-xs-3(for='phoneNum') Contact Number
-            .col-xs-8
-                input#phoneNum.form-control(type='text', name='phoneNum', placeholder='Enter contact number (optional)', value=(undefined==employer ? '' : employer.phoneNum))
-        
-        .form-group
-            label.control-label.col-xs-3(for='un') Username*
-            .col-xs-8
-                input#un.form-control(type='text', name='username', placeholder='Enter preferred username (required)', value=(undefined==employer ? '' : employer.username))
-        
-        .form-group
-            label.control-label.col-xs-3(for='pw') Password*
-            .col-xs-8
-                input#pw.form-control(type='password', name='password', placeholder='Enter password (required)')
-        
-        br
-        center
-            input.btn#submitBtn(type='submit', value='Sign Up')
-        br
-        br
-        br
-        br
+        // add in upload profile pic + scrolltips later
+
+        form.form-horizontal.form_font(method='POST' action='')
+            .form-group
+                label.control-label.col-xs-3(for='name') Company name*
+                .col-xs-8
+                    input#name.form-control(type='text', name='name' placeholder='Enter Company name (required)', value=(undefined==employer ? '' : employer.name))
+            .form-group
+                label.control-label.col-xs-3(for='email') Email*
+                .col-xs-8
+                    input#email.form-control(type='text', name='email', placeholder='Enter email (required)', value=(undefined==employer ? '' : employer.email))
+                
+            .form-group
+                label.control-label.col-xs-3(for='phoneNum') Contact Number
+                .col-xs-8
+                    input#phoneNum.form-control(type='text', name='phoneNum', placeholder='Enter contact number (optional)', value=(undefined==employer ? '' : employer.phoneNum))
+            
+            .form-group
+                label.control-label.col-xs-3(for='un') Username*
+                .col-xs-8
+                    input#un.form-control(type='text', name='username', placeholder='Enter preferred username (required)', value=(undefined==employer ? '' : employer.username))
+            
+            .form-group
+                label.control-label.col-xs-3(for='pw') Password*
+                .col-xs-8
+                    input#pw.form-control(type='password', name='password', placeholder='Enter password (required)')
+            
+            br
+            div.sign_up_submit 
+                center
+                    input.btn#submitBtn(type='submit', value='Sign Up')

@@ -1,0 +1,57 @@
+body{
+    font-family: 'Open sans', sans-serif;
+	background-image: url("/images/man_background3.png");
+    background-repeat: no-repeat;
+    background-size: cover;  
+    color:black;
+    background-repeat: no-repeat;
+}
+
+#title {
+    text-align: center;
+    font-weight: 900;
+    font-family: 'Raleway', sans-serif;
+}
+
+#submitBtn{
+	width: 300px;
+	background-color: #4fb0cc;
+	color: white;
+	background-color: #31bae0;
+	font-family: 'Quicksand', sans-serif;
+    font-size: 15px;
+	border-radius: 5px;
+    -webkit-transition: all 0.5s ease;
+    -moz-transition: all 0.5s ease;
+    -ms-transition: all 0.5s ease;
+    -o-transition: all 0.5s ease;
+    transition: all 0.5s ease;
+}
+
+#submitBtn:hover,
+#submitBtn:active,
+#submitBtn:focus{
+	color:white;
+	background-color: #72e0ff;
+	border-color: #72e0ff;
+	text-decoration: none;
+}
+
+
+.form_font{
+	font-family: 'Raleway', sans-serif;
+	font-weight: 300;
+}
+
+#pw, #pw1, #pw2, #un, #dob, #phoneNum, #fullname, #email, #name{
+	width: 100%;
+}
+
+.form_group{
+	width: 100%;
+}
+
+.contents{
+	top:50%;
+	left:50%;
+}

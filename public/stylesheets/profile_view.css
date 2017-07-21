@@ -3,6 +3,7 @@ body{
     font-family: 'Quicksand', sans-serif;
     background-attachment: fixed;
     background-position: center; 
+    background-size: cover;
 }
 
 .information{
@@ -134,9 +135,9 @@ body{
 
 .fulldesc{
 	background-color: white;
-	padding-top: 20px;
-	padding-left: 20px;	
+	padding: 20px;
 	border-radius: 7px;
+	text-align: justify
 }
 
 #cancelBtn{

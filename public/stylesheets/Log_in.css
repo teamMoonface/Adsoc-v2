@@ -1,0 +1,23 @@
+body{
+	font-family: 'Quicksand', sans-serif;
+	background-image: url("/images/background.png");	
+    background-attachment: fixed;
+    background-position: center; 
+    background-size: cover;
+}
+
+.contents{
+	top:50%;
+	left:50%;
+	position: absolute; 
+	transform: translate(-50%,-50%);
+}
+
+.submitBtn{
+	text-align: center;
+}
+
+h2{
+	font-size: 30px;
+	font-weight: 900;
+}

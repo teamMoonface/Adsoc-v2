@@ -4,6 +4,7 @@ body{
     background-image: url('/images/background.png');
     background-attachment: fixed;
     background-position: center; 
+    background-size: cover;
 }
 
 
@@ -145,12 +146,12 @@ a.link-decor:active{
 .search #submitBtn {
     width: 5%;
     margin-left: 4px;
-    background-color: #36849c;
+    background-color: #44ff9b;
     height: 40px;
 }
 
 .search #submitBtn:hover{
-    background-color: #48b5d6;
+    background-color: #7affb8;
 }
 
 .searchType {

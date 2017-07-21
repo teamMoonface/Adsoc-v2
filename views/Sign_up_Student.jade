@@ -5,64 +5,63 @@ block title
 
 
 block content
-    h2#title #{title}
-    br
+    div.contents
+        h2#title #{title}
+        br
 
-    if errors
-        each error in errors
-            div.alert.alert-danger #{error.msg}
+        if errors
+            each error in errors
+                div.alert.alert-danger #{error.msg}
 
 
-    form.form-horizontal.form_font(method='POST' action='')
-        .form-group
-            label.control-label.col-xs-3(for='fullname') Full Name*
-            .col-xs-8
-                input#fullname.form-control(type='text', name='fullname' placeholder='Enter full name (required)', value=(undefined==student ? '' : student.name))
-        
-        .form-group
-            label.control-label.col-xs-3(for='email') Email*
-            .col-xs-8
-                input#email.form-control(type='text', name='email', placeholder='Enter email (required)', value=(undefined==student ? '' : student.email))
-            
-        .form-group
-            label.control-label.col-xs-3(for='phonenum') Contact Number
-            .col-xs-8
-                input#dob.form-control(type='number', name='phoneNum', placeholder='Enter contact number (optional)', value=(undefined==student ? '' : student.phoneNum))
-        
-        .form-group
-            label.control-label.col-xs-3(for='dob') Date of Birth
-            .col-xs-8
-                input#dob.form-control(type='date', name='dob', placeholder='Enter date of birth (optional)', value=(undefined==student ? '' : student.dob))
-        
-        .form-group
-            fieldset
-                label.control-label.col-xs-3 Gender
+        form.form-horizontal.form_font(method='POST' action='')
+            .form-group
+                label.control-label.col-xs-3(for='fullname') Full Name*
                 .col-xs-8
-                    label.radio-inline(for='male')
-                        input#male(type='radio', name='gender', value='Male', checked=((undefined==student) ? false : (student.gender=='Male' ? true : false)))
-                        |  Male
-                    label.radio-inline(for='female')
-                        input#female(type='radio', name='gender' value='Female', checked=((undefined==student) ? false : (student.gender=='Female' ? true : false)))
-                        |  Female
-        
-        .form-group
-            label.control-label.col-xs-3(for='un') Username*
-            .col-xs-8
-                input#un.form-control(type='text', name='username', placeholder='Enter preferred username (required)', value=(undefined==student ? '' : student.username))
-        
-        .form-group
-            label.control-label.col-xs-3(for='pw1') Password*
-            .col-xs-8
-                input#pw1.form-control(type='password', name='password1', placeholder='Enter password (required)')
+                    input#fullname.form-control(type='text', name='fullname' placeholder='Enter full name (required)', value=(undefined==student ? '' : student.name))
+            
+            .form-group
+                label.control-label.col-xs-3(for='email') Email*
+                .col-xs-8
+                    input#email.form-control(type='text', name='email', placeholder='Enter email (required)', value=(undefined==student ? '' : student.email))
+                
+            .form-group
+                label.control-label.col-xs-3(for='phonenum') Contact Number
+                .col-xs-8
+                    input#dob.form-control(type='number', name='phoneNum', placeholder='Enter contact number (optional)', value=(undefined==student ? '' : student.phoneNum))
+            
+            .form-group
+                label.control-label.col-xs-3(for='dob') Date of Birth
+                .col-xs-8
+                    input#dob.form-control(type='date', name='dob', placeholder='Enter date of birth (optional)', value=(undefined==student ? '' : student.dob))
+            
+            .form-group
+                fieldset
+                    label.control-label.col-xs-3 Gender
+                    .col-xs-8
+                        label.radio-inline(for='male')
+                            input#male(type='radio', name='gender', value='Male', checked=((undefined==student) ? false : (student.gender=='Male' ? true : false)))
+                            |  Male
+                        label.radio-inline(for='female')
+                            input#female(type='radio', name='gender' value='Female', checked=((undefined==student) ? false : (student.gender=='Female' ? true : false)))
+                            |  Female
+            
+            .form-group
+                label.control-label.col-xs-3(for='un') Username*
+                .col-xs-8
+                    input#un.form-control(type='text', name='username', placeholder='Enter preferred username (required)', value=(undefined==student ? '' : student.username))
+            
+            .form-group
+                label.control-label.col-xs-3(for='pw1') Password*
+                .col-xs-8
+                    input#pw1.form-control(type='password', name='password1', placeholder='Enter password (required)')
 
-        .form-group
-            label.control-label.col-xs-3(for='pw2') Confirm Password*
-            .col-xs-8
-                input#pw2.form-control(type='password', name='password2', placeholder='Enter password (required)')
-        
-        br
-        div.sign_up_submit 
-            center
-                input.btn#submitBtn(type='submit', value='Sign up now!')
-        br
-        br
+            .form-group
+                label.control-label.col-xs-3(for='pw2') Confirm Password*
+                .col-xs-8
+                    input#pw2.form-control(type='password', name='password2', placeholder='Enter password (required)')
+            
+            br
+            div.sign_up_submit 
+                center
+                    input.btn#submitBtn(type='submit', value='Sign up now!')
