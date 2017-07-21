@@ -45,13 +45,17 @@ body{
 
 /*Side bar*/
 
-.student_profile_sidebar{
+.student_profile_sidebar, .student_profile_sidebar_delete{
 	text-align: center;
 	height: 260px;
 	background-color:white;
 	border-radius: 7px;
 	font-size: 15px;
 	font-family: 'Arial', sans-serif;
+}
+
+.student_profile_sidebar_delete{
+	height: 150px;
 }
 
 .header, .save_job{
@@ -207,6 +211,6 @@ body{
 .contents{
 	top:50%;
 	left:50%;
-	position: relative;
+	position: relative; 
 	transform: translate(-50%,-50%);
 }
