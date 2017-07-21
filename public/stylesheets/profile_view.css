@@ -52,7 +52,6 @@ body{
 	border-radius: 7px;
 	font-size: 15px;
 	font-family: 'Arial', sans-serif;
-	padding-top: 40px;
 }
 
 .header, .save_job{
@@ -183,4 +182,31 @@ body{
 	text-align: left;
 }
 
+.delete_button{
+	width: 200px;;
+	font-size: 15px;
+	padding-top: 8px;
+	color: white;
+	background-color: #ff0038;
+	border: none;
+	-webkit-transition: background-color 0.5s ease-out;
+    -moz-transition: background-color 0.5s ease-out;
+    -ms-transition: background-color 0.5s ease-out;
+    -o-transition: background-color 0.5s ease-out;
+    transition: background-color 0.5s ease-out;
 
+}
+
+.delete_button:hover,
+.delete_button:active,
+.delete_button:focus{
+	background-color: #ff426b;
+	color: white;
+}
+
+.contents{
+	top:50%;
+	left:50%;
+	position: relative;
+	transform: translate(-50%,-50%);
+}
