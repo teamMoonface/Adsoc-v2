@@ -10,16 +10,28 @@ var LocalStrategy = require('passport-local').Strategy;
 var employerDB_controller = require('../controllers/employerdbController');
 var studentDB_controller = require('../controllers/studentdbController');
 
-router.get('/', function(req, res, next) {	
-	if(req.session.user){
-		Student.findById(req.session.user._id)
-	        .exec(function(err, studentInstance) {
-	        	if (err) { return next(err); }
-	            return  res.render('./home', {title: 'home', student: studentInstance});
-	        })}
-	 else
-	 	res.render('./home')
-});
+router.get('/', function(req, res, next) {  
+  if(req.session.user){
+    console.log('student session');
+    var store_User = req.session.user
+    Student.findById(req.session.user._id)
+          .exec(function(err, studentInstance) {
+            if (err) { return next(err); }
+              return  res.render('./home', {title: 'home', student: studentInstance, store_User: 'session alive'});
+         })}
+  else if(req.session.emp){
+    console.log('employer session');
+    var store_Emp = req.session.emp
+    Employer.findById(req.session.emp._id)
+          .exec(function(err, employerInstance) {
+            if (err) { return next(err); }
+              return  res.render('./home', {title: 'home', employer: employerInstance, store_Emp: 'session alive'});
+          })}
+  else{
+    console.log('no session');
+    return res.render('./home', {title: 'home'});
+  }
+ });
 
 //random stuff
 passport.use('student-login', new LocalStrategy({
