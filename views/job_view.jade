@@ -10,86 +10,89 @@ block sidebar
     if user
         if status == 'notApplied'
             div.student_profile_sidebar
-                div.header
-                    div.apply_header
-                        p Interested in this job? Apply now!
-                div.apply_job
-                    button.btn.apply_button(type='button', data-toggle='modal', data-target='#confirmApply') Apply for this job
-                div.modal.fade#confirmApply
-                    div.modal-dialog
-                        div.modal-content
-                            div.modal-header
-                                h4#confirmation_header Confirm application for #{job.name}?
-                            div.modal-body
-                                p.confirmation We will send your application to #{employer_poster.name}
-                                br
-                                .row
-                                    .col-xs-6
-                                        form#confirm(method='POST' action=job.url+'/apply')
-                                                a.btn#confirmBtn(type='submit') Confirm   
-                                       
-                                    .col-xs-6
-                                        a.btn#cancelBtn(type='button', data-dismiss='modal') Cancel
-                br
+                div.contents
+                    div.header
+                        div.apply_header
+                            p Interested in this job? Apply now!
+                    div.apply_job
+                        button.btn.apply_button(type='button', data-toggle='modal', data-target='#confirmApply') Apply for this job
+                    div.modal.fade#confirmApply
+                        div.modal-dialog
+                            div.modal-content
+                                div.modal-header
+                                    h4#confirmation_header Confirm application for #{job.name}?
+                                div.modal-body
+                                    p.confirmation We will send your application to #{employer_poster.name}
+                                    br
+                                    .row
+                                        .col-xs-6
+                                            form#confirm(method='POST' action=job.url+'/apply')
+                                                    button.btn#confirmBtn(type='submit') Confirm   
+                                           
+                                        .col-xs-6
+                                            a.btn#cancelBtn(type='button', data-dismiss='modal') Cancel
+                    br
 
-                div.save_job
-                    if (fav == false)
-                        div.fav_header
-                            p Not sure yet? Favourite this job for later
-                        form(method='POST' action=job.url+'/addToFav')
-                            button.btn.save_button(type='submit') Favourite this job
-                    else if (fav == true)
-                        div.fav_header
-                            p Looks like you have favourited this job!
-                        form(method='POST' action=job.url+'/removeFromFav')
-                          button.btn.save_button(type='submit') Remove job from favourites
+                    div.save_job
+                        if (fav == false)
+                            div.fav_header
+                                p Not sure yet? Favourite this job for later
+                            form(method='POST' action=job.url+'/addToFav')
+                                button.btn.save_button(type='submit') Favourite this job
+                        else if (fav == true)
+                            div.fav_header
+                                p Looks like you have favourited this job!
+                            form(method='POST' action=job.url+'/removeFromFav')
+                              button.btn.save_button(type='submit') Remove job from favourites
                 br
         else if status == 'deleteSuccess'
             // repeat of above since idk why jade dont let me put two conditions :<
             div.student_profile_sidebar
-                div.header
-                    | Interested in this job? Apply now!
-                div.apply_job
-                    button.btn.apply_button(type='button', data-toggle='modal', data-target='#confirmApply') Apply for this job
-                div.modal.fade#confirmApply
-                    div.modal-dialog
-                        div.modal-content
-                            div.modal-header
-                                h4#confirmation_header Confirm application for #{job.name}?
-                            div.modal-body
-                                p.confirmation We will send your application to #{employer_poster.name}
-                                br
-                                .row
-                                    .col-xs-6
-                                        form#confirm(method='POST' action=job.url+'/apply')
-                                                a.btn#confirmBtn(type='submit') Confirm   
-                                       
-                                    .col-xs-6
-                                        a.btn#cancelBtn(type='button', data-dismiss='modal') Cancel
-                br
-                div.save_job
-                    if (fav == false)
-                        div.fav_header
-                            p Not sure yet? Favourite this job for later
-                        form(method='POST' action=job.url+'/addToFav')
-                            button.btn.save_button(type='submit') Favourite this job
-                    else if (fav == true)
-                        div.fav_header
-                            p Looks like you have favourited this job!
-                        form(method='POST' action=job.url+'/removeFromFav')
-                          button.btn.save_button(type='submit') Remove from Favourites
-        else
-                div.student_profile_sidebar
-                    button.btn.delete_button(type='button', data-toggle='modal', data-target='#confirmDelete') Delete Application
-                    div.modal.fade#confirmDelete
+                div.contents
+                    div.header
+                        | Interested in this job? Apply now!
+                    div.apply_job
+                        button.btn.apply_button(type='button', data-toggle='modal', data-target='#confirmApply') Apply for this job
+                    div.modal.fade#confirmApply
                         div.modal-dialog
                             div.modal-content
+                                div.modal-header
+                                    h4#confirmation_header Confirm application for #{job.name}?
                                 div.modal-body
-                                    p Are you sure you want to delete your application for #{job.name}?
+                                    p.confirmation We will send your application to #{employer_poster.name}
                                     br
-                                    button.btn#cancelBtn(type='button', data-dismiss='modal') Cancel
-                                    form#confirm(method='POST' action=job.url+'/delete')
-                                        button.btn#confirmBtn(type='submit') Confirm
+                                    .row
+                                        .col-xs-6
+                                            form#confirm(method='POST' action=job.url+'/apply')
+                                                    button.btn#confirmBtn(type='submit') Confirm   
+                                           
+                                        .col-xs-6
+                                            a.btn#cancelBtn(type='button', data-dismiss='modal') Cancel
+                    br
+                    div.save_job
+                        if (fav == false)
+                            div.fav_header
+                                p Not sure yet? Favourite this job for later
+                            form(method='POST' action=job.url+'/addToFav')
+                                button.btn.save_button(type='submit') Favourite this job
+                        else if (fav == true)
+                            div.fav_header
+                                p Looks like you have favourited this job!
+                            form(method='POST' action=job.url+'/removeFromFav')
+                              button.btn.save_button(type='submit') Remove from Favourites
+        else
+                div.student_profile_sidebar
+                    div.contents
+                        button.btn.delete_button(type='button', data-toggle='modal', data-target='#confirmDelete') Delete Application
+                        div.modal.fade#confirmDelete
+                            div.modal-dialog
+                                div.modal-content
+                                    div.modal-body
+                                        p Are you sure you want to delete your application for #{job.name}?
+                                        br
+                                        button.btn#cancelBtn(type='button', data-dismiss='modal') Cancel
+                                        form#confirm(method='POST' action=job.url+'/delete')
+                                            button.btn#confirmBtn(type='submit') Confirm
                 br
     else if employer._id == employer_poster._id
         div.employer_profile_sidebar
