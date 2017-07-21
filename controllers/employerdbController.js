@@ -253,12 +253,12 @@ exports.job_detail = function(req, res, next) {
                     /* favourited job */
                     if (results.student.favouriteJobs.indexOf(req.params.id) > -1) {
                         console.log('fav: true');
-                        res.render('./Job_view', {job: results.job, employer_poster: results.employer_poster, status: 'applied', fav: true});
+                        res.render('./Job_view', {job: results.job, employer_poster: results.employer_poster, employer: null, status: 'applied', fav: true});
                     }
                     /* have not fav job */
                     else {
                         console.log('fav: false');
-                        res.render('./Job_view', {job: results.job, employer_poster: results.employer_poster, status: 'applied', fav: false});
+                        res.render('./Job_view', {job: results.job, employer_poster: results.employer_poster, employer: null, status: 'applied', fav: false});
                     }
                 }
                 else {
@@ -267,18 +267,19 @@ exports.job_detail = function(req, res, next) {
                     /* favourited job */
                     if (results.student.favouriteJobs.indexOf(req.params.id) > -1) {
                         console.log('fav: true');
-                        res.render('./Job_view', {job: results.job, employer_poster: results.employer_poster, status: 'notApplied', fav: true});
+                        res.render('./Job_view', {job: results.job, employer_poster: results.employer_poster, employer: null, status: 'notApplied', fav: true});
                     }
                     /* have not fav job */
                     else {
                         console.log('fav: false');
-                        res.render('./Job_view', {job: results.job, employer_poster: results.employer_poster, status: 'notApplied', fav: false});
+                        res.render('./Job_view', {job: results.job, employer_poster: results.employer_poster, employer: null, status: 'notApplied', fav: false});
                     }
                 }
             }
             else {
                 console.log('not logged in');
-                res.render('./Job_view', {job: results.job, employer_poster: results.employer_poster, status: 'notApplied', fav: false});
+                console.log(results.employer_poster);
+                res.render('./Job_view', {job: results.job, employer_poster: results.employer_poster, employer: null, status: 'notApplied', fav: false});
             }
 		});
 	}
