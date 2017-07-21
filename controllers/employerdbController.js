@@ -185,19 +185,12 @@ exports.view_job_applicants = function(req, res,next) {
 	else {
 		var store = req.session.emp;
 		console.log(store);
-		async.parallel({
-			students: function(callback) {
-				Student.find({'appliedJobs': store._id})
-						.exec(callback);
-			},
-			job: function(callback) {
-				Job.find({'postedJobs' : store._id})
-					.exec(callback);
-			}
-		}, function(err, results) {
-			if (err) { return next(err); }
-			res.render('./Employer_profile_view_applicants', {title: 'View Applicants for ', students: results.students, job: results.job});
-		});
+		Job.findById(req.params.id)
+            .populate('applicants')
+            .exec(function(err, job) {
+                if (err) { return next(err); }
+                res.render('./Employer_profile_view_applicants', {title: 'View Applicants for ', job: job});
+            });
 	}
 };
 
@@ -226,52 +219,66 @@ exports.job_detail = function(req, res, next) {
 	
 	else {
 		async.parallel({
-		job: function(callback) {     
-			Job.findById(req.params.id)
-				.exec(callback);
-		},
-		employer_poster: function(callback) {
-			Employer.findOne({ 'postedJobs': req.params.id})
-				.exec(callback);
-		},
-		student: function(callback) {
-			if (req.session.user) {
-				var store = req.session.user;
-				Student.findById({'_id': req.session.user._id})
-					.exec(callback);
-			}
-		}
+            job: function(callback) {     
+                Job.findById(req.params.id)
+                    .exec(callback);
+            },
+            employer_poster: function(callback) {
+                Employer.findOne({ 'postedJobs': req.params.id})
+                    .exec(callback);
+            },
+            student: function(callback) {
+                if (req.session.user) {
+                    var store = req.session.user;
+                    Student.findById({'_id': req.session.user._id})
+                        .exec(callback);
+                }
+                else {
+                    Student.findById(null)
+                            .exec(callback);
+                }
+            }
 		}, function(err, results) {
 			if (err) { return next(err); }
 			
-			/* have already applied to job */
-			if (results.job.applicants.indexOf(req.session.user._id) > -1) {
-				console.log('job status: applied')
-                /* favourited job */
-                if (results.student.favouriteJobs.indexOf(req.params.id) > -1) {
-                    console.log('fav: true');
-				    res.render('./Job_view', {job: results.job, employer_poster: results.employer_poster, status: 'applied', fav: true});
+            console.log('out else');
+            console.log('STUDENT: ' + results.student);
+            
+            // student session
+            if (req.session.user) {
+                /* have already applied to job */
+                if (results.job.applicants.indexOf(req.session.user._id) > -1) {
+                    console.log('job status: applied')
+                    /* favourited job */
+                    if (results.student.favouriteJobs.indexOf(req.params.id) > -1) {
+                        console.log('fav: true');
+                        res.render('./Job_view', {job: results.job, employer_poster: results.employer_poster, status: 'applied', fav: true});
+                    }
+                    /* have not fav job */
+                    else {
+                        console.log('fav: false');
+                        res.render('./Job_view', {job: results.job, employer_poster: results.employer_poster, status: 'applied', fav: false});
+                    }
                 }
-                /* have not fav job */
                 else {
-                    console.log('fav: false');
-                    res.render('./Job_view', {job: results.job, employer_poster: results.employer_poster, status: 'applied', fav: false});
+                    /* have not applied to job*/
+                    console.log('job status: not applied')
+                    /* favourited job */
+                    if (results.student.favouriteJobs.indexOf(req.params.id) > -1) {
+                        console.log('fav: true');
+                        res.render('./Job_view', {job: results.job, employer_poster: results.employer_poster, status: 'notApplied', fav: true});
+                    }
+                    /* have not fav job */
+                    else {
+                        console.log('fav: false');
+                        res.render('./Job_view', {job: results.job, employer_poster: results.employer_poster, status: 'notApplied', fav: false});
+                    }
                 }
             }
-			else {
-				/* have not applied to job*/
-				console.log('job status: not applied')
-                /* favourited job */
-				if (results.student.favouriteJobs.indexOf(req.params.id) > -1) {
-				    console.log('fav: true');
-                    res.render('./Job_view', {job: results.job, employer_poster: results.employer_poster, status: 'notApplied', fav: true});
-                }
-                /* have not fav job */
-                else {
-                    console.log('fav: false');
-                    res.render('./Job_view', {job: results.job, employer_poster: results.employer_poster, status: 'notApplied', fav: false});
-                }
-			}
+            else {
+                console.log('not logged in');
+                res.render('./Job_view', {job: results.job, employer_poster: results.employer_poster, status: 'notApplied', fav: false});
+            }
 		});
 	}
 };

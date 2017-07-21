@@ -20,8 +20,8 @@ body
         
         h2 #{title} #{job.name}
         br
-        if students
-            each student in students
+        if job.applicants.length > 0
+            each student in job.applicants
                 .viewApplicants
                     .row
                         .col-xs-4
