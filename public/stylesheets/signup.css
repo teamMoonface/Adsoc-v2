@@ -55,3 +55,7 @@ body{
 	top:50%;
 	left:50%;
 }
+
+.errorMsg{
+	text-align: center;
+}

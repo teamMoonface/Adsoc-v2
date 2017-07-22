@@ -164,6 +164,32 @@ exports.signup_student_create_post = function(req, res,next) {
     req.checkBody('password1', 'Password is required').notEmpty();
     req.checkBody('password2', 'Password do not match').equals(req.body.password1);
 
+    var result_Username = Student.find({'username': req.body.username}, function(err,user){
+        if(err){
+            console.log('Sign up error');
+            throw err;
+        }
+        //found at least 1 user
+        if(user.length!=0){
+            console.log('Username already exists: ' + username);
+            req.flash('status_Username', 'Username already exists, please choose another Username');
+        }
+
+    });
+
+    var result_Email = Student.find({'email': req.body.email}, function(err,user){
+        if(err){
+            console.log('Sign up error');
+            throw err;
+        }
+        //found at least 1 user
+        if(user.length!=0){
+            console.log('Email already exists: ' + email);
+            req.flash('status_Email', 'Email already exists, please choose another Email');
+        }
+
+    });  
+
     // check only when field is not empty
     
     req.checkBody({
@@ -183,7 +209,8 @@ exports.signup_student_create_post = function(req, res,next) {
             isLength: {
                 errorMessage: 'Username: min 5 characters, max 15 characters',
                 options: [{min: 5, max: 15}]
-            }
+            },
+
         },
         'phoneNum': {
             optional: {
@@ -209,9 +236,9 @@ exports.signup_student_create_post = function(req, res,next) {
     // create a student object
     
 
-    if (errors) {
+    if (errors || result_Username || result_Email) {
         res.render('./Sign_up_Student', {
-            errors: errors
+            errors: errors, status_Username: 'Username already exists, please choose another Username', status_Email: 'Email already exists, please choose another Email'
         });
     }
     else {

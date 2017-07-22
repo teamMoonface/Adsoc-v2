@@ -18,7 +18,7 @@ body
     include navbar
     .container    
         
-        h2 #{title} #{job.name}
+        h2 #{title} : #{job.name}
         br
         if job.applicants.length > 0
             each student in job.applicants

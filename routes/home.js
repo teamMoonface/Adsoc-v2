@@ -157,11 +157,31 @@ router.get('/logout_employer', function(req,res) {
 
 /* GET request log in page*/
 router.get('/login_employer', function(req, res, next){
-  res.render('Login_Employer')
+if(req.session.emp){
+    var store_Emp = req.session.emp
+    Employer.findById(req.session.emp._id)
+          .exec(function(err, employerInstance) {
+            if (err) { return next(err); }
+              return  res.render('./Login_Employer', {title: 'Employer Log in', employer: employerInstance, store_Emp: 'session alive'});
+          })
+  }
+  else{
+    res.render('Login_Employer', {title: 'Employer Log in'})
+  }
 });
 
 router.get('/login_student', function(req, res, next){
-  res.render('Login_Student');
+  if(req.session.user){
+  var store_User = req.session.user;
+  Student.findById(req.session.user._id)
+        .exec(function(err, studentInstance) {
+          if (err) { return next(err); }
+            return  res.render('./Login_Student', {title: 'Student Log in', student: studentInstance, store_User: 'session alive'});
+       })
+  }
+  else{
+    res.render('./Login_Student', {title: 'Student Log in'});
+  }
 });
 
 module.exports = router;

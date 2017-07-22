@@ -12,6 +12,17 @@ var flash = require('connect-flash');
 var passport = require('passport');
 var LocalStrategy = require('passport-local').Strategy;
 var util = require('util');
+// require the module 
+var owasp = require('owasp-password-strength-test');
+ 
+owasp.config({
+  allowPassphrases       : true,
+  maxLength              : 128,
+  minLength              : 10,
+  minPhraseLength        : 20,
+  minOptionalTestsToPass : 4,
+});
+
 //var confirm = require('jquery-confirm');
 
 
