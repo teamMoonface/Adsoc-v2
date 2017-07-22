@@ -18,7 +18,7 @@ router.get('/', function(req,res,next){
 		async.parallel({
 		        jobFunc: function(callback){
 		            Job.find()
-		                .populate('Search_page')
+		                .populate('employer')
 		                .exec(callback);
 		        },
 		        studentFunc: function(callback){
@@ -27,6 +27,7 @@ router.get('/', function(req,res,next){
 		        }
 		    },function(err, results) {
 		      if (err) { return next(err); }
+              console.log('store user');
 		      res.render('./Search_page', {title: 'Search Page', job_list: results.jobFunc, student: results.studentFunc, store_User: 'session alive'});
 			})
 	}
@@ -36,7 +37,7 @@ router.get('/', function(req,res,next){
 		async.parallel({
 		        jobFunc: function(callback){
 		            Job.find()
-		                .populate('Search_page')
+		                .populate('employer')
 		                .exec(callback);
 		        },
 		        employerFunc: function(callback){
@@ -52,7 +53,7 @@ router.get('/', function(req,res,next){
 		async.parallel({
 			        jobFunc: function(callback){
 			            Job.find()
-			                .populate('Search_page')
+			                .populate('employer')
 			                .exec(callback);
 			        }
 			    },function(err, results) {
