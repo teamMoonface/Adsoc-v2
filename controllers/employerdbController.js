@@ -48,9 +48,10 @@ exports.profile_post = function(req,res,next) {
 				if(err) {
 					console.log(err);
 					res.status(500).send();
-				} else {                    
-                    req.flash('status', 'Your profile has been successfully updated!');
-                    res.render('./Employer_profile',{ employer: foundObject, status: "profileUpdated"});
+				} else {     
+					console.log(req.files);        
+                    req.flash('status', 'Your profile has been successfully updated!'); 
+                    res.render('./Employer_profile',{ employer: foundObject, status: "profileUpdated", picture_id: {name: [req.files.filename]} });
 				}
 			});
 		})

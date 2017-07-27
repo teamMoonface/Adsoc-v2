@@ -112,76 +112,38 @@ block content
           br
           br
           br
-
     br
-    br
-    .skill-panel
-      .skill-details
-        .basic-header-1 Skills
+    .experience-panel
+      h2.edit-profile Experience
+      .experience-list
+        if expList
+          each exp in expList
+            br
+            .experience
+              .exp-header
+                  p.title-header #{exp.title}   
+                  form.delete-icon(method="POST" action="delete_exp")
+                    input#hiddenField(type='hidden', value='#{exp._id}', name="hiddenField")
+                    button#delete-btn(type='submit', title='Remove this experience', data-placement='bottom')
+                      span.glyphicon.glyphicon-trash 
+              .exp-body
+                p #{exp.desc}
         br
-        div
-          p.skill1 JavaScript
-          p.skill2 Expressjs
-          p.skill3 Java
+        button.btn.add_button(type='button', data-toggle='modal', data-target='#add-experience') Add Experience
         br
-        button.btn.btn-primary.btn-block.add-skills-btn(type='button', data-toggle='modal', data-target='#add-skills') Add Skills
-        // add skills modal
-        #add-skills.modal.fade
-          .modal-dialog
-            .modal-content
-              .modal-header
-                button.close(type='button', data-dismiss='modal') 
-                h4.modal-title Add Skills
-              .modal-body
-                p Select a skill
-                // should think of better selections and categorization for selection
-                form
-                  select#select-skills
-                    option(value='javascript')
-                      | Javascript
-                    option(value='java')
-                      | Java
-                    option(value='python')
-                      | Python
-                    option(value='HTML')
-                      | HTML
-                  br
-                  br
-                  button.btn.btn-primary.btn-sm.btn-block(type='submit') Add
-        br
-        h3 Experience
-        br
-        .experience-list.panel-group
-          .experience.panel.panel-default
-            .panel-heading
-              | Web Developer Freelance @ ABC
-              button#delete-btn(type='button', data-toggle='tooltip', title='Remove this experience', data-placement='bottom')
-                span.glyphicon.glyphicon-trash
-            .panel-body
-              p
-                | Worked with senior developers to manage large, complex design for corporate clients.
-          .experience.panel.panel-default
-            .panel-heading
-              | Assistant Web Developer @ XYZ
-              button#delete-btn(type='button', data-toggle='tooltip', title='Remove this experience', data-placement='bottom')
-                span.glyphicon.glyphicon-trash
-            .panel-body
-              p Managed websites and design/creation for clients.
-        br
-        button.btn.btn-primary.btn-block.add-skills-btn(type='button', data-toggle='modal', data-target='#add-experience') Add Experience
         // add skills modal
         #add-experience.modal.fade
           .modal-dialog
             .modal-content
               .modal-header
-                button.close(type='button', data-dismiss='modal') ×
+                button.close(type='button', data-dismiss='modal')
                 h4.modal-title Add Experience
               .modal-body
-                form
-                  .form-group
-                    label.control-label(for='exp-heading') Heading
-                    input#exp-heading.form-control(type='text')
-                    br
-                    label.control-label(for='exp-body') Description
-                    textarea#exp-body.form-control(rows='10', maxlength='500')
-                  button.btn.btn-primary.btn-block(type='submit') Add
+                form(method="POST" action="add_experience")
+                  .form-group.experience_add
+                    label.control-label(for='exp_heading') Heading
+                    input#exp_heading.form-control(type='text' placeholder="Please specify Type (i.e. Frontend, Backend, Fullstack)", name="exp_heading")
+                    label.control-label(for='exp_body') Description
+                    textarea#exp_body.form-control(rows='10', maxlength='500' placeholder="Give a description of what the job required you to do...", name="exp_body")
+                  input.btn.add_button(type='submit', value='Add')
+        br

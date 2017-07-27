@@ -23,6 +23,10 @@ router.get('/profile', studentDB_controller.profile_get);
 
 router.post('/profile', studentDB_controller.profile_post);
 
+router.post('/add_experience', studentDB_controller.add_experience);
+
+router.post('/delete_exp', studentDB_controller.delete_experience);
+
 router.get('/appliedjobs', studentDB_controller.applied_jobs_get);
 
 router.get('/favourites', studentDB_controller.favourites_get);

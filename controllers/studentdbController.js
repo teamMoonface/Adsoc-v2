@@ -1,10 +1,63 @@
 var Student = require('../models/student');
 var Employer = require('../models/employer');
 var Job = require('../models/job')
+var Experience = require('../models/experience');
 var async = require('async');
 var passport = require('passport');
 var LocalStrategy = require('passport-local').Strategy;
 
+exports.delete_experience = function(req,res,next) {
+    var store_User = req.session.user;
+    var hiddenField = req.body.hiddenField;
+    console.log('schizzlschizzle');
+    async.parallel({
+            student: function(callback) {
+                Student.findByIdAndUpdate(store_User._id, {$pull: {experienceList: req.body.hiddenField}})
+                    .exec(callback);
+            },
+            expList: function(callback) {
+                Experience.findById(req.body.hiddenField)
+                    .remove()
+                    .exec(callback);
+            }
+        }, function(err, results) {
+            if(err) { return next(err); }
+            console.log('successfully removed Experience entry');
+            res.redirect('/student/profile');      
+        });
+}
+
+exports.add_experience = function(req,res,next) {
+    req.checkBody('exp_heading', 'Title is required').notEmpty();
+    req.checkBody('exp_body', 'Description is required').notEmpty();
+    var errors = req.validationErrors();
+    var store_User = req.session.user;
+
+    var exp = new Experience({
+        title: req.body.exp_heading,
+        desc: req.body.exp_body,
+        student_id: store_User._id,
+    });
+
+    if (errors) {
+        //show 'unable to update message'
+        console.log(errors);
+        res.render('./Student_profile', {
+            errors: errors
+        });        
+    }
+    else {
+        exp.save(function(err) {
+            console.log('Experience saved');
+            if (err) { return next(err); }           
+            res.redirect('/student/profile');
+        });
+        Student.findByIdAndUpdate(store_User._id, {$push: {experienceList: exp}}, function(err) {
+            console.log(err);
+            console.log(store_User);
+        });
+    };    
+}
 
 exports.profile_get = function(req, res, next) {
     if(!req.session.user) {
@@ -12,13 +65,20 @@ exports.profile_get = function(req, res, next) {
     }
     console.log(req.session.user);
     var store_User = req.session.user;
-    Student.findById(store_User._id)
-        .exec(function(err, studentInstance) {
+    async.parallel({
+            studentInstance: function(callback) {
+                Student.findById(store_User._id)
+                    .exec(callback);
+            },
+            expList: function(callback) {
+                Experience.find({'student_id': store_User._id})
+                    .exec(callback);
+            }
+        }, function(err, results) {
             if (err) { return next(err); }
-            // successful, so render
-            res.render('./Student_profile', {title: 'Profile', student: studentInstance, store_User: "session alive"});
-        })
-
+            console.log(req.session.user);
+            res.render('./Student_profile', {title: 'Profile', student: results.studentInstance, expList: results.expList, store_User: 'session alive'});
+        });
 };
 
 
@@ -163,15 +223,17 @@ exports.signup_student_create_post = function(req, res,next) {
     req.checkBody('username', 'Username is required').notEmpty();   
     req.checkBody('password1', 'Password is required').notEmpty();
     req.checkBody('password2', 'Password do not match').equals(req.body.password1);
-
+    var user_flag = false;
+    var email_flag = false;
     var result_Username = Student.find({'username': req.body.username}, function(err,user){
         if(err){
             console.log('Sign up error');
             throw err;
         }
         //found at least 1 user
-        if(user.length!=0){
+        if(user!=null){
             console.log('Username already exists: ' + username);
+            user_flag = true;
             req.flash('status_Username', 'Username already exists, please choose another Username');
         }
 
@@ -183,8 +245,9 @@ exports.signup_student_create_post = function(req, res,next) {
             throw err;
         }
         //found at least 1 user
-        if(user.length!=0){
+        if(user!=null){
             console.log('Email already exists: ' + email);
+            email_flag = true;
             req.flash('status_Email', 'Email already exists, please choose another Email');
         }
 
@@ -236,7 +299,7 @@ exports.signup_student_create_post = function(req, res,next) {
     // create a student object
     
 
-    if (errors || result_Username || result_Email) {
+    if (errors || email_flag == true || user_flag == true) {
         res.render('./Sign_up_Student', {
             errors: errors, status_Username: 'Username already exists, please choose another Username', status_Email: 'Email already exists, please choose another Email'
         });
