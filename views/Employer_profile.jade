@@ -51,13 +51,14 @@ block content
           div.alert.alert-success Your profile has been successfully updated!
         br
         .basic-header Basic Information
-        img#profile-pic1(src='/images/Building-vector.jpg', alt='profile pic')
+        if(picture_id)
+          img#profile-pic1(src='/uploads/{picture_id.name[0]}', alt='profile pic')
+          p hello !{picture_id.name[0]};
+        else
+          img#profile-pic1(src='/images/man-team.png', alt='profile pic')
         br
-        // upload profile pic
-        button.btn.btn-primary.upload-file-btn
-          | Upload Photo
-        br
-        form.form-horizontal(method='POST' action='')
+        form.form-horizontal(method='POST' action='' enctype='multipart/form-data')
+          input.profile_upload(type='file' name='filename')
           .form-group.row
             label.col-xs-3.control-label(for='company_name') Company Name
             .col-xs-8

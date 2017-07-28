@@ -6,6 +6,9 @@ var Employer = require('../models/employer');
 
 var employerDB_controller = require('../controllers/employerdbController');
 
+var multer = require('multer');
+
+var upload = multer({dest:'public/uploads/'});
 
 //Everything Employer related
 
@@ -20,11 +23,12 @@ router.post('/signup', employerDB_controller.signup_employer_create_post);
 
 
 //Employer database segment
+
 /*GET request profile view*/
 router.get('/profile', employerDB_controller.profile_get);
 
 /*POST request profile view*/
-router.post('/profile', employerDB_controller.profile_post);
+router.post('/profile',upload.any(), employerDB_controller.profile_post);
 
 /* GET request view jobs posted*/
 router.get('/postedjobs', employerDB_controller.postedjobsList);

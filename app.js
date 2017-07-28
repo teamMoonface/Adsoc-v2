@@ -1,36 +1,23 @@
 //username: orbital_moonfacer
 //password: m00nFacer
 var express = require('express');
-var path = require('path');
 var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
-var bodyParser = require('body-parser');
 var expressValidator = require('express-validator');
 var session = require('express-session');
 var flash = require('connect-flash');
 var passport = require('passport');
 var LocalStrategy = require('passport-local').Strategy;
 var util = require('util');
-// require the module 
-var owasp = require('owasp-password-strength-test');
- 
-owasp.config({
-  allowPassphrases       : true,
-  maxLength              : 128,
-  minLength              : 10,
-  minPhraseLength        : 20,
-  minOptionalTestsToPass : 4,
-});
-
-//var confirm = require('jquery-confirm');
-
-
+var multer = require('multer'),
+  bodyParser = require('body-parser'),
+  path = require('path');
 // import routes
 var searchPage = require('./routes/searchPage');
 var home = require('./routes/home');
 var student = require('./routes/student');
-var employer = require('./routes/employer')
+var employer = require('./routes/employer');
 
 var app = express();
 var mongoose = require('mongoose');
@@ -65,6 +52,11 @@ app.use(session({
 	resave: true
 }));
 
+
+// /images which will serve as our final path of the uploaded images
+app.use(express.static(__dirname + '/public'));
+app.use('/image', express.static(__dirname + '/writable'));
+
 //Passport Init
 app.use(passport.initialize());
 app.use(passport.session());
@@ -95,8 +87,8 @@ app.use(function(req, res, next){
 	res.locals.success_msg = req.flash('success_msg');
 	res.locals.error_msg = req.flash('error_msg');
 	res.locals.error = req.flash('error');
-    res.locals.emp = req.emp || null;
-    res.locals.user = req.user || null;
+  res.locals.emp = req.emp || null;
+  res.locals.user = req.user || null;
 	next();
 })	
 

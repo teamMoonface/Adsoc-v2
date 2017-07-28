@@ -111,13 +111,14 @@ body{
 
 /*Moving on to profile side*/
 
-.profile-panel{
+.profile-panel, .experience-panel{
 	margin-top: 0px;
 }
-.profile-details, .student_profile_info{
+.profile-details, .student_profile_info, .experience-list{
 	background-color: white;
 	text-align: center;
 	border: none;
+	border-radius: 7px;
 }
 
 .edit-profile{
@@ -152,6 +153,7 @@ body{
 }
 
 .upload-file-btn{
+	border-radius: 5px;
 	height: 40px;
 	margin-top: 10px;
 	background-color: #62bcb0; 
@@ -170,6 +172,12 @@ body{
 	color:white;
 	background-color: #7dd8cc;
 	border-color:#7dd8cc; 
+}
+
+.profile_upload{
+	display: inline-block;
+	text-align: center;
+		
 }
 
 .update_button{
@@ -212,51 +220,9 @@ body{
 }
 
 /*Moving to skills end*/
-.skill-panel{
-	width: 100%;
-	background-color: white;
-	border-color:white;
-	border-radius: 5px;
-}
 
-.skill-details{
-	text-align: center;
-}
-
-.basic-header-1{
-	font-weight: 400;
-	text-align: left;
-	margin-top: 15px;
-	margin-left: 18px;
-	color: #8e8e8e;
-	font-size:25px;
-	font-family: 'Open sans', sans-serif;
-}
-
-.skill1{
-	padding: 3px 15px 3px 15px;
-
-	background-color: white;
-	color: #ff26e5;
-	border:2px solid black;
-	height:30px;
-}
-.skill2{
-	padding: 3px 15px 3px 15px;
-	background-color: white;
-	margin: 2000px;
-	color: #ff26e5;
-	border:2px solid black;
-	height:30px;
-}
-
-.skill3{
-	padding: 3px 15px 3px 15px;
-	background-color: white;
-	color: #ff26e5;
-	border:2px solid black;
-	height: 30px;
-	width: auto;
+.experience{
+	width:80%;
 }
 
 .modal-dialog{
@@ -274,7 +240,68 @@ body{
 	border: none;
 }
 
+.experience_add{
+	text-align: left;
+}
 
+#exp_heading{
+	left: 50%;
+    transform: translateX(-50%);
+    width: 100%;
+
+}
+
+.add_button{
+	height:40px;
+	width: 300px;
+	font-size: 15px;
+	font-family: 'Open sans', sans-serif;	
+	font-weight: 550;
+	color: white;
+	font-weight:;
+	background-color: #31bae0;
+	border-width: 1.5px;
+    -webkit-transition: background-color 0.5s ease-out;
+    -moz-transition: background-color 0.5s ease-out;
+    -ms-transition: background-color 0.5s ease-out;
+    -o-transition: background-color 0.5s ease-out;
+    transition: background-color 0.5s ease-out;
+}
+
+.add_button:hover,
+.add_button:active,
+.add_button:focus{
+	text-decoration: none;
+	color: white;
+	background-color: #72e0ff;
+	color: white;
+	cursor: pointer;
+}	
+
+.experience{
+	border-radius: 5px;
+	border: 1px #d1d1d1 solid;
+	position: relative;
+    left: 50%;
+    transform: translateX(-50%);
+}
+.exp-header{
+	background-color: #d1d1d1;	
+	padding-top: 4px;
+	padding-bottom: 4px;
+}
+.exp-body{
+	background-color: white;
+	padding: 10px;
+}
+
+.delete-icon{
+}
+
+.title-header{
+	display: inline-block
+	padding-left: 30px;
+}
 /* Favourites page && Appled Jobs page*/
 
 .title_of{
