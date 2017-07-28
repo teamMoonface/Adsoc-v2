@@ -164,6 +164,7 @@ exports.signup_student_create_post = function(req, res,next) {
     req.checkBody('password1', 'Password is required').notEmpty();
     req.checkBody('password2', 'Password do not match').equals(req.body.password1);
 
+    /*
     var result_Username = Student.find({'username': req.body.username}, function(err,user){
         if(err){
             console.log('Sign up error');
@@ -189,7 +190,8 @@ exports.signup_student_create_post = function(req, res,next) {
         }
 
     });  
-
+    */
+    
     // check only when field is not empty
     
     req.checkBody({
@@ -232,13 +234,10 @@ exports.signup_student_create_post = function(req, res,next) {
     
     // run validators
     var errors = req.validationErrors();
-    
-    // create a student object
-    
 
-    if (errors || result_Username || result_Email) {
+    if (errors) {
         res.render('./Sign_up_Student', {
-            errors: errors, status_Username: 'Username already exists, please choose another Username', status_Email: 'Email already exists, please choose another Email'
+            errors: errors
         });
     }
     else {

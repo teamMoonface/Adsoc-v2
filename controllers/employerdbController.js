@@ -50,7 +50,7 @@ exports.profile_post = function(req,res,next) {
 					res.status(500).send();
 				} else {                    
                     req.flash('status', 'Your profile has been successfully updated!');
-                    res.render('./Employer_profile',{ employer: foundObject, status: "profileUpdated"});
+                    res.render('./Employer_profile',{ employer: foundObject, status: 'profileUpdated', store_Emp: 'session alive'});
 				}
 			});
 		})
@@ -513,6 +513,6 @@ exports.signup_employer_create_post = function(req, res, next) {
 		
 		req.flash('status', 'Thank you for registering with Adsoc, you may now login');
 
-		res.redirect('/employer_login');
+		res.redirect('/login_employer');
 	}
 }

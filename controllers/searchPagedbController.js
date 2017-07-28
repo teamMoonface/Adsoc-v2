@@ -47,7 +47,7 @@ exports.search = function(req, res, next) {
                 $and: [
                     {remun: {$gte: minRemun}},
                     {skill_type: skillTypeQuery != 'all' ? skillTypeQuery : {$in: ['Frontend', 'Backend', 'Fullstack']} },
-                    {$text: {$search: searchString, $caseSensitive: true, $diacriticSensitive: true} }
+                    {$text: {$search: searchString, $caseSensitive: false, $diacriticSensitive: true} }
                 ]}, {score: {$meta: 'textScore'}})
                 .populate('employer')
                 .sort(sortBy == 'relevantRes' ? {score: {$meta:'textScore'}} : (sortBy == 'recentPosts' ? {'posted_date': -1} : {'remun': -1}))
@@ -95,7 +95,7 @@ exports.search = function(req, res, next) {
             function(callback) {
                 // non-empty search string
                 if (searchString != '') {
-                    Employer.find({$text: {$search: searchString, $caseSensitive: true, $diacriticSensitive: true}}, {score: {$meta: 'textScore'}}, '_id')
+                    Employer.find({$text: {$search: searchString, $caseSensitive: false, $diacriticSensitive: true}}, {score: {$meta: 'textScore'}}, '_id')
                             .sort({score: {$meta: 'textScore'}})
                             .exec(function(err, results) {
                                 if (err) { return next(err); }
