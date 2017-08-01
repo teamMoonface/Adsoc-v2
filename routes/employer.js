@@ -4,11 +4,10 @@ var passport = require('passport');
 var LocalStrategy = require('passport-local').Strategy;
 var Employer = require('../models/employer');
 
-var employerDB_controller = require('../controllers/employerdbController');
-
 var multer = require('multer');
+//var upload = multer({dest:'public/uploads/'});
 
-var upload = multer({dest:'public/uploads/'});
+var employerDB_controller = require('../controllers/employerdbController');
 
 //Everything Employer related
 
@@ -28,7 +27,7 @@ router.post('/signup', employerDB_controller.signup_employer_create_post);
 router.get('/profile', employerDB_controller.profile_get);
 
 /*POST request profile view*/
-router.post('/profile',upload.any(), employerDB_controller.profile_post);
+router.post('/profile', multer({ dest: './public/uploads/'}).single('filename'), employerDB_controller.profile_post);
 
 /* GET request view jobs posted*/
 router.get('/postedjobs', employerDB_controller.postedjobsList);

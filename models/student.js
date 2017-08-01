@@ -19,7 +19,8 @@ var StudentSchema = Schema (
         experienceList: [{type: Schema.ObjectId, ref: 'Experience'}],
         skillsList: [{type: Schema.ObjectId, ref: 'Skill'}],
         appliedJobs: [{type: Schema.ObjectId, ref: 'Job'}],
-        favouriteJobs: [{type: Schema.ObjectId, ref: 'Job'}] 
+        favouriteJobs: [{type: Schema.ObjectId, ref: 'Job'}],
+        img: { data: Buffer, contentType: String }, 
     }
 );
 

@@ -1,7 +1,14 @@
 var Student = require('../models/student');
 var Employer = require('../models/employer');
 var Job = require('../models/job')
+
 var Experience = require('../models/experience');
+
+var Image = require('../models/images');
+  
+var fs = require('fs');
+var imgPath = '/public/uploads/hj.jpg';  
+
 var async = require('async');
 var passport = require('passport');
 var LocalStrategy = require('passport-local').Strategy;
@@ -32,19 +39,33 @@ exports.add_experience = function(req,res,next) {
     req.checkBody('exp_body', 'Description is required').notEmpty();
     var errors = req.validationErrors();
     var store_User = req.session.user;
-
+    console.log(req.session.user);
     var exp = new Experience({
         title: req.body.exp_heading,
         desc: req.body.exp_body,
         student_id: store_User._id,
-    });
+    });  
 
     if (errors) {
         //show 'unable to update message'
-        console.log(errors);
-        res.render('./Student_profile', {
-            errors: errors
-        });        
+        async.parallel({
+            ImageFunction: function(callback){
+                Image.findOne({user_id: req.session.user._id})
+                    .exec(callback);
+            },
+            expList: function(callback) {
+                Experience.find({'student_id': store_User._id})
+                    .exec(callback);
+            },
+            UpdateFunction: function(callback){
+                Student.findById(store_User._id)
+                    .exec(callback);
+            }
+        }, function(err, results) {
+                if (err) { return next(err); }
+                console.log(errors);
+                res.render('./Student_profile', {errors: errors, store_User: "session alive", expList: results.expList, student: results.UpdateFunction, image: results.ImageFunction});        
+        })
     }
     else {
         exp.save(function(err) {
@@ -73,11 +94,15 @@ exports.profile_get = function(req, res, next) {
             expList: function(callback) {
                 Experience.find({'student_id': store_User._id})
                     .exec(callback);
+            },
+            ImageFunction: function(callback) {
+                Image.findOne({'user_id': store_User._id})
+                    .exec(callback);
             }
         }, function(err, results) {
             if (err) { return next(err); }
             console.log(req.session.user);
-            res.render('./Student_profile', {title: 'Profile', student: results.studentInstance, expList: results.expList, store_User: 'session alive'});
+            res.render('./Student_profile', {title: 'Profile', image: results.ImageFunction, student: results.studentInstance, expList: results.expList, store_User: 'session alive'});
         });
 };
 
@@ -85,43 +110,67 @@ exports.profile_get = function(req, res, next) {
 exports.profile_post = function(req,res,next) {
 
     req.checkBody('fullname', 'Name is required').notEmpty();
-
-        // run validators
-    var errors = req.validationErrors();
+    if(req.file!= null)
+        var file_name = req.file.filename;
+    console.log(req.file);
+    // run validators
+    var err_update = req.validationErrors();
     
     // create a student object
     
-    if (errors) {
-        //show 'unable to update message'
-        console.log(errors);
-        res.render('./Student_profile', {
-            errors: errors
-        });        
+    if (err_update) {
+        async.parallel({
+           ImageFunction: function(callback){
+                Image.findOne({user_id: req.session.user._id})
+                    .exec(callback);
+            },
+            UpdateFunction: function(callback){
+                Student.findById(req.session.user._id)
+                    .exec(callback);
+            } 
+        }, function(err, results){
+            if (err) { return next(err); }
+            console.log(err_update);
+            res.render('./Student_profile', { err_update: err_update, student: results.UpdateFunction, image: results.ImageFunction });        
+        })
+        
     }
     else {
-        Student.findOne({_id: req.session.user._id}, function(err, foundObject){
-            console.log('hello can you see me 3');
+        var store_User = req.session.user;
+
+        async.parallel({
+            ImageFunction: function(callback){
+                Image.findOne({user_id: req.session.user._id})
+                    .exec(callback);
+            },
+            UpdateFunction: function(callback){
+                Student.findById(req.session.user._id)
+                    .exec(callback);
+            }
+        }, function(err, results){
+
+            if (err) { return next(err); }
             if(req.body.fullname)
-                foundObject.name = req.body.fullname;
+                results.UpdateFunction.name = req.body.fullname;
             if(req.body.phoneNum)
-                foundObject.phoneNum = req.body.phoneNum;
+                results.UpdateFunction.phoneNum = req.body.phoneNum;
             if(req.body.dob)
-                foundObject.dob = req.body.dob;
+                results.UpdateFunction.dob = req.body.dob;
             if(req.body.gender)
-                foundObject.gender = req.body.gender;
+                results.UpdateFunction.gender = req.body.gender;
             if(req.body.aboutme)
-                foundObject.aboutme = req.body.aboutme;
-            foundObject.save(function(err,updatedObject) {
-                if(err) {
-                    console.log(err);
-                    res.status(500).send();
-                } 
-                else {                    
-                    req.flash('status', 'Your profile has been successfully updated!');
-                    res.render('./Student_profile',{ student: foundObject, status: "profileUpdated"});
-                }
-            });
-        })
+                results.UpdateFunction.aboutme = req.body.aboutme;
+            if(req.file != null)
+                results.ImageFunction.file_name = file_name;
+
+            results.UpdateFunction.save();
+            results.ImageFunction.save();
+            console.log(results.UpdateFunction);
+
+            req.flash('status', 'Your profile has been successfully updated!');
+            
+            res.render('./Student_profile',{ student: results.UpdateFunction, image: results.ImageFunction, status: "profileUpdated", store_User: "session alive"});
+        })        
     };
         
 
@@ -225,7 +274,8 @@ exports.signup_student_create_post = function(req, res,next) {
     req.checkBody('password2', 'Password do not match').equals(req.body.password1);
     var user_flag = false;
     var email_flag = false;
-    var result_Username = Student.find({'username': req.body.username}, function(err,user){
+    
+    Student.find({'username': req.body.username}, function(err,user){
         if(err){
             console.log('Sign up error');
             throw err;
@@ -239,7 +289,7 @@ exports.signup_student_create_post = function(req, res,next) {
 
     });
 
-    var result_Email = Student.find({'email': req.body.email}, function(err,user){
+    Student.find({'email': req.body.email}, function(err,user){
         if(err){
             console.log('Sign up error');
             throw err;
@@ -299,7 +349,7 @@ exports.signup_student_create_post = function(req, res,next) {
     // create a student object
     
 
-    if (errors || email_flag == true || user_flag == true) {
+    if (errors || email_flag === true || user_flag === true) {
         res.render('./Sign_up_Student', {
             errors: errors, status_Username: 'Username already exists, please choose another Username', status_Email: 'Email already exists, please choose another Email'
         });
@@ -319,6 +369,11 @@ exports.signup_student_create_post = function(req, res,next) {
 
         Student.createStudent(newStudent, function(err,user) {
             if (err) throw err;
+            var newImage = new Image();
+            newImage.img.contentType = 'image/png';
+            newImage.user_id = user._id;
+            newImage.file_name = 'man-team.png';
+            newImage.save();
             console.log(user);
         }) 
         

@@ -8,7 +8,10 @@ block sidebar
       .user-info
         br
         .ProfileImage
-          img#profile-pic(src='/images/man-team.png', alt='profile pic')
+          if (image)
+            img#profile-pic1(src='/uploads/#{image.file_name}', alt='profile pic')
+          else 
+            img#profile-pic1(src='/images/man-team.png', alt='profile pic') 
         h4.user-name
           strong #{student.name}
         .email
@@ -45,23 +48,28 @@ block content
     .profile-panel
       h2.edit-profile Edit Profile
       .profile-details
-        if errors
-          each error in errors
-            div.alert.alert-danger #{error.msg}
-
+        if (err_update)
+          for error in err_update
+            .error_wrapper1
+              .alert.alert-danger #{error.msg} 
         if (status)
           div.alert.alert-success Your profile has been successfully updated!
         br
         .basic-header Basic Information
-        img#profile-pic1(src='/images/man1.png', alt='profile pic')
+        if (image)
+          img#profile-pic1(src='/uploads/#{image.file_name}', alt='profile pic')
+        else 
+          img#profile-pic1(src='/images/man-team.png', alt='profile pic') 
+        br
         br
 
-        // upload profile pic
-        button.btn.upload-file-btn(type='button')
-          | Upload Photo
-        br
-
-        form.form-horizontal(method='POST' action='')
+        form.form-horizontal(method='POST' action='' enctype='multipart/form-data')
+          .form-group.row
+            label.col-xs-4.control-label(for='aboutme') Upload Profile picture
+            .col-xs-8.bzz
+              span.filename_box
+                input.profile_upload(type='file' name='filename')
+                p.filename_text please upload a square photo to prevent stretching!              
           .form-group.row
             label.col-xs-4.control-label(for='fullname') Full Name
             .col-xs-8
@@ -108,6 +116,7 @@ block content
               textarea#aboutme.form-control(rows='5', maxlengths='500', name="aboutme") #{student.aboutme}
               p.brr Max length: 500 words
 
+          br         
           input.btn.update_button(type='submit', value='Update Basic Info')
           br
           br
@@ -128,6 +137,11 @@ block content
                       span.glyphicon.glyphicon-trash 
               .exp-body
                 p #{exp.desc}
+        br       
+        if errors
+          each error in errors
+            .error_wrapper
+              .alert.alert-danger.error_width #{error.msg}    
         br
         button.btn.add_button(type='button', data-toggle='modal', data-target='#add-experience') Add Experience
         br
@@ -146,4 +160,5 @@ block content
                     label.control-label(for='exp_body') Description
                     textarea#exp_body.form-control(rows='10', maxlength='500' placeholder="Give a description of what the job required you to do...", name="exp_body")
                   input.btn.add_button(type='submit', value='Add')
+          br      
         br

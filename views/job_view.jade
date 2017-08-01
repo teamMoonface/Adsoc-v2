@@ -119,9 +119,12 @@ block sidebar
                                 div.modal-body
                                     p Are you sure you want to delete your application for #{job.name}?
                                     br
-                                    button.btn#cancelBtn(type='button', data-dismiss='modal') Cancel
-                                    form#confirm(method='POST' action=job.url+'/delete')
-                                        button.btn#confirmBtn(type='submit') Confirm
+                                    .row
+                                        .col-xs-6
+                                            button.btn#cancelBtn(type='button', data-dismiss='modal') Cancel
+                                        .col-xs-6
+                                            form#confirm(method='POST' action=job.url+'/delete')
+                                                button.btn#confirmBtn(type='submit') Confirm
                 br
 
 

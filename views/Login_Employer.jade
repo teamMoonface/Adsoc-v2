@@ -1,11 +1,13 @@
 extends Layout_6_Sign_in
 
 block content
+  if (status)
+      div.alert.alert-success.error_msg Thank you for registering with Adsoc, you may now login  
+  if (message.length > 0)   
+    div.alert.alert-danger.error_msg #{message} 
   .contents
     .wrapper 
       br
-      if (status)
-        div.alert.alert-success Thank you for registering with Adsoc, you may now login
       br
       h2.title
         center Welcome back Boss

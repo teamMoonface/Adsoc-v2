@@ -10,7 +10,11 @@ block sidebar
     .employer-sidebar
       .user-info
         br
-        img#profile-pic(src='/images/Building-vector.jpg', alt='profile pic')
+        div.profile_div
+          if (image)
+            img#profile-pic1(src='/uploads/#{image.file_name}', alt='profile pic')
+          else
+            img#profile-pic(src='/images/Building-vector.jpg', alt='profile pic')
         h4
           strong #{employer.name}
         p #{employer.email}
@@ -51,14 +55,12 @@ block content
           div.alert.alert-success Your profile has been successfully updated!
         br
         .basic-header Basic Information
-        if(picture_id)
-          img#profile-pic1(src='/uploads/{picture_id.name[0]}', alt='profile pic')
-          p hello !{picture_id.name[0]};
-        else
-          img#profile-pic1(src='/images/man-team.png', alt='profile pic')
-        br
+        div.profile_div
+          if (image)
+            img#profile-pic1(src='/uploads/#{image.file_name}', alt='profile pic')
+          else
+            img#profile-pic1(src='/images/Building-vector.jpg', alt='profile pic')
         form.form-horizontal(method='POST' action='' enctype='multipart/form-data')
-          input.profile_upload(type='file' name='filename')
           .form-group.row
             label.col-xs-3.control-label(for='company_name') Company Name
             .col-xs-8
@@ -74,5 +76,8 @@ block content
             .col-xs-9.bzz
               textarea#aboutme.form-control(rows='5', maxlengths='500', name="aboutme") #{employer.aboutme}
               p.brr Max length: 500 words
+          span.filename_box
+            input.profile_upload(type='file' name='filename')
+            p.filename_text please upload a square photo to prevent stretching!
           br
           input.btn.update_button(type='submit', value='Update Company Info')

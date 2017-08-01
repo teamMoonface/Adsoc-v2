@@ -4,6 +4,8 @@ var passport = require('passport');
 var LocalStrategy = require('passport-local').Strategy;
 var Student = require('../models/student');
 
+var multer = require('multer');
+
 var studentDB_controller = require('../controllers/studentdbController');
 
 
@@ -21,7 +23,7 @@ router.post('/signup', studentDB_controller.signup_student_create_post);
 
 router.get('/profile', studentDB_controller.profile_get);
 
-router.post('/profile', studentDB_controller.profile_post);
+router.post('/profile', multer({ dest: './public/uploads/'}).single('filename'), studentDB_controller.profile_post);
 
 router.post('/add_experience', studentDB_controller.add_experience);
 
