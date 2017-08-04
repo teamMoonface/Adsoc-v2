@@ -40,20 +40,30 @@ exports.profile_get = function(req, res, next) {
 exports.profile_post = function(req,res,next) {
 
 	req.checkBody('company_name', 'Company name is required').notEmpty();
-	var file_name = req.file.filename;
+	if(req.file!= null)
+        var file_name = req.file.filename;
+    console.log(req.file);
 
 	// run validators
-	var errors = req.validationErrors();
-	console.log(req.file);
+	var err_update = req.validationErrors();
 
 	// create a student object
 	
-	if (errors) {
-		//show 'unable to update message'
-		console.log(errors);
-		res.render('./Employer_profile', {
-			errors: errors
-		});        
+	if (err_update) {
+        async.parallel({
+           ImageFunction: function(callback){
+                Image.findOne({user_id: req.session.emp._id})
+                    .exec(callback);
+            },
+            UpdateFunction: function(callback){
+                Employer.findById(req.session.emp._id)
+                    .exec(callback);
+            } 
+        }, function(err, results){
+            if (err) { return next(err); }
+            console.log(err_update);
+            res.render('./Student_profile', { err_update: err_update, student: results.UpdateFunction, image: results.ImageFunction });        
+        })      
 	}
 	else {
 		var store_Emp = req.session.emp;
@@ -93,12 +103,19 @@ exports.postjob_get = function(req, res, next) {
 	else {
 		var store_Emp = req.session.emp;
 		console.log(req.session.emp);
-		Employer.findById(store_Emp._id)
-			.exec(function(err, employerInstance) {
-				if (err) { return next(err); }
-				res.render('./Employer_profile_post', { title: 'Post a Job', employer: employerInstance, store_Emp: 'session alive'});
-		});
-	}
+		async.parallel({
+			ImageFunction: function(callback){
+				Image.findOne({user_id: req.session.emp_id})
+					.exec(callback);
+			},
+			employerInstance: function(callback){
+				Employer.findById(req.session.emp._id)
+					.exec(callback);
+			}
+		}, function(err,results){
+			if (err) { return next(err);}
+			res.render('./Employer_profile_post', { title: 'Post a Job', employer: results.employerInstance, image: results.ImageFunction, store_Emp: 'session alive'})
+		})}
 };
 
 exports.postjob_post = function(req, res, next) {
@@ -196,10 +213,14 @@ exports.postedjobsList = function(req, res, next) {
 			employFunc: function(callback){
 				Employer.findById(store_Emp._id)
 					.exec(callback);
+			},
+			ImageFunction: function(callback){
+				Image.findOne(store_Emp._id)
+				.exec(callbackk)
 			}
 		},function(err, results) {
 		  if (err) { return next(err); }
-		  res.render('./Employer_profile_posted', {title: 'Posted Jobs', postedJobs: results.jobFunc, employer: results.employFunc, numApplicants: results.applicantsCount, store_Emp: 'session alive'});
+		  res.render('./Employer_profile_posted', {title: 'Posted Jobs', postedJobs: results.jobFunc, image: results.ImageFunction, employer: results.employFunc, numApplicants: results.applicantsCount, store_Emp: 'session alive'});
 		});
 	}
 };
@@ -220,11 +241,15 @@ exports.view_job_applicants = function(req, res,next) {
 			employFunc: function(callback){
 				Employer.findByIdAndUpdate(store_Emp._id)
 					.exec(callback);
+			},
+			ImageFunction: function(callback){
+				Image.findOne(store_Emp._id)
+				.exec(callbackk)
 			}
 		},function(err, results) {
 		  if (err) { return next(err); }
 		  console.log(results.employFunc.name);
-		  res.render('./Employer_profile_view_applicants', {title: 'Job Applicants', job: results.jobFunc, employer: results.employFunc, store_Emp: 'session alive'});
+		  res.render('./Employer_profile_view_applicants', {title: 'Job Applicants', job: results.jobFunc, image: results.ImageFunction, employer: results.employFunc, store_Emp: 'session alive'});
 		});
 	}
 };

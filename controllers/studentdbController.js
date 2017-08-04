@@ -133,7 +133,6 @@ exports.profile_post = function(req,res,next) {
             console.log(err_update);
             res.render('./Student_profile', { err_update: err_update, student: results.UpdateFunction, image: results.ImageFunction });        
         })
-        
     }
     else {
         var store_User = req.session.user;
