@@ -65,7 +65,7 @@ $(document).ready(function(){
     });
     
     // Keyword search
-    $(document).on('click', '#submitBtn', function() {
+    $(document).on('click', '#searchBtn', function() {
         $('#content').fadeOut('slow');
         populateJobPost(1, true);
         $(window).scrollTop(0,0);  
@@ -87,7 +87,7 @@ $(document).ready(function(){
         var key = e.which;
         console.log('key: ' + key);
         if (key == 13) {
-            $('#submitBtn').click();
+            $('#searchBtn').click();
             return false;
         }
     });

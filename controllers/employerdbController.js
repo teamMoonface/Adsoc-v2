@@ -215,8 +215,8 @@ exports.postedjobsList = function(req, res, next) {
 					.exec(callback);
 			},
 			ImageFunction: function(callback){
-				Image.findOne(store_Emp._id)
-				.exec(callbackk)
+				Image.findOne({'user_id': store_Emp._id})
+				.exec(callback)
 			}
 		},function(err, results) {
 		  if (err) { return next(err); }
@@ -243,8 +243,8 @@ exports.view_job_applicants = function(req, res,next) {
 					.exec(callback);
 			},
 			ImageFunction: function(callback){
-				Image.findOne(store_Emp._id)
-				.exec(callbackk)
+				Image.findOne({'user_id': store_Emp._id})
+				.exec(callback)
 			}
 		},function(err, results) {
 		  if (err) { return next(err); }
@@ -345,7 +345,7 @@ exports.job_detail = function(req, res, next) {
             else {
                 console.log('not logged in');
                 console.log(results.employer_poster);
-                res.render('./Job_view', {job: results.job, employer_poster: results.employer_poster, employer: null, status: 'notApplied', fav: false, store_Emp: 'session alive'});
+                res.render('./Job_view', {job: results.job, employer_poster: results.employer_poster, employer: null, status: 'notApplied', fav: false});
             }
 		});
 	}

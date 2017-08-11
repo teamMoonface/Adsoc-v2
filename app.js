@@ -11,8 +11,8 @@ var passport = require('passport');
 var LocalStrategy = require('passport-local').Strategy;
 var util = require('util');
 
-var multer = require('multer'),
-var bodyParser = require('body-parser'),
+var multer = require('multer');
+var bodyParser = require('body-parser');
 var path = require('path');
 var fs = require('fs');
 

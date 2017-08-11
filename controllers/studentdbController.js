@@ -43,7 +43,7 @@ exports.add_experience = function(req,res,next) {
     var exp = new Experience({
         title: req.body.exp_heading,
         desc: req.body.exp_body,
-        student_id: store_User._id,
+        student_id: req.session.user._id
     });  
 
     if (errors) {
@@ -175,7 +175,6 @@ exports.profile_post = function(req,res,next) {
 
 };
 
-
 //Open Student profile - open for everyone to view
 exports.open_profile_get = function(req, res, next) {
     Student.findById(req.params.id)
@@ -300,5 +299,5 @@ exports.signup_student_create_post = function(req, res,next) {
             email_flag = true;
             req.flash('status_Email', 'Email already exists, please choose another Email');
         }
-
     });  
+}
