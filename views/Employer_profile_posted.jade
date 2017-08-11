@@ -67,6 +67,8 @@ block content
                 a.btn.btn-info.noApp(href=job.viewApplicantsURL, role='button')
                   | View Applicants 
                   span.badge #{job.applicants.length}
+                a.btn.edit_post_btn(href=job.editJob_url, role='button')
+                  | Edit Job post
                 button.btn.btn-danger.pull-right Remove Post
               br
         else

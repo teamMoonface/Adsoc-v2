@@ -1,0 +1,62 @@
+extends Layout_3_Search_Page
+
+block title
+	title #{title}
+    
+block navbar
+	include navbar
+
+block content
+	.edit_job_panel
+		.edit_job_header
+			h2 
+			| Edit Job post
+		br
+		if (err_update)
+			for error in err_update
+				.error_wrapper1
+					.alert.alert-danger #{error.msg} 
+		if (status)
+			div.alert.alert-success.center Your Job Post has been successfully updated!	
+		.edit_job_body
+			form.form-horizontal(method='POST' action='')
+				.form-group.row
+					label.col-xs-3.control-label(for='job_name') Job Name
+					.col-xs-8
+						input#name.form-control(type='text', value=(undefined==job ? '' : job.name), name='job_name')
+				.form-group.row
+					label.col-xs-3.control-label(for='job_desc') Job Description
+					.col-xs-8
+						textarea#job_desc.form-control(rows='5', maxlengths='500', name="job_desc") #{job.desc}
+				.form-group.row
+					label.col-xs-3.control-label(for='job_start_date') Start Date
+					.col-xs-2
+						input#job_start_date.form-control(type='date', value='#{job.start_date}', name="job_start_date")
+				.form-group.row
+					label.col-xs-3.control-label(for='job_end_date') End Date
+					.col-xs-2
+						input#job_end_date.form-control(type='date', value='#{job.end_date}', name="job_end_date")
+				.form-group.row
+					label.col-xs-3.control-label(for='job_name') Remuneration
+					.col-xs-2
+						input.form-control(type='number', name='job_remun', value=(undefined==job ? '' : job.remun))
+				.form-group.row
+					label.col-xs-3.control-label(for='job_skill_type') Skill type
+					.col-xs-2
+						select.form-control(name='job_skill_type')
+							if (job.skill_type == "Frontend")
+								option(value="Frontend") Frontend
+								option(value="Backend") Backend
+								option(value="Fullstack") Fullstack
+							if (job.skill_type == "Backend")
+								option(value="Backend") Backend
+								option(value="Frontend") Frontend
+								option(value="Fullstack") Fullstack
+							if (job.skill_type == "Fullstack")
+								option(value="Fullstack") Fullstack
+								option(value="Frontend") Frontend
+								option(value="Backend") Backend
+				br
+				.center_button
+					input.btn.update_button(type='submit', value='Update Job post')
+				br

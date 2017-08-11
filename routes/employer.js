@@ -41,6 +41,13 @@ router.post('/postjob', employerDB_controller.postjob_post);
 
 
 // Job post segment
+
+/* GET request to edit Job Post */
+router.get('/:id/edit', employerDB_controller.edit_jobpost_get);
+
+/* POST request to edit Job Post*/
+router.post('/:id/edit', employerDB_controller.edit_jobpost_post);
+
 /* GET request to view job applicants */
 router.get('/job/:id/viewApplicants', employerDB_controller.view_job_applicants);
 

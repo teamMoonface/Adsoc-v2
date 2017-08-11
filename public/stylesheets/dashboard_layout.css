@@ -468,6 +468,27 @@ body{
 	margin: auto;
 }
 
-.error_width{
-	
+.edit_post_btn{
+	margin-left: 20px;
+	background-color: #69c674;
+	color:white;
+	font-family: 'Quicksand', sans-serif;
+    font-size: 13px;
+	border: 1px solid #69c674;
+	border-radius: 5px;
+    -webkit-transition: all 0.3s ease;
+    -moz-transition: all 0.3s ease;
+    -ms-transition: all 0.3s ease;
+    -o-transition: all 0.3s ease;
+    transition: all 0.3s ease;
+    padding-top: 9px;
+}
+
+.edit_post_btn:hover,
+.edit_post_btn:focus,
+.edit_post_btn:active{
+	color:white;
+    background-color: #86ef92;
+	border-color: #86ef92;
+	text-decoration: none;
 }
