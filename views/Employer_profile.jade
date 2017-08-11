@@ -10,7 +10,11 @@ block sidebar
     .employer-sidebar
       .user-info
         br
-        img#profile-pic(src='/images/Building-vector.jpg', alt='profile pic')
+        div.profile_div
+        if (image)
+          img#profile-pic1(src='/uploads/#{image.file_name}', alt='profile pic')
+        else
+          img#profile-pic(src='/images/Building-vector.jpg', alt='profile pic')
         h4
           strong #{employer.name}
         p #{employer.email}
@@ -44,35 +48,41 @@ block content
     .profile-panel
       h2.edit-profile Edit Profile
       .profile-details
-        if errors
-          each error in errors
-            div.alert.alert-danger #{error.msg}
+        if (err_update)
+          for error in err_update
+            .error_wrapper1
+              .alert.alert-danger #{error.msg} 
         if (status)
           div.alert.alert-success Your profile has been successfully updated!
         br
         .basic-header Basic Information
-        if(picture_id)
-          img#profile-pic1(src='/uploads/{picture_id.name[0]}', alt='profile pic')
-          p hello !{picture_id.name[0]};
-        else
-          img#profile-pic1(src='/images/man-team.png', alt='profile pic')
+        div.profile_div
+          if (image)
+            img#profile-pic1(src='/uploads/#{image.file_name}', alt='profile pic')
+          else
+            img#profile-pic1(src='/images/Building-vector.jpg', alt='profile pic')
         br
         form.form-horizontal(method='POST' action='' enctype='multipart/form-data')
-          input.profile_upload(type='file' name='filename')
           .form-group.row
-            label.col-xs-3.control-label(for='company_name') Company Name
+            label.col-xs-4.control-label(for='aboutme') Upload Profile picture
+            .col-xs-8   
+              input.profile_upload(type='file' name='filename')
+              p.filename_text please upload a square photo to prevent stretching!
+          .form-group.row
+            label.col-xs-4.control-label(for='company_name') Company Name
             .col-xs-8
               input#name.form-control(type='text', value=(undefined==employer ? '' : employer.name), name='company_name')
 
           .form-group.row
-            label.col-xs-3.control-label(for='email') Email
+            label.col-xs-4.control-label(for='email') Email
             .col-xs-8
               input#email.form-control(type='email', value=employer.email, name='email' disabled)
 
           .form-group.row
-            label.col-xs-3.control-label(for='aboutme') About Me
-            .col-xs-9.bzz
+            label.col-xs-4.control-label(for='aboutme') About Me
+            .col-xs-8.bzz
               textarea#aboutme.form-control(rows='5', maxlengths='500', name="aboutme") #{employer.aboutme}
               p.brr Max length: 500 words
+
           br
           input.btn.update_button(type='submit', value='Update Company Info')

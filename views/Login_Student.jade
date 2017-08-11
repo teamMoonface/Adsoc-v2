@@ -1,29 +1,32 @@
 extends Layout_6_Sign_in
 
 block content
+  if (status)
+      div.alert.alert-success.error_msg Thank you for registering with Adsoc, you may now login  
+  if (message.length > 0)   
+    div.alert.alert-danger.error_msg #{message}
   .contents
-    br
-    if (status)
-      div.alert.alert-success Thank you for registering with Adsoc, you may now login      
-    br
-    h2.title
-      center SIGN IN HERE
-    form.login(method='POST' action='')
-      .form-group
-        label(for='username') Username:
-        input#username.form-control(type='usr' name="username")
-      .form-group
-        label(for='pwd') Password:
-        input#pwd.form-control(type='password' name="password")
-      .checkbox
-        label
-          input(type='checkbox')
-          |  Remember me
-      .forgot_information
-        a.for_text(href='') forgot your password
-        br
-        a.for_text(href='') forgot your username?
+    .wrapper
       br
-      div.submitBtn
-        div.wrapper
-          input.btn.btn-primary#submitBtn(type='submit', value='Log in')
+      br
+      h2.title
+        center SIGN IN HERE
+      form.login(method='POST' action='')
+        .form-group
+          label(for='username') Username:
+          input#username.form-control(type='usr' name="username")
+        .form-group
+          label(for='pwd') Password:
+          input#pwd.form-control(type='password' name="password")
+        .checkbox
+          label
+            input(type='checkbox')
+            |  Remember me
+        .forgot_information
+          a.for_text(href='') forgot your password
+          br
+          a.for_text(href='') forgot your username?
+        br
+        div.submitBtn
+          div.wrapper
+            input.btn.btn-primary#submitBtn(type='submit', value='Log in')

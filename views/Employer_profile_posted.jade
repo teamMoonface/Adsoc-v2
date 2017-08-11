@@ -10,7 +10,10 @@ block sidebar
     .employer-sidebar
       .user-info
         br
-        img#profile-pic(src='/images/Building-vector.jpg', alt='profile pic')
+        if (image)
+          img#profile-pic1(src='/uploads/#{image.file_name}', alt='profile pic')
+        else
+          img#profile-pic1(src='/images/Building-vector.jpg', alt='profile pic')
         h4
           strong #{employer.name}
         p #{employer.email}

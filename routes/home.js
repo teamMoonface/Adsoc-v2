@@ -42,7 +42,7 @@ passport.use('student-login', new LocalStrategy({
         if (err) throw err;
         if(!user){
             console.log(username);
-            return done(null, false, req.flash('message', 'No user found.'));
+            return done(null, false, req.flash('message', 'Username was not found'));
         }
         Student.comparePassword(password, user.password, function(err, isMatch){
             if (err) throw err;
@@ -50,7 +50,7 @@ passport.use('student-login', new LocalStrategy({
                 return done(null, user);
             } else{
                 console.log(password);
-                return done(null, false, req.flash('message', 'Invalid password'));
+                return done(null, false, req.flash('message', 'Invalid Password'));
             }
         })
     }) 
@@ -68,7 +68,7 @@ passport.deserializeUser(function(id, done) {
 
 /* POST Student login*/
 router.post('/login_student', 
-  passport.authenticate('student-login', {failureRedirect: '/', failureFlash: true }),
+  passport.authenticate('student-login', {failureRedirect: '/login_student', failureFlash: true }),
   function(req,res) { 
     var username = req.body.username;
     console.log(username);
@@ -103,7 +103,7 @@ passport.use('employer-login', new LocalStrategy({
         if (err) throw err;
         if(!emp){
             console.log(username);
-            return done(null, false, req.flash('message', 'No user found.'));
+            return done(null, false, req.flash('message', 'Username was not found'));
         }
         Employer.comparePassword(password, emp.password, function(err, isMatch){
             if (err) throw err;
@@ -129,7 +129,7 @@ passport.deserializeUser(function(id, done) {
 
 /* POST Employer login*/
 router.post('/login_employer', 
-  passport.authenticate('employer-login', {failureRedirect: '/', failureFlash: true }),
+  passport.authenticate('employer-login', {failureRedirect: '/login_employer', failureFlash: true }),
 	function(req,res) {	
     var username = req.body.username;
     console.log(username);
@@ -166,7 +166,7 @@ if(req.session.emp){
           })
   }
   else{
-    res.render('Login_Employer', {title: 'Employer Log in'})
+    res.render('Login_Employer', {title: 'Employer Log in', message: req.flash('message')})
   }
 });
 
@@ -180,7 +180,7 @@ router.get('/login_student', function(req, res, next){
        })
   }
   else{
-    res.render('./Login_Student', {title: 'Student Log in'});
+    res.render('./Login_Student', {title: 'Student Log in', message: req.flash('message')});
   }
 });
 

@@ -13,6 +13,8 @@ var util = require('util');
 var multer = require('multer'),
   bodyParser = require('body-parser'),
   path = require('path');
+var fs = require('fs');
+
 // import routes
 var searchPage = require('./routes/searchPage');
 var home = require('./routes/home');
@@ -51,6 +53,7 @@ app.use(session({
 	saveUninitialized: true,
 	resave: true
 }));
+
 
 
 // /images which will serve as our final path of the uploaded images
