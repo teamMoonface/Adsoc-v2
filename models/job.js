@@ -1,5 +1,6 @@
 var mongoose = require('mongoose');
-var moment = require('moment'); 
+var moment = require('moment');
+var mongoosePaginate = require('mongoose-paginate');
 
 var Schema = mongoose.Schema;
 
@@ -56,5 +57,7 @@ JobSchema
 .get(function(){
   return '/employer/' +this.employer
 })
+
+JobSchema.plugin(mongoosePaginate);
 
 module.exports = mongoose.model('Job', JobSchema);

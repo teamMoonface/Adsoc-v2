@@ -10,9 +10,10 @@ var flash = require('connect-flash');
 var passport = require('passport');
 var LocalStrategy = require('passport-local').Strategy;
 var util = require('util');
-var multer = require('multer'),
-  bodyParser = require('body-parser'),
-  path = require('path');
+var multer = require('multer');
+var bodyParser = require('body-parser');
+var path = require('path');
+
 // import routes
 var searchPage = require('./routes/searchPage');
 var home = require('./routes/home');
@@ -84,14 +85,13 @@ app.use(expressValidator({
 
 //Global Var
 app.use(function(req, res, next){
-	res.locals.success_msg = req.flash('success_msg');
-	res.locals.error_msg = req.flash('error_msg');
-	res.locals.error = req.flash('error');
-  res.locals.emp = req.emp || null;
-  res.locals.user = req.user || null;
-	next();
+    res.locals.success_msg = req.flash('success_msg');
+    res.locals.error_msg = req.flash('error_msg');
+    res.locals.error = req.flash('error');
+    res.locals.emp = req.emp || null;
+    res.locals.user = req.user || null;
+    next();
 })	
-
 
 app.use('/', home);
 app.use('/searchPage', searchPage);
@@ -104,6 +104,5 @@ app.set('port', (process.env.PORT || 8080));
 app.listen(app.get('port'), function(){
 	console.log('Server started on port ' + app.get('port'));
 });
-
 
 module.exports = app;

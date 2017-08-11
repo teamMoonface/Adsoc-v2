@@ -13,11 +13,11 @@ block content
     a#goTopBtn(href='#')
         span.icon-chevron-up
         
-    form#searchForm(method='POST' action='/searchPage/search')
+    form#searchForm
         .search
             input#searchBar(type='text', placeholder='Search for Jobs...', name='searchPhrase', value=(undefined==searchPhrase ? '' : searchPhrase))
             
-            button.btn#submitBtn(type='submit')
+            button.btn#submitBtn(type='button')
                     span.glyphicon.glyphicon-search
 
             .searchType
@@ -80,50 +80,50 @@ block content
                     hr
                     br
                     select.form-control#sortOptions(name='sortBy')
-                        option(value='relevantRes', selected=(sortBy == 'relevantRes' ? true : false)) Relevant Results
                         option(value='recentPosts', selected=(sortBy == 'recentPosts' ? true : false)) Recent Posts
+                        option(value='relevantRes', selected=(sortBy == 'relevantRes' ? true : false)) Relevant Results
                         option(value='highestRemun', selected=(sortBy == 'highestRemun' ? true : false)) Highest Remuneration           
+    // dynamic content here
     .jobposts
-        if job_list
-            each job in job_list
-                .postedjobs-panel
-                     .job-post
-                        .row
-                          .col-xs-9.desc_justify
-                            h2.job-name #{job.name} 
-                            p
-                              small.time-frame 
-                                strong Working period: 
-                                | #{job.date_start_formatted} - #{job.date_end_formatted}
-                            p
-                            | #{job.desc}
-                          .col-xs-3
-                            div.wrapper 
-                              div.wrapper_deep $#{job.remun}/hr
-                        hr
-                        div.row
-                            div.col-xs-9
-                                p#coyname
-                                  strong Company/Project: 
-                                  | #{job.name}
-                                p#postedon
-                                  strong Posted on: 
-                                  | #{job.date_posted_formatted}
-                            div.col-xs-3.butt
-                                div
-                                    a(href=job.url).btn.view_more_button 
-                                        div.text View More
-                        hr
-                        .row
-                          .col-xs-9
-                            div.skill-container
-                              div.skill-header Skill type:
-                                if(job.skill_type != null)
-                                    span.skill_type &nbsp;#{job.skill_type}
-                                else
-                                    span.skill_type &nbsp; Not specified
-                          .col-xs-3
-                        br
-                    br
-        else
-            p No posted jobs!
+        #content
+        #pager.text-center 
+        input#totalRecords(type='hidden', value='#{totalRecords}')
+        input#size(type='hidden', value='#{size}')
+    // template for each job post
+    .template(style='display: none')
+        .postedjobs-panel
+             .job-post
+                .row
+                  .col-xs-9.desc_justify
+                    h2.job-name job_name 
+                    p
+                      small.time-frame 
+                        strong Working period: 
+                        | job_start_date - job_end_date
+                    p
+                    | job_desc
+                  .col-xs-3
+                    div.wrapper 
+                      div.wrapper_deep $job_remun/hr
+                hr
+                div.row
+                    div.col-xs-9
+                        p#coyname
+                          strong Company/Project: 
+                          | job_employer
+                        p#postedon
+                          strong Posted on: 
+                          | job_posted_date
+                    div.col-xs-3.butt
+                        div
+                            a#joburl(href='/').btn.view_more_button 
+                                div.text View More
+                hr
+                .row
+                  .col-xs-9
+                    div.skill-container
+                      div.skill-header Skill type:
+                        span.skill_type &nbsp;job_skill_type
+                  .col-xs-3
+                br
+            br

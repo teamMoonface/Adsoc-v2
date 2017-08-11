@@ -254,7 +254,6 @@ exports.signup_student_create_post = function(req, res,next) {
         }
 
     });  
-    */
     
     // check only when field is not empty
     
