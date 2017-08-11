@@ -58,6 +58,25 @@ JobSchema
   return '/employer/' +this.employer
 })
 
+JobSchema
+.virtual('editJob_url')
+.get(function() {
+  return '/employer/' + this._id + '/edit'
+})
+
+JobSchema
+.virtual('start_date')
+.get(function () {
+  return moment(this.startDate).format('YYYY-MM-DD');
+});
+
+JobSchema
+.virtual('end_date')
+.get(function () {
+  return moment(this.endDate).format('YYYY-MM-DD');
+});
+
 JobSchema.plugin(mongoosePaginate);
+
 
 module.exports = mongoose.model('Job', JobSchema);

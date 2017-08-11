@@ -14,8 +14,13 @@ block content
                     div.alert.alert-danger #{error.msg}
             if status_Username
                 div.alert.alert-danger #{status_Username}
+            if space_Username
+                div.alert.alert-danger #{space_Username}
             if status_Email
                 div.alert.alert-danger #{status_Email}
+            if space_Pass
+                div.alert.alert-danger #{space_Pass}
+
 
         form.form-horizontal.form_font(method='POST' action='')
             .form-group

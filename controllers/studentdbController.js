@@ -197,10 +197,14 @@ exports.favourites_get = function(req, res, next) {
                     .populate('favouriteJobs')
                     .exec(callback);
             },
+            ImageFunction: function(callback) {
+                Image.findOne({user_id: req.session.user._id})
+                    .exec(callback);
+            }
         }, function(err, results) {
             if (err) { return next(err); }
             console.log(req.session.user);
-            res.render('./Student_profile_favourites', {title: 'Favourite Jobs', student: results.studentInstance, store_User: 'session alive'});
+            res.render('./Student_profile_favourites', {title: 'Favourite Jobs', student: results.studentInstance, image: results.ImageFunction, store_User: 'session alive'});
         });
     }
 };
@@ -220,11 +224,15 @@ exports.applied_jobs_get = function(req, res, next) {
                 Job.find({'applicants': store_User._id})
                     .populate('employer')
                     .exec(callback);
+            },
+            ImageFunction: function(callback) {
+                Image.findOne({user_id: req.session.user._id})
+                    .exec(callback);
             }
         }, function(err, results) {
             if (err) { return next(err); }
             console.log(req.session.user);
-            res.render('./Student_profile_appliedjobs', {title: 'Applied Jobs', student: results.studentInstance, appliedJobs: results.appliedJobs, store_User: 'session alive'});
+            res.render('./Student_profile_appliedjobs', {title: 'Applied Jobs', image: results.ImageFunction, student: results.studentInstance, appliedJobs: results.appliedJobs, store_User: 'session alive'});
         });
     }
 };
@@ -273,6 +281,8 @@ exports.signup_student_create_post = function(req, res,next) {
 
     var user_flag = false;
     var email_flag = false;
+    var user_space = false;
+    var pass_space = false;
     
     Student.find({'username': req.body.username}, function(err,user){
         if(err){
@@ -285,7 +295,6 @@ exports.signup_student_create_post = function(req, res,next) {
             user_flag = true;
             req.flash('status_Username', 'Username already exists, please choose another Username');
         }
-
     });
 
     Student.find({'email': req.body.email}, function(err,user){
@@ -300,4 +309,205 @@ exports.signup_student_create_post = function(req, res,next) {
             req.flash('status_Email', 'Email already exists, please choose another Email');
         }
     });  
-}
+
+    if (/\s/.test(username)) {
+        // username contains whitespace - return error
+        user_space = true;
+        console.log('user has spaces');
+        req.flash('space_Username', 'Username cannot contain blank spaces');
+    }
+
+    if (/\s/.test(password)) {
+        // username contains whitespace - return error
+        pass_space = true;
+        console.log('pass has spaces')
+        req.flash('space_Pass', 'Password cannot contain blank spaces');
+    }
+    // check only when field is not empty
+    
+    req.checkBody({
+        'password1': {
+            optional: {
+                options: { checkFalsy: true}
+            },
+            isLength: {
+                errorMessage: 'Password: min 6 characters',
+                options: [{min: 6}]
+            }
+        },
+        'username': {
+            optional: {
+                options: { checkFalsy: true}
+            },
+            isLength: {
+                errorMessage: 'Username: min 5 characters, max 15 characters',
+                options: [{min: 5, max: 15}]
+            },
+
+        },
+        'phoneNum': {
+            optional: {
+                options: {checkFalsy: true}
+            },
+            isNumeric: {
+                errorMessage: 'Invalid phone number'
+            }
+        },
+        'email': {
+            optional: {
+                options: { checkFalsy: true}
+            },
+            isEmail: {
+                errorMessage: 'Invalid email address'
+            }
+        }
+    });
+    
+    // run validators
+    var errors = req.validationErrors();
+    
+    // create a student object
+    
+
+    if (errors || email_flag === true || user_flag === true || user_space == true || pass_space == true) {
+        if(email_flag == true && user_flag == false){
+            if(user_space == true){
+                if(pass_space == true){
+                    res.render('./Sign_up_Student', {
+                        errors: errors, status_Username: 'Username already exists, please choose another Username', space_Pass: 'Password cannot contain blank spaces' , space_Username: 'Username cannot contain blank spaces'
+                    });
+                }
+                else{  
+                    res.render('./Sign_up_Student', {
+                        errors: errors, status_Username: 'Username already exists, please choose another Username', space_Username: 'Username cannot contain blank spaces'
+                    });
+                }
+            }
+            else{
+                if(pass_space == true){
+                    res.render('./Sign_up_Student', {
+                        errors: errors, status_Username: 'Username already exists, please choose another Username', space_Pass: 'Password cannot contain blank spaces'
+                    });
+                }
+                else{
+                    res.render('./Sign_up_Student', {
+                        errors: errors, status_Username: 'Username already exists, please choose another Username'
+                    });
+                }
+            }
+            res.render('./Sign_up_Student', {
+                errors: errors, status_Email: 'Email already exists, please choose another Email'
+            });
+        }
+        else if(email_flag == true && user_flag == true){
+            if(user_space == true){
+                if(pass_space == true){
+                    res.render('./Sign_up_Student', {
+                        errors: errors, status_Username: 'Username already exists, please choose another Username', space_Pass: 'Password cannot contain blank spaces' , space_Username: 'Username cannot contain blank spaces'
+                    });
+                }
+                else{
+                    res.render('./Sign_up_Student', {
+                        errors: errors, status_Username: 'Username already exists, please choose another Username', space_Username: 'Username cannot contain blank spaces'
+                    });
+                }
+            }
+            else{
+                if(pass_space == true){
+                    res.render('./Sign_up_Student', {
+                        errors: errors, status_Username: 'Username already exists, please choose another Username', space_Pass: 'Password cannot contain blank spaces' 
+                    });
+                }
+                else{
+                    res.render('./Sign_up_Student', {
+                        errors: errors, status_Username: 'Username already exists, please choose another Username'
+                    });
+                }
+            }
+            res.render('./Sign_up_Student', {
+                errors: errors, status_Username: 'Username already exists, please choose another Username', status_Email: 'Email already exists, please choose another Email'
+            });
+        }
+        else if(email_flag == false && user_flag == true){
+            if(user_space == true){
+                if(pass_space == true){
+                    res.render('./Sign_up_Student', {
+                        errors: errors, status_Username: 'Username already exists, please choose another Username', space_Pass: 'Password cannot contain blank spaces' , space_Username: 'Username cannot contain blank spaces'
+                    });
+                }
+                else{
+                    res.render('./Sign_up_Student', {
+                        errors: errors, status_Username: 'Username already exists, please choose another Username', space_Username: 'Username cannot contain blank spaces'
+                    });
+                }
+            }
+            else{
+                if(pass_space == true){
+                    res.render('./Sign_up_Student', {
+                        errors: errors, status_Username: 'Username already exists, please choose another Username', space_Pass: 'Password cannot contain blank spaces'
+                    });
+                }
+                else{
+                    res.render('./Sign_up_Student', {
+                        errors: errors, status_Username: 'Username already exists, please choose another Username'
+                    });
+                }
+            }
+
+        }
+        else{
+            if(user_space == true){
+                if(pass_space == true){
+                    res.render('./Sign_up_Student', {
+                        errors: errors, status_Username: 'Username already exists, please choose another Username', space_Pass: 'Password cannot contain blank spaces' , space_Username: 'Username cannot contain blank spaces'
+                    });
+                }
+                else{
+                   res.render('./Sign_up_Student', {
+                        errors: errors, status_Username: 'Username already exists, please choose another Username', space_Username: 'Username cannot contain blank spaces'
+                    }); 
+                }
+            }
+            else{
+                if(pass_space == true){
+                    res.render('./Sign_up_Student', {
+                        errors: errors, status_Username: 'Username already exists, please choose another Username', space_Pass: 'Password cannot contain blank spaces'
+                    });
+                }
+                else{
+                    
+                }
+            }
+            res.render('./Sign_up_Student', {
+                errors: errors
+            });
+        }   
+    }
+    else {
+
+        var newStudent = new Student({
+            username: req.body.username,
+            password: req.body.password1, 
+            name: req.body.fullname,
+            email: req.body.email,
+            phoneNum: req.body.phoneNum,
+            dob: req.body.dob,
+            gender: req.body.gender,
+            aboutme: " ",
+        });
+
+        Student.createStudent(newStudent, function(err,user) {
+            if (err) throw err;
+            var newImage = new Image();
+            newImage.img.contentType = 'image/png';
+            newImage.user_id = user._id;
+            newImage.file_name = 'man-team.png';
+            newImage.save();
+            console.log(user);
+        }) 
+        
+        req.flash('status', 'Thank you for registering with Adsoc, you may now login');
+
+        res.redirect('/login_student');
+    }
+};

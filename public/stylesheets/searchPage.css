@@ -391,3 +391,49 @@ input.r[type=radio]:checked ~ .check::before{
 input.r[type=radio]:checked ~ label{
   color: #383838;
 }
+
+/*Edit Job post*/
+.edit_job_body{
+  text-align: left;
+}
+
+.edit_job_panel{
+  background-color: white;
+  padding: 10px;
+  border-radius: 7px;
+}
+
+.edit_job_header{
+  font-size: 25px;
+  font-weight: bold;
+  padding-left: 10px;
+}
+
+.center_button{
+  text-align: center;
+}
+
+.update_button{
+  color: white;
+  background-color: #5ed177;
+  font-family: 'Quicksand', sans-serif;
+  font-size: 14px;
+  font-weight: 700;
+  border: 1px solid #5ed177;
+  border-radius: 5px;
+  -webkit-transition: all 0.3s ease;
+  -moz-transition: all 0.3s ease;
+  -ms-transition: all 0.3s ease;
+  -o-transition: all 0.3s ease;
+  transition: all 0.3s ease;
+  width: 30%;
+}
+
+.update_button:hover,
+.update_button:active,
+.update_button:focus{
+  color:white;
+    background-color: #74e88d;
+  border-color: #74e88d;
+  text-decoration: none;
+}

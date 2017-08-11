@@ -11,7 +11,10 @@ block sidebar
       .user-info
         br
         .ProfileImage
-          img#profile-pic(src='/images/man-team.png', alt='profile pic')
+          if (image)
+            img#profile-pic1(src='/uploads/#{image.file_name}', alt='profile pic')
+          else 
+            img#profile-pic1(src='/images/man-team.png', alt='profile pic') 
         h4.user-name
           strong #{student.name}
         .email

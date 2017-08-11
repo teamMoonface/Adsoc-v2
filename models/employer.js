@@ -76,6 +76,7 @@ EmployerSchema
   return '/employer/postJob';
 });
 
+
 //Export model
 var Employer = module.exports = mongoose.model('Employer', EmployerSchema);
 
