@@ -48,7 +48,6 @@ $(document).ready(function(){
             $('#pager').bootpag({
                 total: Math.ceil(result.totalRecords/$('#size').val()),
                 page: change ? 1 : page, // if filter added, go to page 1
-                maxVisible: result.totalRecords == 0 ? 0 : 5
             });
         });
     };
@@ -73,19 +72,9 @@ $(document).ready(function(){
         console.log('BTN CLICKED');
     })
     
-    /*
-    $('#searchBar').keyup(function(event) {
-        if (event.keyCode == 13) {
-            $('submitBtn').click();
-            console.log('clicked');
-        }
-        console.log('keyup');
-    });*/
-    
-    // Resolve 'enter' key issue (?)
+    // Resolve 'enter' key issue
     $('#searchBar').keypress(function(e) {
         var key = e.which;
-        console.log('key: ' + key);
         if (key == 13) {
             $('#searchBtn').click();
             return false;
