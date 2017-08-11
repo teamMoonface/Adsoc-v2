@@ -301,7 +301,6 @@ exports.signup_student_create_post = function(req, res,next) {
             email_flag = true;
             req.flash('status_Email', 'Email already exists, please choose another Email');
         }
-
     });  
 
     if (/\s/.test(username)) {
@@ -505,4 +504,3 @@ exports.signup_student_create_post = function(req, res,next) {
         res.redirect('/login_student');
     }
 };
-

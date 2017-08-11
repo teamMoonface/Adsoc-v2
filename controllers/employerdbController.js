@@ -311,11 +311,13 @@ exports.job_detail = function(req, res, next) {
                     /* favourited job */
                     if (results.student.favouriteJobs.indexOf(req.params.id) > -1) {
                         console.log('fav: true');
+                        
                         res.render('./Job_view', {job: results.job, store_User: "session alive", employer_poster: results.employer_poster, employer: null, status: 'applied', fav: true});
                     }
                     /* have not fav job */
                     else {
                         console.log('fav: false');
+
                         res.render('./Job_view', {job: results.job, store_User: "session alive", employer_poster: results.employer_poster, employer: null, status: 'applied', fav: false});
                     }
                 }
@@ -325,11 +327,13 @@ exports.job_detail = function(req, res, next) {
                     /* favourited job */
                     if (results.student.favouriteJobs.indexOf(req.params.id) > -1) {
                         console.log('fav: true');
+
                         res.render('./Job_view', {job: results.job, store_User: "session alive", employer_poster: results.employer_poster, employer: null, status: 'notApplied', fav: true});
                     }
                     /* have not fav job */
                     else {
                         console.log('fav: false');
+                        
                         res.render('./Job_view', {job: results.job, store_User: "session alive", employer_poster: results.employer_poster, employer: null, status: 'notApplied', fav: false});
                     }
                 }
@@ -337,7 +341,7 @@ exports.job_detail = function(req, res, next) {
             else {
                 console.log('not logged in');
                 console.log(results.employer_poster);
-                res.render('./Job_view', {job: results.job, employer_poster: results.employer_poster, employer: null, status: 'notApplied', fav: false});
+                res.render('./Job_view', {job: results.job, employer_poster: results.employer_poster, employer: null, status: 'notApplied', fav: false, store_Emp: 'session alive'});
             }
 		});
 	}
