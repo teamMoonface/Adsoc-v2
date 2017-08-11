@@ -16,7 +16,8 @@ block sidebar
           strong #{student.name}
         .email
           strong #{student.email}
-        label.verify Verified
+          br
+          br
       ul.nav.nav-pills.nav-stacked.student_sidebar
         li.side
           a(href=student.applied_url)
@@ -65,7 +66,7 @@ block content
 
         form.form-horizontal(method='POST' action='' enctype='multipart/form-data')
           .form-group.row
-            label.col-xs-4.control-label(for='aboutme') Upload Profile picture
+            label.col-xs-4.control-label(for='filename') Upload Profile picture
             .col-xs-8.bzz
               span.filename_box
                 input.profile_upload(type='file' name='filename')

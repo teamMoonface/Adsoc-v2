@@ -85,6 +85,7 @@ exports.profile_post = function(req,res,next) {
 				results.UpdateFunction.aboutme = req.body.aboutme;
 			if(req.file != null)
 				results.ImageFunction.file_name = file_name;
+			
 			results.UpdateFunction.save();
 			results.ImageFunction.save();
 			console.log(results.UpdateFunction);
@@ -105,7 +106,7 @@ exports.postjob_get = function(req, res, next) {
 		console.log(req.session.emp);
 		async.parallel({
 			ImageFunction: function(callback){
-				Image.findOne({user_id: req.session.emp_id})
+				Image.findOne({user_id: req.session.emp._id})
 					.exec(callback);
 			},
 			employerInstance: function(callback){
@@ -114,6 +115,7 @@ exports.postjob_get = function(req, res, next) {
 			}
 		}, function(err,results){
 			if (err) { return next(err);}
+			console.log(results.ImageFunction);
 			res.render('./Employer_profile_post', { title: 'Post a Job', employer: results.employerInstance, image: results.ImageFunction, store_Emp: 'session alive'})
 		})}
 };

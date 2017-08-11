@@ -198,10 +198,14 @@ exports.favourites_get = function(req, res, next) {
                     .populate('favouriteJobs')
                     .exec(callback);
             },
+            ImageFunction: function(callback) {
+                Image.findOne({user_id: req.session.user._id})
+                    .exec(callback);
+            }
         }, function(err, results) {
             if (err) { return next(err); }
             console.log(req.session.user);
-            res.render('./Student_profile_favourites', {title: 'Favourite Jobs', student: results.studentInstance, store_User: 'session alive'});
+            res.render('./Student_profile_favourites', {title: 'Favourite Jobs', student: results.studentInstance, image: results.ImageFunction, store_User: 'session alive'});
         });
     }
 };
@@ -221,11 +225,15 @@ exports.applied_jobs_get = function(req, res, next) {
                 Job.find({'applicants': store_User._id})
                     .populate('employer')
                     .exec(callback);
+            },
+            ImageFunction: function(callback) {
+                Image.findOne({user_id: req.session.user._id})
+                    .exec(callback);
             }
         }, function(err, results) {
             if (err) { return next(err); }
             console.log(req.session.user);
-            res.render('./Student_profile_appliedjobs', {title: 'Applied Jobs', student: results.studentInstance, appliedJobs: results.appliedJobs, store_User: 'session alive'});
+            res.render('./Student_profile_appliedjobs', {title: 'Applied Jobs', image: results.ImageFunction, student: results.studentInstance, appliedJobs: results.appliedJobs, store_User: 'session alive'});
         });
     }
 };
