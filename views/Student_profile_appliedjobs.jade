@@ -21,7 +21,7 @@ block sidebar
           strong #{student.email}
         label.verify Verified
       ul.nav.nav-pills.nav-stacked
-        li.side.active
+        li.active
           a(href=student.applied_url)
             div.miniContainers
               img#star(src='/images/applied.png', alt='applied') 
@@ -94,4 +94,4 @@ block content
                         br
                     br
         else
-            p No posted jobs!
+            p No applied jobs!

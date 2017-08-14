@@ -593,88 +593,97 @@ exports.signup_employer_create_post = function(req, res, next) {
 	// run validators
 	var errors = req.validationErrors();
 	
+    // create an employer object
+    var newEmployer = new Employer({
+        username: req.body.username,
+        password: req.body.password,
+        name: req.body.name,
+        phoneNum: req.body.phoneNum,
+        email: req.body.email,
+        aboutme: '',
+    });
 	
-if (errors || email_flag === true || user_flag === true || user_space == true || pass_space == true) {
+    if (errors || email_flag === true || user_flag === true || user_space == true || pass_space == true) {
         if(email_flag == true && user_flag == false){
             if(user_space == true){
                 if(pass_space == true){
                     res.render('./Sign_up_Employer', {
-                        errors: errors, status_Username: 'Username already exists, please choose another Username', space_Pass: 'Password cannot contain blank spaces' , space_Username: 'Username cannot contain blank spaces'
+                        errors: errors, status_Username: 'Username already exists, please choose another Username', space_Pass: 'Password cannot contain blank spaces' , space_Username: 'Username cannot contain blank spaces', employer: newEmployer
                     });
                 }
                 else{  
                     res.render('./Sign_up_Employer', {
-                        errors: errors, status_Username: 'Username already exists, please choose another Username', space_Username: 'Username cannot contain blank spaces'
+                        errors: errors, status_Username: 'Username already exists, please choose another Username', space_Username: 'Username cannot contain blank spaces', employer: newEmployer
                     });
                 }
             }
             else{
                 if(pass_space == true){
                     res.render('./Sign_up_Employer', {
-                        errors: errors, status_Username: 'Username already exists, please choose another Username', space_Pass: 'Password cannot contain blank spaces'
+                        errors: errors, status_Username: 'Username already exists, please choose another Username', space_Pass: 'Password cannot contain blank spaces', employer: newEmployer
                     });
                 }
                 else{
                     res.render('./Sign_up_Employer', {
-                        errors: errors, status_Username: 'Username already exists, please choose another Username'
+                        errors: errors, status_Username: 'Username already exists, please choose another Username', employer: newEmployer
                     });
                 }
             }
             res.render('./Sign_up_Employer', {
-                errors: errors, status_Email: 'Email already exists, please choose another Email'
+                errors: errors, status_Email: 'Email already exists, please choose another Email', employer: newEmployer
             });
         }
         else if(email_flag == true && user_flag == true){
             if(user_space == true){
                 if(pass_space == true){
                     res.render('./Sign_up_Employer', {
-                        errors: errors, status_Username: 'Username already exists, please choose another Username', space_Pass: 'Password cannot contain blank spaces' , space_Username: 'Username cannot contain blank spaces'
+                        errors: errors, status_Username: 'Username already exists, please choose another Username', space_Pass: 'Password cannot contain blank spaces' , space_Username: 'Username cannot contain blank spaces', employer: newEmployer
                     });
                 }
                 else{
                     res.render('./Sign_up_Employer', {
-                        errors: errors, status_Username: 'Username already exists, please choose another Username', space_Username: 'Username cannot contain blank spaces'
+                        errors: errors, status_Username: 'Username already exists, please choose another Username', space_Username: 'Username cannot contain blank spaces', employer: newEmployer
                     });
                 }
             }
             else{
                 if(pass_space == true){
                     res.render('./Sign_up_Employer', {
-                        errors: errors, status_Username: 'Username already exists, please choose another Username', space_Pass: 'Password cannot contain blank spaces' 
+                        errors: errors, status_Username: 'Username already exists, please choose another Username', space_Pass: 'Password cannot contain blank spaces', employer: newEmployer
                     });
                 }
                 else{
                     res.render('./Sign_up_Employer', {
-                        errors: errors, status_Username: 'Username already exists, please choose another Username'
+                        errors: errors, status_Username: 'Username already exists, please choose another Username', employer: newEmployer
                     });
                 }
             }
             res.render('./Sign_up_Employer', {
-                errors: errors, status_Username: 'Username already exists, please choose another Username', status_Email: 'Email already exists, please choose another Email'
+                errors: errors, status_Username: 'Username already exists, please choose another Username', status_Email: 'Email already exists, please choose another Email', employer: newEmployer
             });
         }
         else if(email_flag == false && user_flag == true){
             if(user_space == true){
                 if(pass_space == true){
                     res.render('./Sign_up_Employer', {
-                        errors: errors, status_Username: 'Username already exists, please choose another Username', space_Pass: 'Password cannot contain blank spaces' , space_Username: 'Username cannot contain blank spaces'
+                        errors: errors, status_Username: 'Username already exists, please choose another Username', space_Pass: 'Password cannot contain blank spaces' , space_Username: 'Username cannot contain blank spaces', employer: newEmployer
                     });
                 }
                 else{
                     res.render('./Sign_up_Employer', {
-                        errors: errors, status_Username: 'Username already exists, please choose another Username', space_Username: 'Username cannot contain blank spaces'
+                        errors: errors, status_Username: 'Username already exists, please choose another Username', space_Username: 'Username cannot contain blank spaces', employer: newEmployer
                     });
                 }
             }
             else{
                 if(pass_space == true){
                     res.render('./Sign_up_Employer', {
-                        errors: errors, status_Username: 'Username already exists, please choose another Username', space_Pass: 'Password cannot contain blank spaces'
+                        errors: errors, status_Username: 'Username already exists, please choose another Username', space_Pass: 'Password cannot contain blank spaces', employer: newEmployer
                     });
                 }
                 else{
                     res.render('./Sign_up_Employer', {
-                        errors: errors, status_Username: 'Username already exists, please choose another Username'
+                        errors: errors, status_Username: 'Username already exists, please choose another Username', employer: newEmployer
                     });
                 }
             }
@@ -684,19 +693,19 @@ if (errors || email_flag === true || user_flag === true || user_space == true ||
             if(user_space == true){
                 if(pass_space == true){
                     res.render('./Sign_up_Employer', {
-                        errors: errors, status_Username: 'Username already exists, please choose another Username', space_Pass: 'Password cannot contain blank spaces' , space_Username: 'Username cannot contain blank spaces'
+                        errors: errors, status_Username: 'Username already exists, please choose another Username', space_Pass: 'Password cannot contain blank spaces' , space_Username: 'Username cannot contain blank spaces', employer: newEmployer
                     });
                 }
                 else{
                    res.render('./Sign_up_Employer', {
-                        errors: errors, status_Username: 'Username already exists, please choose another Username', space_Username: 'Username cannot contain blank spaces'
+                        errors: errors, status_Username: 'Username already exists, please choose another Username', space_Username: 'Username cannot contain blank spaces', employer: newEmployer
                     }); 
                 }
             }
             else{
                 if(pass_space == true){
                     res.render('./Sign_up_Employer', {
-                        errors: errors, status_Username: 'Username already exists, please choose another Username', space_Pass: 'Password cannot contain blank spaces'
+                        errors: errors, status_Username: 'Username already exists, please choose another Username', space_Pass: 'Password cannot contain blank spaces', employer: newEmployer
                     });
                 }
                 else{
@@ -704,23 +713,11 @@ if (errors || email_flag === true || user_flag === true || user_space == true ||
                 }
             }
             res.render('./Sign_up_Employer', {
-                errors: errors
+                errors: errors, employer: newEmployer
             });
         }   
     }
 	else {
-
-		// create an employer object
-		var newEmployer = new Employer({
-			username: req.body.username,
-			password: req.body.password,
-			name: req.body.name,
-			phoneNum: req.body.phoneNum,
-			email: req.body.email,
-			aboutme: '',
-		});
-
-		
 		Employer.createEmployer(newEmployer, function(err,user) {
 			if (err) throw err;
 			var newImage = new Image();
