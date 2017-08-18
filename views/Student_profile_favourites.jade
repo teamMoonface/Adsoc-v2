@@ -1,99 +1,99 @@
 extends Layout_2_Profile_View
 
 block title
-	title Favourites
-	
+    title Favourites
+    
 block navbar
-	include navbar
-	
+    include navbar
+    
 block sidebar
-	.student-sidebar
-	  .user-info
-		br
-		.ProfileImage
-		  if (image)
-			img#profile-pic1(src='/uploads/#{image.file_name}', alt='profile pic')
-		  else 
-			img#profile-pic1(src='/images/man-team.png', alt='profile pic') 
-		h4.user-name
-		  strong #{student.name}
-		.email
-		  strong #{student.email}
-		label.verify Verified
-	  ul.nav.nav-pills.nav-stacked
-		li.side
-		  a(href=student.applied_url)
-			div.miniContainers
-			  img#star(src='/images/applied.png', alt='applied') 
-			  p.app Applied Jobs
-			  span.glyphicon.glyphicon-chevron-right.pull-right
-		li.active
-		  a(href=student.favourites_url)
-			div.miniContainers
-			  img#star(src='/images/star.png', alt='star') 
-			  p.favs Favourites
-			  span.glyphicon.glyphicon-chevron-right.pull-right
-		li.side
-		  a(href=student.url)
-			div.miniContainers
-			  img#star(src='/images/profile.png', alt='profile')
-			  p.prof Profile
-			  span.glyphicon.glyphicon-chevron-right.pull-right
-		li.side
-		  a(href='/logout_student')
-			div.miniContainers
-			  img#star(src='/images/arrow.png', alt='logout')
-			  p.Log Log out
-			  span.glyphicon.glyphicon-chevron-right.pull-right
+    .student-sidebar
+      .user-info
+        br
+        .ProfileImage
+          if (image)
+            img#profile-pic1(src='/uploads/#{image.file_name}', alt='profile pic')
+          else 
+            img#profile-pic1(src='/images/man-team.png', alt='profile pic') 
+        h4.user-name
+          strong #{student.name}
+        .email
+          strong #{student.email}
+        label.verify Verified
+      ul.nav.nav-pills.nav-stacked
+        li.side
+          a(href=student.applied_url)
+            div.miniContainers
+              img#star(src='/images/applied.png', alt='applied') 
+              p.app Applied Jobs
+              span.glyphicon.glyphicon-chevron-right.pull-right
+        li.active
+          a(href=student.favourites_url)
+            div.miniContainers
+              img#star(src='/images/star.png', alt='star') 
+              p.favs Favourites
+              span.glyphicon.glyphicon-chevron-right.pull-right
+        li.side
+          a(href=student.url)
+            div.miniContainers
+              img#star(src='/images/profile.png', alt='profile')
+              p.prof Profile
+              span.glyphicon.glyphicon-chevron-right.pull-right
+        li.side
+          a(href='/logout_student')
+            div.miniContainers
+              img#star(src='/images/arrow.png', alt='logout')
+              p.Log Log out
+              span.glyphicon.glyphicon-chevron-right.pull-right
 
 block content
-	.favourites-panel
-	  h2.title_of
-		strong #{title}
-	  br
-	  .jobposts.db
-		if student.favouriteJobs.length > 0
-			each job in student.favouriteJobs
-				.postedjobs-panel
-					 .job-post
-						.row
-						  .col-xs-9.desc_justify
-							h2.job-name #{job.name} 
-							p  
-							  small.time-frame 
-								strong Working period: 
-								| #{job.date_start_formatted} - #{job.date_end_formatted}
-							p
-							| #{job.desc}
-						  .col-xs-3
-							div.wrapper 
-							  div.wrapper_deep $#{job.remun}/hr
-						hr
-						div.row
-							div.col-xs-9
-								div
-								  p#coyname
-									strong Company/Project: 
-									| #{job.name}
-								div
-								  p#postedon
-									strong Posted on: 
-									| #{job.date_posted_formatted}
-							div.col-xs-3.butt
-								div
-								  a(href=job.url).btn.view_more_button 
-									div.text View More
-						hr
-						.row
-						  .col-xs-9
-							div.skill-container
-							  div.skill-header Skill type:
-								if(job.skill_type != null)
-									span.skill_type &nbsp;#{job.skill_type}
-								else
-									span.skill_type &nbsp; Not specified
-						  .col-xs-3
-						br
-					br
-		else
-			p No favourited jobs!
+    .favourites-panel
+      h2.title_of
+        strong #{title}
+      br
+      .jobposts.db
+        if student.favouriteJobs.length > 0
+            each job in student.favouriteJobs
+                .postedjobs-panel
+                     .job-post
+                        .row
+                          .col-xs-9.desc_justify
+                            h2.job-name #{job.name} 
+                            p  
+                              small.time-frame 
+                                strong Working period: 
+                                | #{job.date_start_formatted} - #{job.date_end_formatted}
+                            p
+                            | #{job.desc}
+                          .col-xs-3
+                            div.wrapper 
+                              div.wrapper_deep $#{job.remun}/hr
+                        hr
+                        div.row
+                            div.col-xs-9
+                                div
+                                  p#coyname
+                                    strong Company/Project: 
+                                    | #{job.name}
+                                div
+                                  p#postedon
+                                    strong Posted on: 
+                                    | #{job.date_posted_formatted}
+                            div.col-xs-3.butt
+                                div
+                                  a(href=job.url).btn.view_more_button 
+                                    div.text View More
+                        hr
+                        .row
+                          .col-xs-9
+                            div.skill-container
+                              div.skill-header Skill type:
+                                if(job.skill_type != null)
+                                    span.skill_type &nbsp;#{job.skill_type}
+                                else
+                                    span.skill_type &nbsp; Not specified
+                          .col-xs-3
+                        br
+                    br
+        else
+            p No favourited jobs!
