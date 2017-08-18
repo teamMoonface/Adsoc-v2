@@ -2,7 +2,7 @@
   "name": "adsoc",
   "version": "0.0.0",
   "engines": {
-      "node": "6.10.3"
+    "node": "6.10.3"
   },
   "private": true,
   "scripts": {
@@ -11,6 +11,7 @@
   },
   "dependencies": {
     "async": "^2.4.1",
+    "bcrypt": "1.0.2",
     "bcryptjs": "*",
     "body-parser": "^1.17.2",
     "connect-flash": "*",
