@@ -7,7 +7,7 @@
   "private": true,
   "scripts": {
     "start": "node app.js",
-    "devstart": "nodemon ./bin/www"
+    "devstart": "nodemon app.js"
   },
   "dependencies": {
     "async": "^2.4.1",
