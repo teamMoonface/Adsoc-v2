@@ -10,11 +10,16 @@ var flash = require('connect-flash');
 var passport = require('passport');
 var LocalStrategy = require('passport-local').Strategy;
 var util = require('util');
+var compression = require('compression');
+var helmet = require('helmet');
 
 var multer = require('multer');
 var bodyParser = require('body-parser');
 var path = require('path');
 var fs = require('fs');
+
+app.use(helmet());
+app.use(compression()); // compress http responses
 
 // import routes
 var searchPage = require('./routes/searchPage');
