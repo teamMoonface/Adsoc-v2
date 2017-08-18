@@ -371,7 +371,7 @@ exports.apply_job = function(req, res, next) {
 		}, function(err, results) {
 			if (err) { return next(err); }
 			console.log('job status: apply success');
-			res.render('./job_view', {job: results.job, employer_poster: results.employer_poster, status: 'applySuccess', store_User: 'session alive'});
+			res.render('./Job_view', {job: results.job, employer_poster: results.employer_poster, status: 'applySuccess', store_User: 'session alive'});
 		}); 
 	}    
 };
@@ -434,7 +434,7 @@ exports.favourite_job = function(req, res, next) {
         }, function(err, results) {
             if (err) { return next(err); }
             console.log('favouriting job')
-            res.render('./job_view', {job: results.job, employer_poster: results.employer_poster, status: 'notApplied', fav: true, store_User: 'session alive'});
+            res.render('./Job_view', {job: results.job, employer_poster: results.employer_poster, status: 'notApplied', fav: true, store_User: 'session alive'});
         })
     }
 };
@@ -461,7 +461,7 @@ exports.remove_fav = function(req, res, next) {
         }, function(err, results) {
             if (err) { return next(err); }
             console.log('removing job from fav')
-            res.render('./job_view', {job: results.job, employer_poster: results.employer_poster, status: 'notApplied', fav: false, store_User: 'session alive'});
+            res.render('./Job_view', {job: results.job, employer_poster: results.employer_poster, status: 'notApplied', fav: false, store_User: 'session alive'});
         })
     }
 }
