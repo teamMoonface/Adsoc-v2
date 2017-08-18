@@ -485,7 +485,7 @@ exports.employer_list = function(req, res, next) {
 };
 
 exports.signup_employer_create_get = function(req, res, next) {
-	res.render('./Sign_up_employer', {title: 'Employer Sign-Up'});
+	res.render('./Sign_up_Employer', {title: 'Employer Sign-Up'});
 };
 
 exports.signup_employer_create_post = function(req, res, next) {
