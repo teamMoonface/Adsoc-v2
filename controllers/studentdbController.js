@@ -194,7 +194,7 @@ exports.favourites_get = function(req, res, next) {
         async.parallel({
             studentInstance: function(callback) {
                 Student.findById(store_User._id)
-                    .populate('favouriteJobs')
+                    .populate({path: 'favouriteJobs', populate: {path: 'employer'}})
                     .exec(callback);
             },
             ImageFunction: function(callback) {
