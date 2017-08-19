@@ -46,8 +46,6 @@ exports.profile_post = function(req,res,next) {
 
 	// run validators
 	var err_update = req.validationErrors();
-
-	// create a student object
 	
 	if (err_update) {
         async.parallel({
@@ -273,6 +271,7 @@ exports.job_detail = function(req, res, next) {
 		if (err) { return next(err); }
 		//Successful, so render
 		var store_Emp = req.session.emp;
+        console.log('employer_poster: ' + results.employer_poster._id + ', employer: ' + results.employer._id);
 		res.render('./job_view', { title: 'Job details', store_Emp: "sessions alive", job: results.job, employer_poster: results.employer_poster, employer: results.employer, store_Emp: 'session alive' });
 	  });
 	}
