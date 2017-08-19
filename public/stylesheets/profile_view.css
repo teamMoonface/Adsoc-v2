@@ -196,7 +196,7 @@ body{
 	font-weight: bold;
 }
 
-.apply_header, .fav_header{
+.apply_header, .fav_header, .login_header{
 	font-family: 'Quicksand', sans-serif;
 	font-weight: 900;
 	font-size: 15px;
