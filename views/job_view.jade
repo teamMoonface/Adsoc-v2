@@ -8,18 +8,18 @@ block sidebar
         if sameEmployer
             div.employer_profile_sidebar
                 div.header
-                    a(href=job.editJob_url, role='button') Edit Job Post
+                    | Edit Job Post
                 div.apply_job
-                    .btn.apply_button Click to edit
+                    a.btn.apply_button(href=job.editJob_url, role='button') Click to edit
                 br
     else if user == undefined
-        div.open_profile_sidebar
-            div.header
+        div.student_profile_sidebar
+            div.header.apply_header
                 | Register/ Signup with us before applying!
             div.register
-                a(href='/student/signup') Sign up here
+                a.btn.btn-info(href='/student/signup') Sign up here
             div.login
-                a(href='/student/login') Log in now!
+                a.btn.btn-info(href='/login_student') Log in now!
             br
     else
         if status == 'notApplied'
