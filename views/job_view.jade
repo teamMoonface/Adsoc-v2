@@ -1,7 +1,7 @@
 extends Layout_1_Job_View
 
 block title
-    title job.name 
+    title #{job.name} 
 
 block sidebar
     if store_Emp 
@@ -15,7 +15,7 @@ block sidebar
         else
             div.open_profile_sidebar
                 div.header
-                    | Register/ Signup with us before applying!
+                    | Register/ Signup with us before applying! ---
                 div.register
                     a(href='/student/signup') Sign up here
                 div.login
