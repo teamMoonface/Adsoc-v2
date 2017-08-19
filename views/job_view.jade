@@ -8,7 +8,8 @@ block sidebar
         if sameEmployer
             div.employer_profile_sidebar
                 div.header
-                    | Edit Job Post
+                    div.edit_header
+                        p Edit Job Post
                 div.apply_job
                     a.btn.apply_button(href=job.editJob_url, role='button') Click to edit
                 br
