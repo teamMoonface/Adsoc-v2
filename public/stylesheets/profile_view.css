@@ -109,6 +109,22 @@ body{
 	color: white;	
 }
 
+.signup_button{
+    width: 90%;
+	border-radius: 5px;
+	font-size: 15px;
+	background-color: dodgerblue;
+	color: white;
+}
+
+.login_button{
+    width: 90%;
+	border-radius: 5px;
+	font-size: 15px;
+	background-color: ;
+	color: limegreen;
+}
+
 /*Content*/
 .job-box{
 	font-size: 15px;

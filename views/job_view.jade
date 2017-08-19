@@ -17,9 +17,9 @@ block sidebar
             div.header.apply_header
                 | Register/ Signup with us before applying!
             div.register
-                a.btn.btn-info(href='/student/signup') Sign up here
+                a.btn.signup_button(href='/student/signup') Sign up here
             div.login
-                a.btn.btn-info(href='/login_student') Log in now!
+                a.btn.login_button(href='/login_student') Log in now!
             br
     else
         if status == 'notApplied'
