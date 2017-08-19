@@ -84,8 +84,7 @@ body{
 .apply_button:active,
 .apply_button:focus,
 .signup_button:hover,
-.signup_button:active,
-.signup_button:focus{
+.signup_button:active{
 	background-color:#72e0ff;
 	text-decoration: none;
 	color:white;
