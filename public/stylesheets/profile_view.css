@@ -67,7 +67,7 @@ body{
 	padding-bottom: 7px
 }
 
-.apply_button {
+.apply_button, signup_button {
 	width: 90%;
 	border-radius: 5px;
 	font-size: 15px;
@@ -82,13 +82,16 @@ body{
 
 .apply_button:hover,
 .apply_button:active,
-.apply_button:focus{
+.apply_button:focus,
+.signup_button:hover,
+.signup_button:active,
+.signup_button:focus{
 	background-color:#72e0ff;
 	text-decoration: none;
 	color:white;
 }
 
-.save_button{
+.save_button, .login_button{
 	width: 90%;
 	border-radius: 5px;
 	font-size: 15px;
@@ -102,27 +105,13 @@ body{
 }
 
 .save_button:hover,
-.save_button:active{
+.save_button:active
+.login_button:hover,
+.login_button:active{
 	background-color:#ffdf51;
 	border-color: #ffdf51;
 	text-decoration: none;
 	color: white;	
-}
-
-.signup_button{
-    width: 90%;
-	border-radius: 5px;
-	font-size: 15px;
-	background-color: dodgerblue;
-	color: white;
-}
-
-.login_button{
-    width: 90%;
-	border-radius: 5px;
-	font-size: 15px;
-	background-color: limegreen;
-	color: white;
 }
 
 /*Content*/

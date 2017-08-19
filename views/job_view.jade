@@ -14,13 +14,15 @@ block sidebar
                 br
     else if user == undefined
         div.student_profile_sidebar
-            div.header.apply_header
-                | Register/ Signup with us before applying!
-            div.register
+            div.header
+                div.apply_header
+                    p Register/ Signup with us before applying!
+            div.signup_job
                 a.btn.signup_button(href='/student/signup') Sign up here
-            div.header.login_header
-                | Already have an account?
-            div.login
+            br
+            div.header
+                div.login_header
+                    p Already have an account?
                 a.btn.login_button(href='/login_student') Log in now!
             br
     else
