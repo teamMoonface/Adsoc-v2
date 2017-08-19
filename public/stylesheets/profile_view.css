@@ -121,8 +121,8 @@ body{
     width: 90%;
 	border-radius: 5px;
 	font-size: 15px;
-	background-color: ;
-	color: limegreen;
+	background-color: limegreen;
+	color: white;
 }
 
 /*Content*/
@@ -201,6 +201,7 @@ body{
 	font-weight: 900;
 	font-size: 15px;
 	text-align: left;
+    padding-top: 20px;
 }
 
 .delete_button{
