@@ -67,7 +67,7 @@ body{
 	padding-bottom: 7px
 }
 
-.apply_button, signup_button {
+.apply_button, .signup_button {
 	width: 90%;
 	border-radius: 5px;
 	font-size: 15px;
@@ -86,6 +86,7 @@ body{
 .signup_button:hover,
 .signup_button:active{
 	background-color:#72e0ff;
+    border-color: #72e0ff;
 	text-decoration: none;
 	color:white;
 }
