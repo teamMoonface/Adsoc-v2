@@ -271,8 +271,12 @@ exports.job_detail = function(req, res, next) {
 		if (err) { return next(err); }
 		//Successful, so render
 		var store_Emp = req.session.emp;
+        var sameEmployer = false;
+        if (results.employer_poster._id == results.employer._id) {
+            sameEmployer = true;
+        }
         console.log('employer_poster: ' + results.employer_poster._id + ', employer: ' + results.employer._id);
-		res.render('./job_view', { title: 'Job details', store_Emp: "sessions alive", job: results.job, employer_poster: results.employer_poster, employer: results.employer, store_Emp: 'session alive' });
+		res.render('./job_view', { title: 'Job details', store_Emp: "sessions alive", job: results.job, employer_poster: results.employer_poster, employer: results.employer, sameEmployer: sameEmployer, store_Emp: 'session alive' });
 	  });
 	}
 	
