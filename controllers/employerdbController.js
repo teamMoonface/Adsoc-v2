@@ -253,31 +253,31 @@ exports.view_job_applicants = function(req, res,next) {
 // Display Specific posted job
 exports.job_detail = function(req, res, next) {  
 	if(req.session.emp){
-	var store_Emp = req.session.emp;
-	  async.parallel({
-		job: function(callback) {     
-		  Job.findById(req.params.id)
-			.exec(callback);
-		},
-		employer: function(callback) {
-		  Employer.findById({ '_id': req.session.emp._id})
-			.exec(callback);
-		},
-		employer_poster: function(callback) {
-		  Employer.findOne({ 'postedJobs': req.params.id})
-			.exec(callback);
-		},
-	  }, function(err, results) {
-		if (err) { return next(err); }
-		//Successful, so render
-		var store_Emp = req.session.emp;
+    var store_Emp = req.session.emp;
+      async.parallel({
+        job: function(callback) {     
+          Job.findById(req.params.id)
+            .exec(callback);
+        },
+        employer: function(callback) {
+          Employer.findById({ '_id': req.session.emp._id})
+            .exec(callback);
+        },
+        employer_poster: function(callback) {
+          Employer.findOne({ 'postedJobs': req.params.id})
+            .exec(callback);
+        },
+      }, function(err, results) {
+        if (err) { return next(err); }
+        //Successful, so render
+        var store_Emp = req.session.emp;
         var sameEmployer = false;
         if (results.employer_poster._id.equals(results.employer._id)) {
             sameEmployer = true;
         }
         console.log('same employer: ' + sameEmployer);
-		res.render('./job_view', { title: 'Job details', store_Emp: "sessions alive", job: results.job, employer_poster: results.employer_poster, employer: results.employer, sameEmployer: sameEmployer, store_Emp: 'session alive' });
-	  });
+        res.render('./job_view', { title: 'Job details', store_Emp: "sessions alive", job: results.job, employer_poster: results.employer_poster, employer: results.employer, sameEmployer: sameEmployer, store_Emp: 'session alive' });
+      });
 	}
 	
 	else {

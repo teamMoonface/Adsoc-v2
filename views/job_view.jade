@@ -8,19 +8,10 @@ block sidebar
         if sameEmployer
             div.employer_profile_sidebar
                 div.header
-                    | Edit Job Post
+                    a(href=job.editJob_url, role='button') Edit Job Post
                 div.apply_job
                     .btn.apply_button Click to edit
                 br
-        else
-            div.open_profile_sidebar
-                div.header
-                    | Register/ Signup with us before applying! ---
-                div.register
-                    a(href='/student/signup') Sign up here
-                div.login
-                    a(href='/student/login') Log in now!
-                br      
     else if user == undefined
         div.open_profile_sidebar
             div.header
