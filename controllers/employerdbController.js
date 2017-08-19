@@ -272,10 +272,10 @@ exports.job_detail = function(req, res, next) {
 		//Successful, so render
 		var store_Emp = req.session.emp;
         var sameEmployer = false;
-        if (results.employer_poster._id == results.employer._id) {
+        if (results.employer_poster._id.equals(results.employer._id)) {
             sameEmployer = true;
         }
-        console.log('employer_poster: ' + results.employer_poster._id + ', employer: ' + results.employer._id);
+        console.log('same employer: ' + sameEmployer);
 		res.render('./job_view', { title: 'Job details', store_Emp: "sessions alive", job: results.job, employer_poster: results.employer_poster, employer: results.employer, sameEmployer: sameEmployer, store_Emp: 'session alive' });
 	  });
 	}
