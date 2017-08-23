@@ -54,7 +54,8 @@ block content
       // insert error messages
 
       .postjob
-      
+        if postedjob
+          div.alert.alert-success #{jobposted}
         if errors
             .alert.alert-danger.box
                 span.glyphicon.glyphicon-warning-sign
