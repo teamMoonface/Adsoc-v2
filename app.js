@@ -10,6 +10,7 @@ var flash = require('connect-flash');
 var passport = require('passport');
 var LocalStrategy = require('passport-local').Strategy;
 var util = require('util');
+var helmet = require('helmet');
 
 var multer = require('multer');
 var bodyParser = require('body-parser');
@@ -24,7 +25,7 @@ var employer = require('./routes/employer');
 
 var app = express();
 var mongoose = require('mongoose');
-var mongoDB = 'mongodb://moonface:orbital2017@ds131742.mlab.com:31742/adsoc';
+var mongoDB = process.env.MONGODB_URI || 'mongodb://moonface:orbital2017@ds131742.mlab.com:31742/adsoc';
 mongoose.Promise = global.Promise;
 mongoose.connect(mongoDB);
 var db = mongoose.connection;
@@ -48,14 +49,14 @@ app.use(express.static(path.join(__dirname, 'public')));
 //flash 
 app.use(flash());
 
+app.use(helmet());
+
 //Express Session
 app.use(session({
 	secret: 'secret',
 	saveUninitialized: true,
 	resave: true
 }));
-
-
 
 // /images which will serve as our final path of the uploaded images
 app.use(express.static(__dirname + '/public'));

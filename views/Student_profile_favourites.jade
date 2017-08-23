@@ -27,7 +27,7 @@ block sidebar
               img#star(src='/images/applied.png', alt='applied') 
               p.app Applied Jobs
               span.glyphicon.glyphicon-chevron-right.pull-right
-        li.side.active
+        li.active
           a(href=student.favourites_url)
             div.miniContainers
               img#star(src='/images/star.png', alt='star') 
@@ -74,7 +74,7 @@ block content
                                 div
                                   p#coyname
                                     strong Company/Project: 
-                                    | #{job.name}
+                                    | #{job.employer.name}
                                 div
                                   p#postedon
                                     strong Posted on: 

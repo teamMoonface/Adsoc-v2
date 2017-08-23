@@ -1,34 +1,30 @@
 extends Layout_1_Job_View
 
 block title
-    job.name 
+    title #{job.name} 
 
 block sidebar
-    if employer != null 
-        if employer_poster._id == employer._id
+    if store_Emp 
+        if sameEmployer
             div.employer_profile_sidebar
                 div.header
-                    | Edit Job Post
+                    div.edit_header
+                        p Edit Job Post
                 div.apply_job
-                    .btn.apply_button Click to edit
+                    a.btn.apply_button(href=job.editJob_url, role='button') Click to edit
                 br
-        else
-            div.open_profile_sidebar
-                div.header
-                    | Register/ Signup with us before applying!
-                div.register
-                    a(href='/student/signup') Sign up here
-                div.login
-                    a(href='/student/login') Log in now!
-                br      
     else if user == undefined
-        div.open_profile_sidebar
+        div.student_profile_sidebar
             div.header
-                | Register/ Signup with us before applying!
-            div.register
-                a(href='/student/signup') Sign up here
-            div.login
-                a(href='/student/login') Log in now!
+                div.apply_header
+                    p Register/ Signup with us before applying!
+            div.signup_job
+                a.btn.signup_button(href='/student/signup', role='button') Sign up here
+            br
+            div.header
+                div.login_header
+                    p Already have an account?
+                a.btn.login_button(href='/login_student', role='button') Log in now!
             br
     else
         if status == 'notApplied'
@@ -123,7 +119,6 @@ block sidebar
                                             form#confirm(method='POST' action=job.url+'/delete')
                                                 button.btn#confirmBtn(type='submit') Confirm
                 br
-
 
 block content
     if status == 'applySuccess'

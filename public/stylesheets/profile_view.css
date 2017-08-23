@@ -59,6 +59,15 @@ body{
 	height: 150px;
 }
 
+.employer_profile_sidebar{
+    text-align: center;
+	height: 140px;
+	background-color:white;
+	border-radius: 7px;
+	font-size: 15px;
+	font-family: 'Arial', sans-serif;
+}
+
 .header, .save_job{
 	font-weight: 300;
 	text-align: left;
@@ -67,7 +76,7 @@ body{
 	padding-bottom: 7px
 }
 
-.apply_button {
+.apply_button, .signup_button {
 	width: 90%;
 	border-radius: 5px;
 	font-size: 15px;
@@ -82,13 +91,16 @@ body{
 
 .apply_button:hover,
 .apply_button:active,
-.apply_button:focus{
+.apply_button:focus,
+.signup_button:hover,
+.signup_button:active{
 	background-color:#72e0ff;
+    border-color: #72e0ff;
 	text-decoration: none;
 	color:white;
 }
 
-.save_button{
+.save_button, .login_button{
 	width: 90%;
 	border-radius: 5px;
 	font-size: 15px;
@@ -102,7 +114,9 @@ body{
 }
 
 .save_button:hover,
-.save_button:active{
+.save_button:active
+.login_button:hover,
+.login_button:active{
 	background-color:#ffdf51;
 	border-color: #ffdf51;
 	text-decoration: none;
@@ -180,11 +194,12 @@ body{
 	font-weight: bold;
 }
 
-.apply_header, .fav_header{
+.apply_header, .fav_header, .login_header, .edit_header{
 	font-family: 'Quicksand', sans-serif;
 	font-weight: 900;
 	font-size: 15px;
 	text-align: left;
+    padding-top: 20px;
 }
 
 .delete_button{

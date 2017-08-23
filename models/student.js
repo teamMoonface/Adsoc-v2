@@ -13,7 +13,7 @@ var StudentSchema = Schema (
         email: {type: String, required: true},
         phoneNum: {type: Number},
         dob: {type: String},
-        gender: {type: String, required: true, enum: ['Male', 'Female']}, 
+        gender: {type: String, enum: ['Male', 'Female']}, 
         //Not filled in during signup   
         aboutme: {type: String, max: 500},
         experienceList: [{type: Schema.ObjectId, ref: 'Experience'}],

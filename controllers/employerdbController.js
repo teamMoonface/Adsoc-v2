@@ -46,8 +46,6 @@ exports.profile_post = function(req,res,next) {
 
 	// run validators
 	var err_update = req.validationErrors();
-
-	// create a student object
 	
 	if (err_update) {
         async.parallel({
@@ -272,26 +270,31 @@ exports.view_job_applicants = function(req, res,next) {
 // Display Specific posted job
 exports.job_detail = function(req, res, next) {  
 	if(req.session.emp){
-	var store_Emp = req.session.emp;
-	  async.parallel({
-		job: function(callback) {     
-		  Job.findById(req.params.id)
-			.exec(callback);
-		},
-		employer: function(callback) {
-		  Employer.findById({ '_id': req.session.emp._id})
-			.exec(callback);
-		},
-		employer_poster: function(callback) {
-		  Employer.findOne({ 'postedJobs': req.params.id})
-			.exec(callback);
-		},
-	  }, function(err, results) {
-		if (err) { return next(err); }
-		//Successful, so render
-		var store_Emp = req.session.emp;
-		res.render('./Job_view', { title: 'Job details', store_Emp: "sessions alive", job: results.job, employer_poster: results.employer_poster, employer: results.employer, store_Emp: 'session alive' });
-	  });
+    var store_Emp = req.session.emp;
+      async.parallel({
+        job: function(callback) {     
+          Job.findById(req.params.id)
+            .exec(callback);
+        },
+        employer: function(callback) {
+          Employer.findById({ '_id': req.session.emp._id})
+            .exec(callback);
+        },
+        employer_poster: function(callback) {
+          Employer.findOne({ 'postedJobs': req.params.id})
+            .exec(callback);
+        },
+      }, function(err, results) {
+        if (err) { return next(err); }
+        //Successful, so render
+        var store_Emp = req.session.emp;
+        var sameEmployer = false;
+        if (results.employer_poster._id.equals(results.employer._id)) {
+            sameEmployer = true;
+        }
+        console.log('same employer: ' + sameEmployer);
+        res.render('./job_view', { title: 'Job details', store_Emp: "sessions alive", job: results.job, employer_poster: results.employer_poster, employer: results.employer, sameEmployer: sameEmployer, store_Emp: 'session alive' });
+      });
 	}
 	
 	else {
@@ -331,13 +334,13 @@ exports.job_detail = function(req, res, next) {
                     if (results.student.favouriteJobs.indexOf(req.params.id) > -1) {
                         console.log('fav: true');
                         
-                        res.render('./Job_view', {job: results.job, store_User: "session alive", employer_poster: results.employer_poster, employer: null, status: 'applied', fav: true});
+                        res.render('./job_view', {job: results.job, store_User: "session alive", employer_poster: results.employer_poster, employer: null, status: 'applied', fav: true});
                     }
                     /* have not fav job */
                     else {
                         console.log('fav: false');
 
-                        res.render('./Job_view', {job: results.job, store_User: "session alive", employer_poster: results.employer_poster, employer: null, status: 'applied', fav: false});
+                        res.render('./job_view', {job: results.job, store_User: "session alive", employer_poster: results.employer_poster, employer: null, status: 'applied', fav: false});
                     }
                 }
                 else {
@@ -347,20 +350,20 @@ exports.job_detail = function(req, res, next) {
                     if (results.student.favouriteJobs.indexOf(req.params.id) > -1) {
                         console.log('fav: true');
 
-                        res.render('./Job_view', {job: results.job, store_User: "session alive", employer_poster: results.employer_poster, employer: null, status: 'notApplied', fav: true});
+                        res.render('./job_view', {job: results.job, store_User: "session alive", employer_poster: results.employer_poster, employer: null, status: 'notApplied', fav: true});
                     }
                     /* have not fav job */
                     else {
                         console.log('fav: false');
                         
-                        res.render('./Job_view', {job: results.job, store_User: "session alive", employer_poster: results.employer_poster, employer: null, status: 'notApplied', fav: false});
+                        res.render('./job_view', {job: results.job, store_User: "session alive", employer_poster: results.employer_poster, employer: null, status: 'notApplied', fav: false});
                     }
                 }
             }
             else {
                 console.log('not logged in');
                 console.log(results.employer_poster);
-                res.render('./Job_view', {job: results.job, employer_poster: results.employer_poster, employer: null, status: 'notApplied', fav: false, store_Emp: 'session alive'});
+                res.render('./job_view', {job: results.job, employer_poster: results.employer_poster, employer: null, status: 'notApplied', fav: false});
             }
 		});
 	}
@@ -418,12 +421,12 @@ exports.delete_job = function(req, res, next) {
             /* favourited job */
             if (results.student.favouriteJobs.indexOf(req.params.id) > -1) {
                 console.log('fav: true');
-                res.render('./Job_view', {job: results.job, employer_poster: results.employer_poster, status: 'deleteSuccess', fav: true, store_User: 'session alive'});
+                res.render('./job_view', {job: results.job, employer_poster: results.employer_poster, status: 'deleteSuccess', fav: true, store_User: 'session alive'});
             }
             /* have not fav job */
             else {
                 console.log('fav: false');
-                res.render('./Job_view', {job: results.job, employer_poster: results.employer_poster, status: 'deleteSuccess', fav: false, store_User: 'session alive'});
+                res.render('./job_view', {job: results.job, employer_poster: results.employer_poster, status: 'deleteSuccess', fav: false, store_User: 'session alive'});
             }          
         });
 	}
@@ -502,7 +505,7 @@ exports.employer_list = function(req, res, next) {
 };
 
 exports.signup_employer_create_get = function(req, res, next) {
-	res.render('./Sign_up_employer', {title: 'Employer Sign-Up'});
+	res.render('./Sign_up_Employer', {title: 'Employer Sign-Up'});
 };
 
 exports.signup_employer_create_post = function(req, res, next) {
@@ -610,88 +613,97 @@ exports.signup_employer_create_post = function(req, res, next) {
 	// run validators
 	var errors = req.validationErrors();
 	
+    // create an employer object
+    var newEmployer = new Employer({
+        username: req.body.username,
+        password: req.body.password,
+        name: req.body.name,
+        phoneNum: req.body.phoneNum,
+        email: req.body.email,
+        aboutme: '',
+    });
 	
-if (errors || email_flag === true || user_flag === true || user_space == true || pass_space == true) {
+    if (errors || email_flag === true || user_flag === true || user_space == true || pass_space == true) {
         if(email_flag == true && user_flag == false){
             if(user_space == true){
                 if(pass_space == true){
                     res.render('./Sign_up_Employer', {
-                        errors: errors, status_Username: 'Username already exists, please choose another Username', space_Pass: 'Password cannot contain blank spaces' , space_Username: 'Username cannot contain blank spaces'
+                        errors: errors, status_Username: 'Username already exists, please choose another Username', space_Pass: 'Password cannot contain blank spaces' , space_Username: 'Username cannot contain blank spaces', employer: newEmployer
                     });
                 }
                 else{  
                     res.render('./Sign_up_Employer', {
-                        errors: errors, status_Username: 'Username already exists, please choose another Username', space_Username: 'Username cannot contain blank spaces'
+                        errors: errors, status_Username: 'Username already exists, please choose another Username', space_Username: 'Username cannot contain blank spaces', employer: newEmployer
                     });
                 }
             }
             else{
                 if(pass_space == true){
                     res.render('./Sign_up_Employer', {
-                        errors: errors, status_Username: 'Username already exists, please choose another Username', space_Pass: 'Password cannot contain blank spaces'
+                        errors: errors, status_Username: 'Username already exists, please choose another Username', space_Pass: 'Password cannot contain blank spaces', employer: newEmployer
                     });
                 }
                 else{
                     res.render('./Sign_up_Employer', {
-                        errors: errors, status_Username: 'Username already exists, please choose another Username'
+                        errors: errors, status_Username: 'Username already exists, please choose another Username', employer: newEmployer
                     });
                 }
             }
             res.render('./Sign_up_Employer', {
-                errors: errors, status_Email: 'Email already exists, please choose another Email'
+                errors: errors, status_Email: 'Email already exists, please choose another Email', employer: newEmployer
             });
         }
         else if(email_flag == true && user_flag == true){
             if(user_space == true){
                 if(pass_space == true){
                     res.render('./Sign_up_Employer', {
-                        errors: errors, status_Username: 'Username already exists, please choose another Username', space_Pass: 'Password cannot contain blank spaces' , space_Username: 'Username cannot contain blank spaces'
+                        errors: errors, status_Username: 'Username already exists, please choose another Username', space_Pass: 'Password cannot contain blank spaces' , space_Username: 'Username cannot contain blank spaces', employer: newEmployer
                     });
                 }
                 else{
                     res.render('./Sign_up_Employer', {
-                        errors: errors, status_Username: 'Username already exists, please choose another Username', space_Username: 'Username cannot contain blank spaces'
+                        errors: errors, status_Username: 'Username already exists, please choose another Username', space_Username: 'Username cannot contain blank spaces', employer: newEmployer
                     });
                 }
             }
             else{
                 if(pass_space == true){
                     res.render('./Sign_up_Employer', {
-                        errors: errors, status_Username: 'Username already exists, please choose another Username', space_Pass: 'Password cannot contain blank spaces' 
+                        errors: errors, status_Username: 'Username already exists, please choose another Username', space_Pass: 'Password cannot contain blank spaces', employer: newEmployer
                     });
                 }
                 else{
                     res.render('./Sign_up_Employer', {
-                        errors: errors, status_Username: 'Username already exists, please choose another Username'
+                        errors: errors, status_Username: 'Username already exists, please choose another Username', employer: newEmployer
                     });
                 }
             }
             res.render('./Sign_up_Employer', {
-                errors: errors, status_Username: 'Username already exists, please choose another Username', status_Email: 'Email already exists, please choose another Email'
+                errors: errors, status_Username: 'Username already exists, please choose another Username', status_Email: 'Email already exists, please choose another Email', employer: newEmployer
             });
         }
         else if(email_flag == false && user_flag == true){
             if(user_space == true){
                 if(pass_space == true){
                     res.render('./Sign_up_Employer', {
-                        errors: errors, status_Username: 'Username already exists, please choose another Username', space_Pass: 'Password cannot contain blank spaces' , space_Username: 'Username cannot contain blank spaces'
+                        errors: errors, status_Username: 'Username already exists, please choose another Username', space_Pass: 'Password cannot contain blank spaces' , space_Username: 'Username cannot contain blank spaces', employer: newEmployer
                     });
                 }
                 else{
                     res.render('./Sign_up_Employer', {
-                        errors: errors, status_Username: 'Username already exists, please choose another Username', space_Username: 'Username cannot contain blank spaces'
+                        errors: errors, status_Username: 'Username already exists, please choose another Username', space_Username: 'Username cannot contain blank spaces', employer: newEmployer
                     });
                 }
             }
             else{
                 if(pass_space == true){
                     res.render('./Sign_up_Employer', {
-                        errors: errors, status_Username: 'Username already exists, please choose another Username', space_Pass: 'Password cannot contain blank spaces'
+                        errors: errors, status_Username: 'Username already exists, please choose another Username', space_Pass: 'Password cannot contain blank spaces', employer: newEmployer
                     });
                 }
                 else{
                     res.render('./Sign_up_Employer', {
-                        errors: errors, status_Username: 'Username already exists, please choose another Username'
+                        errors: errors, status_Username: 'Username already exists, please choose another Username', employer: newEmployer
                     });
                 }
             }
@@ -701,19 +713,19 @@ if (errors || email_flag === true || user_flag === true || user_space == true ||
             if(user_space == true){
                 if(pass_space == true){
                     res.render('./Sign_up_Employer', {
-                        errors: errors, status_Username: 'Username already exists, please choose another Username', space_Pass: 'Password cannot contain blank spaces' , space_Username: 'Username cannot contain blank spaces'
+                        errors: errors, status_Username: 'Username already exists, please choose another Username', space_Pass: 'Password cannot contain blank spaces' , space_Username: 'Username cannot contain blank spaces', employer: newEmployer
                     });
                 }
                 else{
                    res.render('./Sign_up_Employer', {
-                        errors: errors, status_Username: 'Username already exists, please choose another Username', space_Username: 'Username cannot contain blank spaces'
+                        errors: errors, status_Username: 'Username already exists, please choose another Username', space_Username: 'Username cannot contain blank spaces', employer: newEmployer
                     }); 
                 }
             }
             else{
                 if(pass_space == true){
                     res.render('./Sign_up_Employer', {
-                        errors: errors, status_Username: 'Username already exists, please choose another Username', space_Pass: 'Password cannot contain blank spaces'
+                        errors: errors, status_Username: 'Username already exists, please choose another Username', space_Pass: 'Password cannot contain blank spaces', employer: newEmployer
                     });
                 }
                 else{
@@ -721,23 +733,11 @@ if (errors || email_flag === true || user_flag === true || user_space == true ||
                 }
             }
             res.render('./Sign_up_Employer', {
-                errors: errors
+                errors: errors, employer: newEmployer
             });
         }   
     }
 	else {
-
-		// create an employer object
-		var newEmployer = new Employer({
-			username: req.body.username,
-			password: req.body.password,
-			name: req.body.name,
-			phoneNum: req.body.phoneNum,
-			email: req.body.email,
-			aboutme: '',
-		});
-
-		
 		Employer.createEmployer(newEmployer, function(err,user) {
 			if (err) throw err;
 			var newImage = new Image();

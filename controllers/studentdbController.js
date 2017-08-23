@@ -43,7 +43,7 @@ exports.add_experience = function(req,res,next) {
     var exp = new Experience({
         title: req.body.exp_heading,
         desc: req.body.exp_body,
-        student_id: store_User._id,
+        student_id: req.session.user._id
     });  
 
     if (errors) {
@@ -175,7 +175,6 @@ exports.profile_post = function(req,res,next) {
 
 };
 
-
 //Open Student profile - open for everyone to view
 exports.open_profile_get = function(req, res, next) {
     Student.findById(req.params.id)
@@ -195,7 +194,7 @@ exports.favourites_get = function(req, res, next) {
         async.parallel({
             studentInstance: function(callback) {
                 Student.findById(store_User._id)
-                    .populate('favouriteJobs')
+                    .populate({path: 'favouriteJobs', populate: {path: 'employer'}})
                     .exec(callback);
             },
             ImageFunction: function(callback) {
@@ -368,116 +367,7 @@ exports.signup_student_create_post = function(req, res,next) {
     var errors = req.validationErrors();
     
     // create a student object
-    
-
-    if (errors || email_flag == true || user_flag == true || user_space == true || pass_space == true) {
-        if(email_flag == true && user_flag == false){
-            if(user_space == true){
-                if(pass_space == true){
-                    res.render('./Sign_up_Student', {
-                        errors: errors, status_Email: 'Email already exists, please use another Email', space_Pass: 'Password cannot contain blank spaces' , space_Username: 'Username cannot contain blank spaces'
-                    });
-                }
-                else{  
-                    res.render('./Sign_up_Student', {
-                        errors: errors, status_Email: 'Email already exists, please use another Email', space_Username: 'Username cannot contain blank spaces'
-                    });
-                }
-            }
-            else{
-                if(pass_space == true){
-                    res.render('./Sign_up_Student', {
-                        errors: errors, status_Email: 'Email already exists, please use another Email', space_Pass: 'Password cannot contain blank spaces'
-                    });
-                }
-                else{
-                    res.render('./Sign_up_Student', {
-                        errors: errors, status_Email: 'Email already exists, please use another Email'
-                    });
-                }
-            }
-        }
-        else if(email_flag == true && user_flag == true){
-            if(user_space == true){
-                if(pass_space == true){
-                    res.render('./Sign_up_Student', {
-                        errors: errors, status_Email: 'Email already exists, please use another Email', status_Username: 'Username already exists, please choose another Username', space_Pass: 'Password cannot contain blank spaces' , space_Username: 'Username cannot contain blank spaces'
-                    });
-                }
-                else{
-                    res.render('./Sign_up_Student', {
-                        errors: errors, status_Email: 'Email already exists, please use another Email', status_Username: 'Username already exists, please choose another Username', space_Username: 'Username cannot contain blank spaces'
-                    });
-                }
-            }
-            else{
-                if(pass_space == true){
-                    res.render('./Sign_up_Student', {
-                        errors: errors, status_Email: 'Email already exists, please use another Email', status_Username: 'Username already exists, please choose another Username', space_Pass: 'Password cannot contain blank spaces' 
-                    });
-                }
-                else{
-                    res.render('./Sign_up_Student', {
-                        errors: errors, status_Email: 'Email already exists, please use another Email', status_Username: 'Username already exists, please choose another Username'
-                    });
-                }
-            }
-        }
-        else if(email_flag == false && user_flag == true){
-            if(user_space == true){
-                if(pass_space == true){
-                    res.render('./Sign_up_Student', {
-                        errors: errors, status_Username: 'Username already exists, please choose another Username', space_Pass: 'Password cannot contain blank spaces' , space_Username: 'Username cannot contain blank spaces'
-                    });
-                }
-                else{
-                    res.render('./Sign_up_Student', {
-                        errors: errors, status_Username: 'Username already exists, please choose another Username', space_Username: 'Username cannot contain blank spaces'
-                    });
-                }
-            }
-            else{
-                if(pass_space == true){
-                    res.render('./Sign_up_Student', {
-                        errors: errors, status_Username: 'Username already exists, please choose another Username', space_Pass: 'Password cannot contain blank spaces'
-                    });
-                }
-                else{
-                    res.render('./Sign_up_Student', {
-                        errors: errors, status_Username: 'Username already exists, please choose another Username'
-                    });
-                }
-            }
-
-        }
-        else{
-            if(user_space == true){
-                if(pass_space == true){
-                    res.render('./Sign_up_Student', {
-                        errors: errors, space_Pass: 'Password cannot contain blank spaces' , space_Username: 'Username cannot contain blank spaces'
-                    });
-                }
-                else{
-                   res.render('./Sign_up_Student', {
-                        errors: errors, space_Username: 'Username cannot contain blank spaces'
-                    }); 
-                }
-            }
-            else{
-                if(pass_space == true){
-                    res.render('./Sign_up_Student', {
-                        errors: errors, space_Pass: 'Password cannot contain blank spaces'
-                    });
-                }
-                else{
-                    errors: errors
-                }
-            }
-        }   
-    }
-    else {
-
-        var newStudent = new Student({
+    var newStudent = new Student({
             username: req.body.username,
             password: req.body.password1, 
             name: req.body.fullname,
@@ -488,6 +378,121 @@ exports.signup_student_create_post = function(req, res,next) {
             aboutme: " ",
         });
 
+    if (errors || email_flag == true || user_flag == true || user_space == true || pass_space == true) {
+        if(email_flag == true && user_flag == false){
+            if(user_space == true){
+                if(pass_space == true){
+                    res.render('./Sign_up_Student', {
+                        errors: errors, status_Username: 'Username already exists, please choose another Username', space_Pass: 'Password cannot contain blank spaces' , space_Username: 'Username cannot contain blank spaces', student: newStudent
+                    });
+                }
+                else{  
+                    res.render('./Sign_up_Student', {
+                        errors: errors, status_Username: 'Username already exists, please choose another Username', space_Username: 'Username cannot contain blank spaces', student: newStudent
+                    });
+                }
+            }
+            else{
+                if(pass_space == true){
+                    res.render('./Sign_up_Student', {
+                        errors: errors, status_Username: 'Username already exists, please choose another Username', space_Pass: 'Password cannot contain blank spaces', student: newStudent
+                    });
+                }
+                else{
+                    res.render('./Sign_up_Student', {
+                        errors: errors, status_Username: 'Username already exists, please choose another Username', student: newStudent
+                    });
+                }
+            }
+            res.render('./Sign_up_Student', {
+                errors: errors, status_Email: 'Email already exists, please choose another Email', student: newStudent
+            });
+        }
+        else if(email_flag == true && user_flag == true){
+            if(user_space == true){
+                if(pass_space == true){
+                    res.render('./Sign_up_Student', {
+                        errors: errors, status_Username: 'Username already exists, please choose another Username', space_Pass: 'Password cannot contain blank spaces' , space_Username: 'Username cannot contain blank spaces', student: newStudent
+                    });
+                }
+                else{
+                    res.render('./Sign_up_Student', {
+                        errors: errors, status_Username: 'Username already exists, please choose another Username', space_Username: 'Username cannot contain blank spaces', student: newStudent
+                    });
+                }
+            }
+            else{
+                if(pass_space == true){
+                    res.render('./Sign_up_Student', {
+                        errors: errors, status_Username: 'Username already exists, please choose another Username', space_Pass: 'Password cannot contain blank spaces', student: newStudent
+                    });
+                }
+                else{
+                    res.render('./Sign_up_Student', {
+                        errors: errors, status_Username: 'Username already exists, please choose another Username', student: newStudent
+                    });
+                }
+            }
+            res.render('./Sign_up_Student', {
+                errors: errors, status_Username: 'Username already exists, please choose another Username', status_Email: 'Email already exists, please choose another Email', student: newStudent
+            });
+        }
+        else if(email_flag == false && user_flag == true){
+            if(user_space == true){
+                if(pass_space == true){
+                    res.render('./Sign_up_Student', {
+                        errors: errors, status_Username: 'Username already exists, please choose another Username', space_Pass: 'Password cannot contain blank spaces' , space_Username: 'Username cannot contain blank spaces', student: newStudent
+                    });
+                }
+                else{
+                    res.render('./Sign_up_Student', {
+                        errors: errors, status_Username: 'Username already exists, please choose another Username', space_Username: 'Username cannot contain blank spaces', student: newStudent
+                    });
+                }
+            }
+            else{
+                if(pass_space == true){
+                    res.render('./Sign_up_Student', {
+                        errors: errors, status_Username: 'Username already exists, please choose another Username', space_Pass: 'Password cannot contain blank spaces', student: newStudent
+                    });
+                }
+                else{
+                    res.render('./Sign_up_Student', {
+                        errors: errors, status_Username: 'Username already exists, please choose another Username', student: newStudent
+                    });
+                }
+            }
+
+        }
+        else{
+            if(user_space == true){
+                if(pass_space == true){
+                    res.render('./Sign_up_Student', {
+                        errors: errors, status_Username: 'Username already exists, please choose another Username', space_Pass: 'Password cannot contain blank spaces' , space_Username: 'Username cannot contain blank spaces', student: newStudent
+                    });
+                }
+                else{
+                   res.render('./Sign_up_Student', {
+                        errors: errors, status_Username: 'Username already exists, please choose another Username', space_Username: 'Username cannot contain blank spaces', student: newStudent
+                    }); 
+                }
+            }
+            else{
+                if(pass_space == true){
+                    res.render('./Sign_up_Student', {
+                        errors: errors, status_Username: 'Username already exists, please choose another Username', space_Pass: 'Password cannot contain blank spaces', student: newStudent
+                    });
+                }
+                else{
+                    errors: errors
+                }
+            }
+            res.render('./Sign_up_Student', {
+                errors: errors, student: newStudent
+            });
+        }   
+    }
+    else {
         Student.createStudent(newStudent, function(err,user) {
             if (err) throw err;
             var newImage = new Image();
