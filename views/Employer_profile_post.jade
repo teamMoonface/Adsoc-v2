@@ -91,7 +91,9 @@ block content
                 input.form-control(type='date', name='endDate', value=(undefined==job ? '' : job.endDate))                
           .form-group.row
             label.col-xs-3.control-label
-              | Remuneration
+              | Remuneration 
+              br
+              | (lower limit)
             .col-xs-2
               input.form-control(type='number', name='remun', value=(undefined==job ? '' : job.remun))
               small SGD$

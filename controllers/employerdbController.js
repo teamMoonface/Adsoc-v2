@@ -159,13 +159,9 @@ exports.postjob_post = function(req, res, next) {
 		}
 	});
 	
-	req.sanitize('name').escape();
 	req.sanitize('name').trim();
-	req.sanitize('desc').escape();
 	req.sanitize('desc').trim();
-	req.sanitize('remun').escape();
 	req.sanitize('remun').trim();
-	req.sanitize('remun1').escape();
 	req.sanitize('remun1').trim();
 
 	var errors = req.validationErrors();
@@ -186,10 +182,31 @@ exports.postjob_post = function(req, res, next) {
 		res.render('./Employer_profile_post', {title: 'Post a Job', job: job, errors: errors});
 		return;
 	}
-	else {
+	else { 
 		job.save(function(err) {
-			if (err) { return next(err); }           
-			res.redirect(job.url)
+			if (err) { return next(err); }      
+			res.redirect(job.url);
+			console.log(job._id);
+
+			async.parallel({
+				JobFunction: function(callback){
+					Job.findById(job._id)
+						.exec(callback);
+				},
+				employerInstance: function(callback){
+					Employer.findById(req.session.emp._id)
+						.exec(callback);
+				},	
+				employer_poster: function(callback) {
+					Employer.findOne({ 'postedJobs': job._id})
+						.exec(callback);
+				}
+			}, function(err,results){
+				if (err) { return next(err);}
+				req.flash('jobposted', 'Your Job successfully posted!'); 
+				console.log(jobposted);
+				res.render('./job_view', { title: 'Post a Job', employer_poster: results.employer_poster, employer: results.employerInstance, job: results.JobFunction, store_Emp: 'session alive', jobposted: 'successfully posted'})
+			})
 		});
 		
 		// add to employer's posted jobs

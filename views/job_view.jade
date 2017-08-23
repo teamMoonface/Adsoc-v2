@@ -133,7 +133,8 @@ block content
     else if status == 'deleteSuccess'
         div.alert.alert-warning
             strong We have deleted this job application!
-
+    if jobposted
+        div.alert.alert-success #{jobposted}
     div.job-box
         div.job-title #{job.name} 
         div.job-Company #{employer_poster.name}
