@@ -10,6 +10,7 @@ var passport = require('passport');
 var LocalStrategy = require('passport-local').Strategy;
 var util = require('util');
 var helmet = require('helmet');
+var ajax = require('ajax');
 
 var multer = require('multer');
 var bodyParser = require('body-parser');

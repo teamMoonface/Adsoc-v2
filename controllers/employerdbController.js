@@ -607,7 +607,28 @@ exports.signup_employer_create_post = function(req, res, next) {
 			}
 		}
 	});
+
+	/*var email_validity = false;
 	
+	// set endpoint and your access key
+	var access_key = 'baef2b05b05f0037f44c0cb01f0cf053';
+	var email_address = req.body.email;
+
+	// verify email address via AJAX call
+	$.ajax({
+	    url: 'http://apilayer.net/api/check?access_key=' + access_key + '&email=' + email_address,   
+	    dataType: 'jsonp',
+	    success: function(json) {
+	    // Access and use your preferred validation result objects
+		    console.log(json.format_valid);
+		    console.log(json.smtp_check);
+		    console.log(json.score);
+		    console.log('this shit is valid');
+		    email_validity = true;
+	    }
+	});
+	*/
+
 	// run validators
 	var errors = req.validationErrors();
 	
@@ -622,63 +643,58 @@ exports.signup_employer_create_post = function(req, res, next) {
     });
 	
     if (errors || email_flag === true || user_flag === true || user_space == true || pass_space == true) {
+    	//true means repeated, false means not
         if(email_flag == true && user_flag == false){
             if(user_space == true){
                 if(pass_space == true){
                     res.render('./Sign_up_Employer', {
-                        errors: errors, status_Username: 'Username already exists, please choose another Username', space_Pass: 'Password cannot contain blank spaces' , space_Username: 'Username cannot contain blank spaces', employer: newEmployer
+                        errors: errors, status_Email: 'Email is already in use', space_Pass: 'Password cannot contain blank spaces' , space_Username: 'Username cannot contain blank spaces', employer: newEmployer
                     });
                 }
                 else{  
                     res.render('./Sign_up_Employer', {
-                        errors: errors, status_Username: 'Username already exists, please choose another Username', space_Username: 'Username cannot contain blank spaces', employer: newEmployer
+                        errors: errors, status_Email: 'Email is already in use', space_Username: 'Username cannot contain blank spaces', employer: newEmployer
                     });
                 }
             }
             else{
                 if(pass_space == true){
                     res.render('./Sign_up_Employer', {
-                        errors: errors, status_Username: 'Username already exists, please choose another Username', space_Pass: 'Password cannot contain blank spaces', employer: newEmployer
+                        errors: errors, status_Email: 'Email is already in use', space_Pass: 'Password cannot contain blank spaces', employer: newEmployer
                     });
                 }
                 else{
                     res.render('./Sign_up_Employer', {
-                        errors: errors, status_Username: 'Username already exists, please choose another Username', employer: newEmployer
+                        errors: errors, status_Email: 'Email is already in use',  employer: newEmployer
                     });
                 }
             }
-            res.render('./Sign_up_Employer', {
-                errors: errors, status_Email: 'Email already exists, please choose another Email', employer: newEmployer
-            });
         }
         else if(email_flag == true && user_flag == true){
             if(user_space == true){
                 if(pass_space == true){
                     res.render('./Sign_up_Employer', {
-                        errors: errors, status_Username: 'Username already exists, please choose another Username', space_Pass: 'Password cannot contain blank spaces' , space_Username: 'Username cannot contain blank spaces', employer: newEmployer
+                        errors: errors, status_Email: 'Email is already in use', status_Username: 'Username already exists, please choose another Username', space_Pass: 'Password cannot contain blank spaces' , space_Username: 'Username cannot contain blank spaces', employer: newEmployer
                     });
                 }
                 else{
                     res.render('./Sign_up_Employer', {
-                        errors: errors, status_Username: 'Username already exists, please choose another Username', space_Username: 'Username cannot contain blank spaces', employer: newEmployer
+                        errors: errors, status_Email: 'Email is already in use', status_Username: 'Username already exists, please choose another Username', space_Username: 'Username cannot contain blank spaces', employer: newEmployer
                     });
                 }
             }
             else{
                 if(pass_space == true){
                     res.render('./Sign_up_Employer', {
-                        errors: errors, status_Username: 'Username already exists, please choose another Username', space_Pass: 'Password cannot contain blank spaces', employer: newEmployer
+                        errors: errors, status_Email: 'Email is already in use', status_Username: 'Username already exists, please choose another Username', space_Pass: 'Password cannot contain blank spaces', employer: newEmployer
                     });
                 }
                 else{
                     res.render('./Sign_up_Employer', {
-                        errors: errors, status_Username: 'Username already exists, please choose another Username', employer: newEmployer
+                        errors: errors, status_Email: 'Email is already in use', status_Username: 'Username already exists, please choose another Username', employer: newEmployer
                     });
                 }
             }
-            res.render('./Sign_up_Employer', {
-                errors: errors, status_Username: 'Username already exists, please choose another Username', status_Email: 'Email already exists, please choose another Email', employer: newEmployer
-            });
         }
         else if(email_flag == false && user_flag == true){
             if(user_space == true){
@@ -711,28 +727,27 @@ exports.signup_employer_create_post = function(req, res, next) {
             if(user_space == true){
                 if(pass_space == true){
                     res.render('./Sign_up_Employer', {
-                        errors: errors, status_Username: 'Username already exists, please choose another Username', space_Pass: 'Password cannot contain blank spaces' , space_Username: 'Username cannot contain blank spaces', employer: newEmployer
+                        errors: errors, space_Pass: 'Password cannot contain blank spaces' , space_Username: 'Username cannot contain blank spaces', employer: newEmployer
                     });
                 }
                 else{
                    res.render('./Sign_up_Employer', {
-                        errors: errors, status_Username: 'Username already exists, please choose another Username', space_Username: 'Username cannot contain blank spaces', employer: newEmployer
+                        errors: errors, space_Username: 'Username cannot contain blank spaces', employer: newEmployer
                     }); 
                 }
             }
             else{
                 if(pass_space == true){
                     res.render('./Sign_up_Employer', {
-                        errors: errors, status_Username: 'Username already exists, please choose another Username', space_Pass: 'Password cannot contain blank spaces', employer: newEmployer
+                        errors: errors, space_Pass: 'Password cannot contain blank spaces', employer: newEmployer
                     });
                 }
                 else{
-                    
+                    res.render('./Sign_up_Employer', {
+                		errors: errors, employer: newEmployer
+            		});
                 }
             }
-            res.render('./Sign_up_Employer', {
-                errors: errors, employer: newEmployer
-            });
         }   
     }
 	else {
@@ -748,8 +763,7 @@ exports.signup_employer_create_post = function(req, res, next) {
 
 		
 		req.flash('status', 'Thank you for registering with Adsoc, you may now login');
-
-		res.redirect('/login_employer');
+		res.render('./Login_Employer', {status: 'Thank you for registering with Adsoc, you may now login'});
 	}
 }
 
