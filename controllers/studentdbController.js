@@ -502,8 +502,6 @@ exports.signup_student_create_post = function(req, res,next) {
             newImage.save();
             console.log(user);
         }) 
-        
-       req.flash('status', 'Thank you for registering with Adsoc, you may now login');
-        res.render('./Login_Student', {status: 'Thank you for registering with Adsoc, you may now login'});
+        res.redirect('/login_student');
     }
 };

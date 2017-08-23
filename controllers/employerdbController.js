@@ -762,8 +762,7 @@ exports.signup_employer_create_post = function(req, res, next) {
 		}) 
 
 		
-		req.flash('status', 'Thank you for registering with Adsoc, you may now login');
-		res.render('./Login_Employer', {status: 'Thank you for registering with Adsoc, you may now login'});
+		res.redirect('/login_employer');
 	}
 }
 
