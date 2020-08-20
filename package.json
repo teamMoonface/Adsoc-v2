@@ -11,7 +11,7 @@
   },
   "dependencies": {
     "async": "^2.4.1",
-    "bcrypt": "1.0.2",
+    "bcrypt": "5.0.0",
     "bcryptjs": "*",
     "body-parser": "^1.17.2",
     "connect-flash": "*",
